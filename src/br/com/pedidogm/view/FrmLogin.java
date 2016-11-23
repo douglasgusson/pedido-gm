@@ -3,12 +3,11 @@ package br.com.pedidogm.view;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Usuario;
+import br.com.pedidogm.util.GUIUtils;
 import br.com.pedidogm.util.Seguranca;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -36,15 +35,7 @@ public class FrmLogin extends javax.swing.JDialog {
         initialize();
         logout = true;
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                confirmarSaida();
-            }
-        });
-
         setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
-
     }
 
     /**
@@ -69,6 +60,11 @@ public class FrmLogin extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Usuário:");
 
@@ -208,7 +204,7 @@ public class FrmLogin extends javax.swing.JDialog {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         if (logout) {
-            confirmarSaida();
+            GUIUtils.confirmarSaida(this);
         } else {
             System.exit(0);
         }
@@ -225,6 +221,14 @@ public class FrmLogin extends javax.swing.JDialog {
     private void lbEsqueciSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEsqueciSenhaMouseClicked
         JOptionPane.showMessageDialog(null, "OPS! Ainda não tem aqui.");
     }//GEN-LAST:event_lbEsqueciSenhaMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (logout) {
+            GUIUtils.confirmarSaida(this);
+        } else {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     private void initialize() {
         this.setTitle("AuthSwing - Login");

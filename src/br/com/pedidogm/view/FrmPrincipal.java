@@ -1,6 +1,7 @@
 package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.util.GUIUtils;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,6 +35,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lbNome = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btLogout = new javax.swing.JButton();
+        btLogout1 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
         itemMateriais = new javax.swing.JMenuItem();
@@ -44,6 +46,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel2.setBackground(java.awt.Color.white);
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Sessão"));
@@ -79,6 +86,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btLogout1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
+        btLogout1.setText("Sair");
+        btLogout1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLogout1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -87,6 +102,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbAcesso, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -99,11 +118,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                     .addComponent(lbUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(btLogout)
-                                .addContainerGap())))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbAcesso, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btLogout1)
+                                .addContainerGap())))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +138,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(lbAcesso)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(btLogout)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btLogout)
+                    .addComponent(btLogout1))
                 .addContainerGap())
         );
 
@@ -188,15 +207,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btLogoutActionPerformed
 
+    private void btLogout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogout1ActionPerformed
+        GUIUtils.confirmarSaida(this);
+    }//GEN-LAST:event_btLogout1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        GUIUtils.confirmarSaida(this);
+    }//GEN-LAST:event_formWindowClosing
+
     private void initialize() {
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
         lbNome.setText(Sessao.getUsuario().getNomeCompleto());
+        setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btLogout;
+    private javax.swing.JButton btLogout1;
     private javax.swing.JMenuItem itemConfiguracoes;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JLabel jLabel1;
