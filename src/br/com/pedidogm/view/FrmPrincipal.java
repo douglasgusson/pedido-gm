@@ -183,7 +183,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemConfiguracoesActionPerformed
 
     private void btLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogoutActionPerformed
-        
+        FrmLogin login = new FrmLogin(this);
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btLogoutActionPerformed
 
     private void initialize() {
