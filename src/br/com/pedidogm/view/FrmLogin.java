@@ -100,7 +100,7 @@ public class FrmLogin extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/authswing/img/login_80x80.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/login_80x80.png"))); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

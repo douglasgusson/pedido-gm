@@ -61,10 +61,10 @@ public class Main extends JWindow {
         setBounds(x, y, comprimento, altura);
 
         ImageIcon imageIcon = new ImageIcon(
-                Main.this.getClass().getResource("/br/com/authswing/img/load.gif"));
+                Main.this.getClass().getResource("/br/com/pedidogm/img/load.gif"));
         JLabel lbGif = new JLabel(imageIcon);
 
-        JLabel lbTitulo = new JLabel("Auth Swing", JLabel.CENTER);
+        JLabel lbTitulo = new JLabel("PedidoGM", JLabel.CENTER);
         lbTitulo.setFont(new Font("Sans-Serif", Font.BOLD, 14));
 
         JLabel load = new JLabel("Carregando módulos do sistema...", JLabel.CENTER);
