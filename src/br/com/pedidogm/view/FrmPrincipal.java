@@ -41,6 +41,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         itemMateriais = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         menuUtiltarios = new javax.swing.JMenu();
+        itemMudarSenha = new javax.swing.JMenuItem();
         itemConfiguracoes = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
 
@@ -156,6 +157,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuUtiltarios.setText("Utilitários");
 
+        itemMudarSenha.setText("Mudar minha senha");
+        itemMudarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMudarSenhaActionPerformed(evt);
+            }
+        });
+        menuUtiltarios.add(itemMudarSenha);
+
         itemConfiguracoes.setText("Configurações");
         itemConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +224,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         GUIUtils.confirmarSaida(this);
     }//GEN-LAST:event_formWindowClosing
 
+    private void itemMudarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMudarSenhaActionPerformed
+        FrmMudaSenha mudaSenha = new FrmMudaSenha(this);
+        mudaSenha.setVisible(true);
+    }//GEN-LAST:event_itemMudarSenhaActionPerformed
+
     private void initialize() {
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
@@ -229,6 +243,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btLogout1;
     private javax.swing.JMenuItem itemConfiguracoes;
     private javax.swing.JMenuItem itemMateriais;
+    private javax.swing.JMenuItem itemMudarSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

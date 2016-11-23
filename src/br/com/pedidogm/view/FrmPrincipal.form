@@ -26,6 +26,14 @@
             <Property name="text" type="java.lang.String" value="Utilit&#xe1;rios"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMudarSenha">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mudar minha senha"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMudarSenhaActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemConfiguracoes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es"/>
