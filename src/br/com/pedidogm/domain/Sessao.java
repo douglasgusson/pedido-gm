@@ -19,16 +19,9 @@ public class Sessao {
         usuario = aUsuario;
     }
 
-
-    public static String sessaoToString() {
-        String data = usuario.getUltimoAcesso().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        String str = 
-                "Acesso: " + data + "\n"
-                + "Usuário: " + usuario.getNomeUsuario()+ "\n"
-                + "Nome: " + usuario.getNomeCompleto() + "\n"
-                + "Admin: " + usuario.isAdmin();
-        System.out.println(str);
-        return str;
+    public static String acessoToString() {
+        return usuario.getUltimoAcesso().format(
+                DateTimeFormatter.ofPattern("EEE, dd MMM yyyy, HH:mm"));
     }
     
 }
