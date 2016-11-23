@@ -52,6 +52,7 @@ public class FrmMudaSenha extends javax.swing.JDialog {
         lbAlerta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Mudança de Senha");
 
         jLabel1.setText("Senha atual:");
 
@@ -205,7 +206,7 @@ public class FrmMudaSenha extends javax.swing.JDialog {
 
     private void tfConfirmacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfConfirmacaoKeyReleased
         if (!tfNovaSenha.getText().equals(tfConfirmacao.getText())) {
-            lbAlerta.setText("As senha não conferem.");
+            lbAlerta.setText("As senhas não conferem.");
             lbAlerta.setForeground(Color.RED);
         } else {
             lbAlerta.setText("Senhas OK");
