@@ -1,9 +1,9 @@
 package br.com.pedidogm.dao.postgresql;
 
-
 import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
+import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.domain.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +24,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
 
     @Override
     public List<Usuario> listarTodos() {
-        
+
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
         List<Usuario> usuarios = new ArrayList<>();
 
@@ -141,7 +141,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
 
     @Override
     public boolean logar(Usuario usuario) {
-        
+
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
         Usuario u = new Usuario();
 
@@ -176,6 +176,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
                 u.setAtivo(rs.getBoolean(8));
                 u.setAdmin(rs.getBoolean(9));
                 u.setUltimoAcesso(LocalDateTime.now());
+                Sessao.setUsuario(u);
                 alterar(u);
                 return true;
             }
@@ -188,6 +189,53 @@ public class PgUsuarioDAO implements UsuarioDAO {
         }
 
         return false;
+    }
+
+    @Override
+    public Usuario buscar(Long id) {
+
+        Connection connection = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        Usuario usuario = new Usuario();
+
+        try {
+            String query
+                    = "SELECT \n"
+                    + "    id_usuario,\n"
+                    + "    nome_usuario,\n"
+                    + "    senha,\n"
+                    + "    nome_completo,\n"
+                    + "    email,\n"
+                    + "    ultimo_acesso,\n"
+                    + "    nova_senha,\n"
+                    + "    ativo,\n"
+                    + "    administrador\n"
+                    + "  FROM usuario WHERE id_usuario = ?;";
+
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(1, id);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    String nomeUsuario = rs.getString(2);
+                    String senha = rs.getString(3);
+                    String nomeCompleto = rs.getString(4);
+                    String email = rs.getString(5);
+                    LocalDateTime ultimoAcesso = rs.getTimestamp(6).toLocalDateTime();
+                    Boolean novaSenha = rs.getBoolean(7);
+                    Boolean ativo = rs.getBoolean(8);
+                    Boolean admin = rs.getBoolean(9);
+
+                    usuario = new Usuario(nomeUsuario, senha, nomeCompleto, email, ultimoAcesso, novaSenha, ativo, admin);
+                }
+            }
+            connection.close();
+
+            return usuario;
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao buscar usuario por id!", ex);
+        }
     }
 
 }

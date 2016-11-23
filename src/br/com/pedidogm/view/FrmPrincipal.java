@@ -26,8 +26,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         barraMenu = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
         menuRelatorios = new javax.swing.JMenu();
-        menuConfiguracoes = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuUtiltarios = new javax.swing.JMenu();
+        itemConfiguracoes = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -39,17 +39,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuRelatorios.setText("Relatórios");
         barraMenu.add(menuRelatorios);
 
-        menuConfiguracoes.setText("Utilitários");
+        menuUtiltarios.setText("Utilitários");
 
-        jMenuItem1.setText("Configurações");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itemConfiguracoes.setText("Configurações");
+        itemConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itemConfiguracoesActionPerformed(evt);
             }
         });
-        menuConfiguracoes.add(jMenuItem1);
+        menuUtiltarios.add(itemConfiguracoes);
 
-        barraMenu.add(menuConfiguracoes);
+        barraMenu.add(menuUtiltarios);
 
         menuAjuda.setText("Ajuda");
         barraMenu.add(menuAjuda);
@@ -71,17 +71,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void itemConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConfiguracoesActionPerformed
         FrmConfiguracoes configuracoes = new FrmConfiguracoes(this);
         configuracoes.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_itemConfiguracoesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem itemConfiguracoes;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuCadastros;
-    private javax.swing.JMenu menuConfiguracoes;
     private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenu menuUtiltarios;
     // End of variables declaration//GEN-END:variables
 }
