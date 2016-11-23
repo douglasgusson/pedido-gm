@@ -98,7 +98,7 @@ public class Usuario {
     }
     
      public Boolean isAdmin() {
-        return ativo;
+        return admin;
     }
 
     public void setAdmin(Boolean admin) {

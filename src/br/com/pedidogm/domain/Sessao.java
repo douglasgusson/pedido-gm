@@ -26,7 +26,7 @@ public class Sessao {
                 "Acesso: " + data + "\n"
                 + "Usuário: " + usuario.getNomeUsuario()+ "\n"
                 + "Nome: " + usuario.getNomeCompleto() + "\n"
-                + "";
+                + "Admin: " + usuario.isAdmin();
         System.out.println(str);
         return str;
     }

@@ -1,7 +1,7 @@
-
 package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Sessao;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,7 +14,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
-         inicializarFrame();
+        inicializarFrame();
     }
 
     /**
@@ -109,14 +109,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConfiguracoesActionPerformed
-        FrmConfiguracoes configuracoes = new FrmConfiguracoes(this);
-        configuracoes.setVisible(true);
+        if (Sessao.getUsuario().isAdmin()) {
+            FrmConfiguracoes configuracoes = new FrmConfiguracoes(this);
+            configuracoes.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem acesso a essa área.");
+        }
     }//GEN-LAST:event_itemConfiguracoesActionPerformed
 
     private void inicializarFrame() {
         this.taSessao.setText(Sessao.sessaoToString());
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JMenuItem itemConfiguracoes;
