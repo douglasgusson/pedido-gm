@@ -1,8 +1,6 @@
 
 package br.com.pedidogm.domain;
 
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 /**
