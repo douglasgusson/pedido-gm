@@ -27,6 +27,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros = new javax.swing.JMenu();
         menuRelatorios = new javax.swing.JMenu();
         menuConfiguracoes = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,7 +39,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuRelatorios.setText("Relatórios");
         barraMenu.add(menuRelatorios);
 
-        menuConfiguracoes.setText("Configurações");
+        menuConfiguracoes.setText("Utilitários");
+
+        jMenuItem1.setText("Configurações");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuConfiguracoes.add(jMenuItem1);
+
         barraMenu.add(menuConfiguracoes);
 
         menuAjuda.setText("Ajuda");
@@ -61,8 +71,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FrmConfiguracoes configuracoes = new FrmConfiguracoes(this);
+        configuracoes.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuConfiguracoes;

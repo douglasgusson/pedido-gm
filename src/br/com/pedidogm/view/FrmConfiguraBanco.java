@@ -6,6 +6,7 @@ import br.com.pedidogm.util.XMLFilter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.StreamException;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.awt.Window;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,7 +16,6 @@ import java.io.OutputStream;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -31,10 +31,9 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
      * Creates new form FrmConfiguraBanco
      *
      * @param parent
-     * @param modal
      */
-    public FrmConfiguraBanco(JDialog parent, boolean modal) {
-        super(parent, modal);
+    public FrmConfiguraBanco(Window parent) {
+        super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         inicializarFrame();
     }

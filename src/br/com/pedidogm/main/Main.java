@@ -83,7 +83,7 @@ public class Main extends JWindow {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {      
+    public static void main(String[] args) {                    
         Main m = new Main(1500);
         m.showSplash();
     }

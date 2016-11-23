@@ -70,7 +70,7 @@ public class PostgreSQLDAOFactory extends DAOFactory {
                     + "ERRO: Arquivo config-banco.xml não encontrado.",
                     "Erro de conexão",
                     JOptionPane.ERROR_MESSAGE);
-            FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(null, true);
+            FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(null);
             configuraBanco.setVisible(true);
         }
         return null;
