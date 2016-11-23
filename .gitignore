@@ -1,0 +1,9 @@
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+libs/
+nbdist/
+config-banco.xml
+.nb-gradle/
