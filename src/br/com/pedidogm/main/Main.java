@@ -65,10 +65,10 @@ public class Main extends JWindow {
         JLabel lbGif = new JLabel(imageIcon);
 
         JLabel lbTitulo = new JLabel("PedidoGM", JLabel.CENTER);
-        lbTitulo.setFont(new Font("Sans-Serif", Font.BOLD, 14));
+        lbTitulo.setFont(new Font("Calibri", Font.BOLD, 16));
 
         JLabel load = new JLabel("Carregando módulos do sistema...", JLabel.CENTER);
-        load.setFont(new Font("Sans-Serif", Font.BOLD, 10));
+        load.setFont(new Font("Calibri", Font.BOLD, 12));
 
         content.add(lbTitulo, BorderLayout.NORTH);
         content.add(lbGif, BorderLayout.CENTER);
