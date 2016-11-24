@@ -44,6 +44,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         itemMudarSenha = new javax.swing.JMenuItem();
         itemConfiguracoes = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
+        itemSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
@@ -147,6 +148,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuCadastros.setText("Cadastros");
 
+        itemMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/produto_16x16.png"))); // NOI18N
         itemMateriais.setText("Materiais");
         menuCadastros.add(itemMateriais);
 
@@ -157,6 +159,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuUtiltarios.setText("Utilitários");
 
+        itemMudarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/usuario_16x16.png"))); // NOI18N
         itemMudarSenha.setText("Mudar minha senha");
         itemMudarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +168,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuUtiltarios.add(itemMudarSenha);
 
+        itemConfiguracoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/engrenagem_16x16.png"))); // NOI18N
         itemConfiguracoes.setText("Configurações");
         itemConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +180,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         barraMenu.add(menuUtiltarios);
 
         menuAjuda.setText("Ajuda");
+
+        itemSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/info_16x16.png"))); // NOI18N
+        itemSobre.setText("Sobre");
+        menuAjuda.add(itemSobre);
+
         barraMenu.add(menuAjuda);
 
         setJMenuBar(barraMenu);
@@ -244,6 +253,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemConfiguracoes;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JMenuItem itemMudarSenha;
+    private javax.swing.JMenuItem itemSobre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

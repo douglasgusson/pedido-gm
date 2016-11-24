@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMateriais">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/pedidogm/img/produto_16x16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Materiais"/>
               </Properties>
             </MenuItem>
@@ -28,6 +31,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMudarSenha">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/pedidogm/img/usuario_16x16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Mudar minha senha"/>
               </Properties>
               <Events>
@@ -36,6 +42,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemConfiguracoes">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/pedidogm/img/engrenagem_16x16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es"/>
               </Properties>
               <Events>
@@ -48,6 +57,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajuda"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemSobre">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/pedidogm/img/info_16x16.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Sobre"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
