@@ -1,7 +1,7 @@
-
 package br.com.pedidogm.util;
 
 import java.awt.Window;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * @author douglas
  */
 public class GUIUtils {
-    
+
     public static void confirmarSaida(Window w) {
         int i = JOptionPane.showConfirmDialog(null,
                 "Deseja realmente sair deste sistema?\n",
@@ -21,5 +21,5 @@ public class GUIUtils {
             System.exit(0);
         }
     }
-    
+
 }

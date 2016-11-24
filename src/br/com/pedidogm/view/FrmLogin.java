@@ -6,9 +6,11 @@ import br.com.pedidogm.domain.Usuario;
 import br.com.pedidogm.util.GUIUtils;
 import br.com.pedidogm.util.Seguranca;
 import java.awt.Frame;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -242,6 +244,8 @@ public class FrmLogin extends javax.swing.JDialog {
             FrmLogin.this.dispose();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        setIcon(this);
     }
 
     public boolean autenticar(Usuario usuario) {
@@ -259,6 +263,11 @@ public class FrmLogin extends javax.swing.JDialog {
         } else {
             System.exit(0);
         }
+    }
+
+    private void setIcon(Window w) {
+        w.setIconImage(new ImageIcon(
+                getClass().getResource("/br/com/pedidogm/img/icon.png")).getImage());
     }
 
 

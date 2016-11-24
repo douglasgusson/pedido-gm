@@ -2,6 +2,8 @@ package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.util.GUIUtils;
+import java.awt.Window;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -243,8 +245,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lbAcesso.setText(Sessao.acessoToString());
         lbNome.setText(Sessao.getUsuario().getNomeCompleto());
         setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
+        setIcon(this);
     }
-    
+
+    private void setIcon(Window w) {
+        w.setIconImage(new ImageIcon(
+                getClass().getResource("/br/com/pedidogm/img/icon.png")).getImage());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
