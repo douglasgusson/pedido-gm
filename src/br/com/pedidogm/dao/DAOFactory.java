@@ -1,5 +1,6 @@
 package br.com.pedidogm.dao;
 
+import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.dao.postgresql.PostgreSQLDAOFactory;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ public abstract class DAOFactory {
     public static final int OUTRO = 2;
 
     public abstract UsuarioDAO getUsuarioDAO();
+    public abstract MaterialDAO getMaterialDAO();
     public abstract Connection getConnection();
 
     public static DAOFactory getDAOFactory(int whichfactory) {
