@@ -1,8 +1,12 @@
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.domain.Material;
 import java.awt.Window;
+import java.time.LocalDateTime;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -70,6 +74,11 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
         });
 
         jButton2.setText("Gravar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,6 +119,45 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        if ((this.tfDescricao.getText().trim()).equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Favor informar a descrição do material!",
+                    "Campo obrigatório", JOptionPane.INFORMATION_MESSAGE);
+            this.tfDescricao.requestFocus();
+        } else {
+
+            MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+            Material m = new Material();
+
+            switch (opcao) {
+
+                case OPCAO_INSERIR:
+
+                    m.setNome(this.tfDescricao.getText().trim());
+                    m.setCriacao(LocalDateTime.now());
+                    m.setAlteracao(LocalDateTime.now());
+                    
+                    materialDAO.inserir(m);
+
+                    break;
+
+                case OPCAO_ALTERAR:
+
+                    m.setNome(this.tfDescricao.getText().trim());
+                    m.setAlteracao(LocalDateTime.now());
+
+                    materialDAO.alterar(m);
+
+                    break;
+            }
+
+            FrmMateriais frmMateriais = FrmMateriais.getInstancia();
+            frmMateriais.atualizarTabela();
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

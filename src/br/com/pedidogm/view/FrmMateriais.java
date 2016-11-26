@@ -12,6 +12,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FrmMateriais extends javax.swing.JDialog {
 
+    private static FrmMateriais INSTANCIA;
+
+    public static FrmMateriais getInstancia() {
+        return INSTANCIA;
+    }
+
     /**
      * Creates new form FrmMateriais
      *
@@ -24,13 +30,13 @@ public class FrmMateriais extends javax.swing.JDialog {
     }
 
     public void atualizarTabela() {
+        tbMateriais.setModel(new MaterialTableModel());
+        tbMateriais.setDefaultRenderer(Object.class, new MaterialCellRenderer());
         ((MaterialTableModel) tbMateriais.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbMateriais.getModel()).fireTableDataChanged();
     }
 
     private void initialize() {
-        tbMateriais.setModel(new MaterialTableModel());
-        tbMateriais.setDefaultRenderer(Object.class, new MaterialCellRenderer());
         atualizarTabela();
     }
 

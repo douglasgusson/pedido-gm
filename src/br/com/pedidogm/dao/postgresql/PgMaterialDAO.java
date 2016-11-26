@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -59,7 +60,27 @@ public class PgMaterialDAO implements MaterialDAO {
 
     @Override
     public void inserir(Material material) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+       Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        try {
+            String SQL
+                    = "INSERT INTO material (nome_material, data_criacao, data_atualizacao)\n"
+                    + "  VALUES (?, ?, ?);";
+
+            try (PreparedStatement ps = con.prepareStatement(SQL)) {
+
+                ps.setString(1, material.getNome());
+                ps.setTimestamp(2, Timestamp.valueOf(material.getCriacao()));
+                ps.setTimestamp(3, Timestamp.valueOf(material.getAlteracao()));
+     
+                ps.executeUpdate();
+            }
+            con.close();
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao inserir material em PgMaterialDAO", ex);
+        }
     }
 
     @Override
