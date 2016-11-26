@@ -22,7 +22,7 @@ public class PgMaterialDAO implements MaterialDAO {
 
     @Override
     public List<Material> listarTodos() {
-        
+
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
         List<Material> materiais = new ArrayList<>();
 
@@ -60,8 +60,8 @@ public class PgMaterialDAO implements MaterialDAO {
 
     @Override
     public void inserir(Material material) {
-        
-       Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
 
         try {
             String SQL
@@ -73,7 +73,7 @@ public class PgMaterialDAO implements MaterialDAO {
                 ps.setString(1, material.getNome());
                 ps.setTimestamp(2, Timestamp.valueOf(material.getCriacao()));
                 ps.setTimestamp(3, Timestamp.valueOf(material.getAlteracao()));
-     
+
                 ps.executeUpdate();
             }
             con.close();
@@ -85,7 +85,31 @@ public class PgMaterialDAO implements MaterialDAO {
 
     @Override
     public void alterar(Material material) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        try {
+            String SQL
+                    = "UPDATE material\n"
+                    + "  SET nome_material = ?,\n"
+                    + "      data_criacao = ?,\n"
+                    + "      data_atualizacao = ?\n"
+                    + "  WHERE id_material = ?;";
+
+            try (PreparedStatement ps = con.prepareStatement(SQL)) {
+
+                ps.setString(1, material.getNome());
+                ps.setTimestamp(2, Timestamp.valueOf(material.getCriacao()));
+                ps.setTimestamp(3, Timestamp.valueOf(material.getAlteracao()));
+                ps.setLong(4, material.getId());
+
+                ps.executeUpdate();
+            }
+            con.close();
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao alterar material em PgMaterialDAO", ex);
+        }
     }
 
     @Override

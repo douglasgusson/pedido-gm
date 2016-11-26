@@ -20,6 +20,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     private int opcao;
     private List<Material> listaMateriais;
     private int indexRegistro;
+    private Material material;
 
     /**
      * Creates new form FrmRegistroMaterial
@@ -29,6 +30,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     public FrmRegistroMaterial(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
+        initialize();
     }
 
     public FrmRegistroMaterial(Window parent, List<Material> lista) {
@@ -43,7 +45,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
         if (indice >= 0 && indice < lista.size()) {
             this.indexRegistro = indice;
             this.opcao = OPCAO_ALTERAR;
-            Material material = lista.get(indexRegistro);
+            this.material = lista.get(indexRegistro);
             tfDescricao.setText(material.getNome());
         }
     }
@@ -145,7 +147,9 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
 
                 case OPCAO_ALTERAR:
 
+                    m.setId(this.material.getId());
                     m.setNome(this.tfDescricao.getText().trim());
+                    m.setCriacao(this.material.getCriacao());
                     m.setAlteracao(LocalDateTime.now());
 
                     materialDAO.alterar(m);
@@ -155,10 +159,16 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
 
             FrmMateriais frmMateriais = FrmMateriais.getInstancia();
             frmMateriais.atualizarTabela();
+            initialize();
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void initialize() {
+        this.tfDescricao.setText("");
+        this.tfDescricao.requestFocus();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -26,6 +26,7 @@ public class FrmMateriais extends javax.swing.JDialog {
     public FrmMateriais(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
+        INSTANCIA = this;
         initialize();
     }
 
