@@ -1,21 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.pedidogm.view;
+
+import br.com.pedidogm.table.cellrenderer.MaterialCellRenderer;
+import br.com.pedidogm.table.model.MaterialTableModel;
+import java.awt.Window;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author douglas
  */
-public class FrmMateriais extends javax.swing.JFrame {
+public class FrmMateriais extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmMateriais
+     *
+     * @param parent
      */
-    public FrmMateriais() {
+    public FrmMateriais(Window parent) {
+        super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
+        initialize();
+    }
+
+    public void atualizarTabela() {
+        ((MaterialTableModel) tbMateriais.getModel()).atualizarDoBD();
+        ((AbstractTableModel) tbMateriais.getModel()).fireTableDataChanged();
+    }
+
+    private void initialize() {
+        tbMateriais.setModel(new MaterialTableModel());
+        tbMateriais.setDefaultRenderer(Object.class, new MaterialCellRenderer());
+        atualizarTabela();
     }
 
     /**
@@ -28,96 +44,120 @@ public class FrmMateriais extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btNovo = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbMateriais = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButton1.setText("Novo");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        btNovo.setText("Novo");
+        btNovo.setFocusable(false);
+        btNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btNovo);
 
-        jButton2.setText("Alterar");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        btAlterar.setText("Alterar");
+        btAlterar.setFocusable(false);
+        btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btAlterar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btAlterar);
 
-        jButton3.setText("Excluir");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
+        btExcluir.setText("Excluir");
+        btExcluir.setFocusable(false);
+        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btExcluir);
 
-        jButton4.setText("Sair");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton4);
+        btSair.setText("Sair");
+        btSair.setFocusable(false);
+        btSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btSair);
+
+        tbMateriais.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tbMateriais);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 326, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btSairActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmMateriais().setVisible(true);
-            }
-        });
-    }
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        FrmRegistroMaterial registroMaterial = new FrmRegistroMaterial(this);
+        registroMaterial.setVisible(true);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        int indice = tbMateriais.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            FrmRegistroMaterial registroMaterial
+                    = new FrmRegistroMaterial(this, ((MaterialTableModel) tbMateriais.getModel()).getColecao(), indice);
+            registroMaterial.setVisible(true);
+        }
+    }//GEN-LAST:event_btAlterarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btNovo;
+    private javax.swing.JButton btSair;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tbMateriais;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,7 +34,7 @@ public class MaterialTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 2;
     }
 
     @Override

@@ -152,6 +152,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         itemMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/produto_16x16.png"))); // NOI18N
         itemMateriais.setText("Materiais");
+        itemMateriais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMateriaisActionPerformed(evt);
+            }
+        });
         menuCadastros.add(itemMateriais);
 
         barraMenu.add(menuCadastros);
@@ -239,6 +244,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmMudaSenha mudaSenha = new FrmMudaSenha(this);
         mudaSenha.setVisible(true);
     }//GEN-LAST:event_itemMudarSenhaActionPerformed
+
+    private void itemMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMateriaisActionPerformed
+        FrmMateriais materiais = new FrmMateriais(this);
+        materiais.setVisible(true);
+    }//GEN-LAST:event_itemMateriaisActionPerformed
 
     private void initialize() {
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
