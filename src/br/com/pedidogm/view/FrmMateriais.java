@@ -176,9 +176,17 @@ public class FrmMateriais extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             Material m = ((MaterialTableModel) tbMateriais.getModel()).getColecao().get(indice);
-            MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
-            materialDAO.excluir(m);
-            atualizarTabela();
+
+            int i = JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este material?\n"
+                    + m.getId() + " - " + m.getNome(),
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+                materialDAO.excluir(m);
+                atualizarTabela();
+            }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
