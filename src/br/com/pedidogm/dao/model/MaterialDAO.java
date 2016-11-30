@@ -13,6 +13,7 @@ public interface MaterialDAO {
     public List<Material> listarTodos();
     public void inserir(Material material);
     public void alterar(Material material);
+    public void excluir(Material material);
     public Material buscar(Long id);
         
 }

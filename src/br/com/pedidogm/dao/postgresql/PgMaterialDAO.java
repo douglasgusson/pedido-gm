@@ -85,7 +85,7 @@ public class PgMaterialDAO implements MaterialDAO {
 
     @Override
     public void alterar(Material material) {
-        
+
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
 
         try {
@@ -109,6 +109,28 @@ public class PgMaterialDAO implements MaterialDAO {
 
         } catch (SQLException ex) {
             throw new DAOException("Falha ao alterar material em PgMaterialDAO", ex);
+        }
+    }
+
+    @Override
+    public void excluir(Material material) {
+
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        try {
+
+            String SQL = "DELETE FROM material WHERE id_material = ?;";
+
+            try (PreparedStatement ps = con.prepareStatement(SQL)) {
+
+                ps.setLong(1, material.getId());
+
+                ps.executeUpdate();
+            }
+            con.close();
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao excluir material em PgMaterialDAO", ex);
         }
     }
 

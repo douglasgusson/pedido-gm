@@ -1,5 +1,8 @@
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.MaterialDAO;
+import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.table.cellrenderer.MaterialCellRenderer;
 import br.com.pedidogm.table.model.MaterialTableModel;
 import java.awt.Window;
@@ -89,6 +92,11 @@ public class FrmMateriais extends javax.swing.JDialog {
         btExcluir.setFocusable(false);
         btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btExcluir);
 
         btSair.setText("Sair");
@@ -157,6 +165,18 @@ public class FrmMateriais extends javax.swing.JDialog {
             registroMaterial.setVisible(true);
         }
     }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        int indice = tbMateriais.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            Material m = ((MaterialTableModel) tbMateriais.getModel()).getColecao().get(indice);
+            MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+            materialDAO.excluir(m);
+            atualizarTabela();
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
