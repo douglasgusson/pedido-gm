@@ -15,5 +15,6 @@ public interface MaterialDAO {
     public void alterar(Material material);
     public void excluir(Material material);
     public Material buscar(Long id);
+    public List<Material> bucarPorNome(String str);
         
 }

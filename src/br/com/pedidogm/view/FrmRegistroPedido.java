@@ -1,14 +1,18 @@
-
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.dao.DAOException;
+import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.MaterialDAO;
+import br.com.pedidogm.domain.Material;
 import java.awt.Window;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Douglas Gusson
  */
 public class FrmRegistroPedido extends javax.swing.JDialog {
-
 
     public FrmRegistroPedido(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
@@ -40,7 +44,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
@@ -55,7 +59,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jLabel14 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
@@ -135,11 +139,17 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Item"));
 
+        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField3FocusLost(evt);
+            }
+        });
+
         jLabel4.setText("Material:");
 
         jLabel5.setText("Quant.:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chapa", "Bloco" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chapa", "Bloco" }));
 
         jLabel6.setText("Tipo:");
 
@@ -163,7 +173,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel13.setText("Acabamento:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Polido", "Bipolido", "Bruto" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Polido", "Bipolido", "Bruto" }));
 
         jLabel14.setText("Metragem:");
 
@@ -351,6 +361,19 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private void brSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_brSairActionPerformed
+
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+
+        List<Material> materias = new ArrayList();
+        MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+
+        materias = materialDAO.bucarPorNome(this.jTextField3.getText());
+
+        if (materias.size() == 1) {
+            this.jTextField3.setText(materias.get(0).getNome());
+        }
+
+    }//GEN-LAST:event_jTextField3FocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;

@@ -139,4 +139,43 @@ public class PgMaterialDAO implements MaterialDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Material> bucarPorNome(String str) {
+
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+        List<Material> materiais = new ArrayList<>();
+
+        try {
+            String query
+                    = "SELECT \n"
+                    + "    id_material, \n"
+                    + "    nome_material, \n"
+                    + "    data_criacao, \n"
+                    + "    data_atualizacao \n"
+                    + "  FROM material WHERE LOWER(nome_material) "
+                    + "LIKE '%" + str.toLowerCase() + "%';";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Material m = new Material();
+                m.setId(rs.getLong(1));
+                m.setNome(rs.getString(2));
+                m.setCriacao(rs.getTimestamp(3).toLocalDateTime());
+                m.setAlteracao(rs.getTimestamp(4).toLocalDateTime());
+                materiais.add(m);
+            }
+
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DAOException("Falha ao buscar materiais por nome em PgMaterialDAO", ex);
+        }
+
+        return materiais;
+    }
+
 }
