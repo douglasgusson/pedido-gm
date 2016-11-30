@@ -4,6 +4,7 @@ import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Usuario;
 import br.com.pedidogm.util.Seguranca;
+import java.awt.Color;
 import java.awt.Window;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,6 +59,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
     }
 
     private void initialize() {
+        this.lbAlerta.setText("");
         this.tfNomeUsuario.requestFocus();
         this.tfNomeUsuario.setText("");
         this.tfNomeCompleto.setText("");
@@ -93,6 +95,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         ckAdministrador = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         btGravar = new javax.swing.JButton();
+        lbAlerta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,7 +109,13 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
 
         jLabel5.setText("Confirmação:");
 
-        ckNovaSenha.setText("Novo senha");
+        tfConfirmacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfConfirmacaoKeyReleased(evt);
+            }
+        });
+
+        ckNovaSenha.setText("Nova senha");
 
         ckAtivo.setText("Ativo");
 
@@ -126,32 +135,35 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
             }
         });
 
+        lbAlerta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbAlerta.setText("texto de alerta...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ckAtivo)
                     .addComponent(ckNovaSenha)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tfSenha)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addComponent(tfNomeUsuario)
-                                .addComponent(jLabel2)
-                                .addComponent(tfNomeCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfConfirmacao, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(ckAdministrador))
+                    .addComponent(jLabel1)
+                    .addComponent(tfNomeUsuario)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(ckAdministrador)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfConfirmacao)
+                    .addComponent(tfSenha)
+                    .addComponent(tfEmail)
+                    .addComponent(tfNomeCompleto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(233, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btGravar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -177,7 +189,9 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lbAlerta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfConfirmacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -248,7 +262,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
 
             FrmUsuarios frmUsuarios = FrmUsuarios.getInstancia();
             frmUsuarios.atualizarTabela();
-            
+
             if (OPCAO_ALTERAR == opcao) {
                 this.dispose();
             } else {
@@ -263,6 +277,16 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void tfConfirmacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfConfirmacaoKeyReleased
+        if (!tfSenha.getText().equals(tfConfirmacao.getText())) {
+            lbAlerta.setText("As senhas não conferem.");
+            lbAlerta.setForeground(Color.RED);
+        } else {
+            lbAlerta.setText("Senhas OK");
+            lbAlerta.setForeground(Color.GREEN);
+        }
+    }//GEN-LAST:event_tfConfirmacaoKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btGravar;
     private javax.swing.JCheckBox ckAdministrador;
@@ -274,6 +298,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lbAlerta;
     private javax.swing.JPasswordField tfConfirmacao;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNomeCompleto;
