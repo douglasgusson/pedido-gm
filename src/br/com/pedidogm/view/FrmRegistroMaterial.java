@@ -62,7 +62,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         tfDescricao = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,10 +75,10 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Gravar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btGravarActionPerformed(evt);
             }
         });
 
@@ -95,7 +95,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
                     .addComponent(tfDescricao)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 204, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btGravar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -110,7 +110,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btGravar))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -122,7 +122,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         
         if ((this.tfDescricao.getText().trim()).equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Favor informar a descrição do material!",
@@ -162,16 +162,17 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
             initialize();
 
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btGravarActionPerformed
 
     private void initialize() {
         this.tfDescricao.setText("");
         this.tfDescricao.requestFocus();
+        getRootPane().setDefaultButton(btGravar);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btGravar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField tfDescricao;
     // End of variables declaration//GEN-END:variables
