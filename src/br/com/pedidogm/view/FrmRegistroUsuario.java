@@ -26,6 +26,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
     public FrmRegistroUsuario(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
+        initialize();
     }
 
     public FrmRegistroUsuario(Window parent, List<Usuario> lista) {
@@ -54,6 +55,18 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         this.ckNovaSenha.setSelected(this.usuario.isNovaSenha());
         this.ckAtivo.setSelected(this.usuario.isAtivo());
         this.ckAdministrador.setSelected(this.usuario.isAdmin());
+    }
+
+    private void initialize() {
+        this.tfNomeUsuario.requestFocus();
+        this.tfNomeUsuario.setText("");
+        this.tfNomeCompleto.setText("");
+        this.tfEmail.setText("");
+        this.tfSenha.setText("");
+        this.tfConfirmacao.setText("");
+        this.ckNovaSenha.setSelected(true);
+        this.ckAtivo.setSelected(true);
+        this.ckAdministrador.setSelected(false);
     }
 
     /**
@@ -235,7 +248,12 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
 
             FrmUsuarios frmUsuarios = FrmUsuarios.getInstancia();
             frmUsuarios.atualizarTabela();
-            //initialize();
+            
+            if (OPCAO_ALTERAR == opcao) {
+                this.dispose();
+            } else {
+                initialize();
+            }
 
         }
 
