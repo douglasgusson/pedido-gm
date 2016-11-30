@@ -66,9 +66,10 @@ public class FrmMateriais extends javax.swing.JDialog {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/novo_16x16.png"))); // NOI18N
         btNovo.setText("Novo");
         btNovo.setFocusable(false);
-        btNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btNovo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,9 +78,10 @@ public class FrmMateriais extends javax.swing.JDialog {
         });
         jToolBar1.add(btNovo);
 
+        btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/alterar_16x16.png"))); // NOI18N
         btAlterar.setText("Alterar");
         btAlterar.setFocusable(false);
-        btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btAlterar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,9 +90,10 @@ public class FrmMateriais extends javax.swing.JDialog {
         });
         jToolBar1.add(btAlterar);
 
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/excluir_16x16.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.setFocusable(false);
-        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,9 +102,10 @@ public class FrmMateriais extends javax.swing.JDialog {
         });
         jToolBar1.add(btExcluir);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.setFocusable(false);
-        btSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btSair.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,8 +140,8 @@ public class FrmMateriais extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
