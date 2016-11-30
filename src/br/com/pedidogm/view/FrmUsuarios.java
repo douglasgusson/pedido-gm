@@ -1,20 +1,24 @@
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.table.cellrenderer.UsuarioCellRenderer;
+import br.com.pedidogm.table.model.UsuarioTableModel;
 import java.awt.Window;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Douglas Gusson
+ * @author douglas
  */
-public class FrmPedidos extends javax.swing.JDialog {
+public class FrmUsuarios extends javax.swing.JDialog {
 
-    private static FrmPedidos INSTANCIA;
+    private static FrmUsuarios INSTANCIA;
 
-    public static FrmPedidos getInstancia() {
+    public static FrmUsuarios getInstancia() {
         return INSTANCIA;
     }
 
-    public FrmPedidos(Window parent) {
+    public FrmUsuarios(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         INSTANCIA = this;
@@ -22,7 +26,14 @@ public class FrmPedidos extends javax.swing.JDialog {
     }
 
     private void initialize() {
-        //atualizarTabela();
+        atualizarTabela();
+    }
+
+    public void atualizarTabela() {
+        tbUsuarios.setModel(new UsuarioTableModel());
+        tbUsuarios.setDefaultRenderer(Object.class, new UsuarioCellRenderer());
+        ((UsuarioTableModel) tbUsuarios.getModel()).atualizarDoBD();
+        ((AbstractTableModel) tbUsuarios.getModel()).fireTableDataChanged();
     }
 
     /**
@@ -34,15 +45,28 @@ public class FrmPedidos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbUsuarios = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tbUsuarios);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -95,24 +119,11 @@ public class FrmPedidos extends javax.swing.JDialog {
         });
         jToolBar1.add(btSair);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -120,10 +131,10 @@ public class FrmPedidos extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -132,19 +143,29 @@ public class FrmPedidos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        FrmRegistroPedido registroPedido = new FrmRegistroPedido(this);
-        registroPedido.setVisible(true);
+        FrmRegistroUsuario registroUsuario = new FrmRegistroUsuario(this);
+        registroUsuario.setVisible(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        int indice = tbUsuarios.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            FrmRegistroUsuario frmRegistroUsuario
+                    = new FrmRegistroUsuario(this, ((UsuarioTableModel) tbUsuarios.getModel()).getColecao(), indice);
+            frmRegistroUsuario.setVisible(true);
+        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btSairActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
@@ -152,7 +173,7 @@ public class FrmPedidos extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tbUsuarios;
     // End of variables declaration//GEN-END:variables
 }

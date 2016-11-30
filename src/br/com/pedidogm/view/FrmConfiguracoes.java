@@ -9,9 +9,7 @@ import java.awt.Window;
  */
 public class FrmConfiguracoes extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmConfiguracoes
-     */
+    
     public FrmConfiguracoes(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
@@ -36,6 +34,11 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Banco de Dados");
         jButton1.setFocusable(false);
@@ -76,6 +79,12 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
         FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(this);
         configuraBanco.setVisible(true);        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        FrmUsuarios usuarios = new FrmUsuarios(this);
+        usuarios.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
