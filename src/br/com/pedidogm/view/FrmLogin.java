@@ -195,7 +195,8 @@ public class FrmLogin extends javax.swing.JDialog {
 
         if (!autenticar(usuario)) {
             JOptionPane.showMessageDialog(null,
-                    "Usuário não encontrado ou inativo.");
+                    "Dados inválidos para autenticação.\n"
+                    + "- Tente novamente!");
             this.lbStatus.setText("");
         } else {
             this.dispose();
@@ -221,7 +222,7 @@ public class FrmLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_tfSenhaFocusGained
 
     private void lbEsqueciSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEsqueciSenhaMouseClicked
-        JOptionPane.showMessageDialog(null, "OPS! Ainda não tem aqui.");
+        JOptionPane.showMessageDialog(null, "OPS! Ainda não tem nada aqui.");
     }//GEN-LAST:event_lbEsqueciSenhaMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -244,25 +245,13 @@ public class FrmLogin extends javax.swing.JDialog {
             FrmLogin.this.dispose();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
-        
+
         setIcon(this);
     }
 
     public boolean autenticar(Usuario usuario) {
         UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
         return (usuarioDAO.logar(usuario));
-    }
-
-    private void confirmarSaida() {
-        int i = JOptionPane.showConfirmDialog(null,
-                "Deseja realmente sair deste sistema?\n",
-                "AuthSwing - Confirmação de saída",
-                JOptionPane.YES_NO_OPTION);
-        if (i == JOptionPane.NO_OPTION) {
-            repaint();
-        } else {
-            System.exit(0);
-        }
     }
 
     private void setIcon(Window w) {
