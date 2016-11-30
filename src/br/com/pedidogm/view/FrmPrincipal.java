@@ -40,6 +40,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btLogout1 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemPedidos = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
@@ -150,6 +152,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
 
         menuCadastros.setText("Cadastros");
+
+        jMenuItem1.setText("Novo Pedido");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(jMenuItem1);
+        menuCadastros.add(jSeparator1);
 
         itemPedidos.setText("Pedidos");
         itemPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +275,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pedidos.setVisible(true);
     }//GEN-LAST:event_itemPedidosActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FrmRegistroPedido registroPedido = new FrmRegistroPedido(this);
+        registroPedido.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void initialize() {
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
@@ -289,7 +305,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lbAcesso;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbUsuario;
