@@ -40,6 +40,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btLogout1 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
+        itemPedidos = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         menuUtiltarios = new javax.swing.JMenu();
@@ -150,6 +151,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuCadastros.setText("Cadastros");
 
+        itemPedidos.setText("Pedidos");
+        itemPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPedidosActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemPedidos);
+
         itemMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/produto_16x16.png"))); // NOI18N
         itemMateriais.setText("Materiais");
         itemMateriais.addActionListener(new java.awt.event.ActionListener() {
@@ -250,6 +259,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         materiais.setVisible(true);
     }//GEN-LAST:event_itemMateriaisActionPerformed
 
+    private void itemPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPedidosActionPerformed
+        FrmPedidos pedidos = new FrmPedidos(this);
+        pedidos.setVisible(true);
+    }//GEN-LAST:event_itemPedidosActionPerformed
+
     private void initialize() {
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
@@ -270,6 +284,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemConfiguracoes;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JMenuItem itemMudarSenha;
+    private javax.swing.JMenuItem itemPedidos;
     private javax.swing.JMenuItem itemSobre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
