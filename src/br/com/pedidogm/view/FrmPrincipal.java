@@ -4,7 +4,6 @@ import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -238,12 +237,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConfiguracoesActionPerformed
-        if (Sessao.getUsuario().isAdmin()) {
-            FrmConfiguracoes configuracoes = new FrmConfiguracoes(this);
-            configuracoes.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Desculpe, você não tem acesso a essa área.");
-        }
+        FrmConfiguracoes configuracoes = new FrmConfiguracoes(this);
+        configuracoes.setVisible(true);
     }//GEN-LAST:event_itemConfiguracoesActionPerformed
 
     private void btLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogoutActionPerformed
@@ -281,6 +276,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void initialize() {
+        setPermissoes();
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
         lbNome.setText(Sessao.getUsuario().getNomeCompleto());
@@ -291,6 +287,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void setIcon(Window w) {
         w.setIconImage(new ImageIcon(
                 getClass().getResource("/br/com/pedidogm/img/icon.png")).getImage());
+    }
+
+    private void setPermissoes() {
+        if (!Sessao.getUsuario().isAdmin()) {
+            itemConfiguracoes.setEnabled(false);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
