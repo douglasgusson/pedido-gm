@@ -5,7 +5,6 @@ import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Usuario;
 import br.com.pedidogm.util.GUIUtils;
 import br.com.pedidogm.util.Seguranca;
-import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -31,8 +30,8 @@ public class FrmLogin extends javax.swing.JDialog {
         initialize();
     }
 
-    public FrmLogin(Frame owner) {
-        super(owner, DEFAULT_MODALITY_TYPE);
+    public FrmLogin(Window parent) {
+        super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         initialize();
         logout = true;
@@ -234,7 +233,7 @@ public class FrmLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void initialize() {
-        this.setTitle("AuthSwing - Login");
+        this.setTitle("PedidoGM - Login");
 
         this.lbStatus.setText("");
 
