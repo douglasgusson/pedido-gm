@@ -123,7 +123,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
-        
+
         if ((this.tfDescricao.getText().trim()).equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Favor informar a descrição do material!",
                     "Campo obrigatório", JOptionPane.INFORMATION_MESSAGE);
@@ -140,7 +140,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
                     m.setNome(this.tfDescricao.getText().trim());
                     m.setCriacao(LocalDateTime.now());
                     m.setAlteracao(LocalDateTime.now());
-                    
+
                     materialDAO.inserir(m);
 
                     break;
@@ -159,7 +159,12 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
 
             FrmMateriais frmMateriais = FrmMateriais.getInstancia();
             frmMateriais.atualizarTabela();
-            initialize();
+
+            if (OPCAO_ALTERAR == opcao) {
+                this.dispose();
+            } else {
+                initialize();
+            }
 
         }
     }//GEN-LAST:event_btGravarActionPerformed
@@ -169,7 +174,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
         this.tfDescricao.requestFocus();
         getRootPane().setDefaultButton(btGravar);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btGravar;
     private javax.swing.JButton jButton1;
