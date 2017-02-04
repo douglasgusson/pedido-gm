@@ -29,7 +29,7 @@ CREATE TABLE material (
 CREATE TABLE motorista (
   id_motorista      SERIAL      NOT NULL,
   nome_motorista    VARCHAR(80) NOT NULL,
-  apelido_motorista VARCHAR(80) NOT NULL,
+  apelido_motorista VARCHAR(80),
   placa_veiculo     VARCHAR(8)  NOT NULL,
   telefone          VARCHAR(15),
   celular           VARCHAR(15),
@@ -44,7 +44,7 @@ CREATE TABLE motorista (
 CREATE TABLE cliente (
   id_cliente        SERIAL      NOT NULL,
   nome_cliente      VARCHAR(80) NOT NULL,
-  apelido           VARCHAR(80) NOT NULL,
+  apelido           VARCHAR(80),
   telefone          VARCHAR(15),
   celular           VARCHAR(15),
   email             VARCHAR(100),
