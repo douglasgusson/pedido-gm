@@ -16,6 +16,8 @@ public class MaterialTableModel extends AbstractTableModel {
     private static final int COL_CODIGO = 0;
     private static final int COL_NOME = 1;
 
+    private static final int COLUMN_COUNT = 2;
+
     private List<Material> dados;
 
     public MaterialTableModel() {
@@ -34,7 +36,7 @@ public class MaterialTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return MaterialTableModel.COLUMN_COUNT;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class MaterialTableModel extends AbstractTableModel {
             return String.format("%05d", obj.getId());
         } else if (columnIndex == COL_NOME) {
             return obj.getNome();
-        } 
+        }
         return null;
     }
 
@@ -70,7 +72,7 @@ public class MaterialTableModel extends AbstractTableModel {
             return int.class;
         } else if (columnIndex == COL_NOME) {
             return String.class;
-        } 
+        }
         return null;
     }
 
