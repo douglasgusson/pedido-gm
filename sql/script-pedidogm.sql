@@ -109,7 +109,7 @@ CREATE TABLE item_pedido (
   CONSTRAINT pk_item_pedido
     PRIMARY KEY (id_material, id_pedido),
   CONSTRAINT fk_item_pedido_material
-    FOREING KEY (id_material)
+    FOREIGN KEY (id_material)
     REFERENCES material (id_material),
   CONSTRAINT fk_item_pedido_pedido
     FOREIGN KEY (id_pedido)
