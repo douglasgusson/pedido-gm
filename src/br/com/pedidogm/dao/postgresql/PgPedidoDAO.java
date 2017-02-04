@@ -3,8 +3,10 @@ package br.com.pedidogm.dao.postgresql;
 import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ClienteDAO;
+import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.domain.Cliente;
+import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Pedido;
 import java.sql.Connection;
 import java.sql.Date;
@@ -48,7 +50,9 @@ public class PgPedidoDAO implements PedidoDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                
                 Pedido p = new Pedido();
+                
                 p.setId(rs.getLong(1));
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 Cliente c = clienteDAO.buscar(rs.getLong(2));
@@ -60,6 +64,12 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setDataCarregamento(rs.getDate(7).toLocalDate());
                 p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
+
+                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+                List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
+
+                p.setItensPedido(itens);
+
                 pedidos.add(p);
             }
 
@@ -98,6 +108,12 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
 
                 ps.executeUpdate();
+
+                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
+                for (ItemPedido ip : pedido.getItensPedido()) {
+                    itemPedidoDAO.inserir(ip);
+                }
             }
             con.close();
 
@@ -131,6 +147,12 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
                 ps.setLong(9, pedido.getId());
 
+                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
+                for (ItemPedido ip : pedido.getItensPedido()) {
+                    itemPedidoDAO.alterar(ip);
+                }
+
                 ps.executeUpdate();
             }
             con.close();
@@ -149,6 +171,12 @@ public class PgPedidoDAO implements PedidoDAO {
         try {
 
             String SQL = "DELETE FROM pedido WHERE id_pedido = ?;";
+
+            ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
+            for (ItemPedido ip : pedido.getItensPedido()) {
+                itemPedidoDAO.excluir(ip);
+            }
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
@@ -200,6 +228,12 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setDataCarregamento(rs.getDate(7).toLocalDate());
                 p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
+
+                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+                List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
+
+                p.setItensPedido(itens);
+
             }
 
             con.close();

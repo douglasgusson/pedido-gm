@@ -1,16 +1,16 @@
-
 package br.com.pedidogm.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  *
  * @author douglas
  */
 public class Pedido {
-    
+
     private Long id;
     private Cliente cliente;
     private BigDecimal valor;
@@ -20,6 +20,8 @@ public class Pedido {
     private LocalDate dataCarregamento;
     private LocalDateTime criacao;
     private LocalDateTime alteracao;
+
+    private List<ItemPedido> itensPedido;
 
     public Long getId() {
         return id;
@@ -92,5 +94,13 @@ public class Pedido {
     public void setAlteracao(LocalDateTime alteracao) {
         this.alteracao = alteracao;
     }
-    
+
+    public List<ItemPedido> getItensPedido() {
+        return itensPedido;
+    }
+
+    public void setItensPedido(List<ItemPedido> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
+
 }

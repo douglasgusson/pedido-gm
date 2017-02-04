@@ -145,7 +145,7 @@ public class ItemPedido {
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
-    
-    
+
+
     
 }
