@@ -1,6 +1,7 @@
 package br.com.pedidogm.dao;
 
 import br.com.pedidogm.dao.model.ClienteDAO;
+import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.UsuarioDAO;
@@ -21,6 +22,7 @@ public abstract class DAOFactory {
     public abstract MaterialDAO getMaterialDAO();
     public abstract ClienteDAO getClienteDAO();
     public abstract PedidoDAO getPedidoDAO();
+    public abstract ItemPedidoDAO getItemPedidoDAO();
     public abstract Connection getConnection();
 
     public static DAOFactory getDAOFactory(int whichfactory) {
