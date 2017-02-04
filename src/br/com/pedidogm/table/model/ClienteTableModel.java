@@ -15,9 +15,11 @@ public class ClienteTableModel extends AbstractTableModel {
 
     private static final int COL_CODIGO = 0;
     private static final int COL_NOME = 1;
-    private static final int COL_TELEFONE = 2;
+    private static final int COL_APELIDO = 2;
+    private static final int COL_TELEFONE = 3;
+    private static final int COL_CELULAR = 4;
 
-    private static final int COLUMN_COUNT = 3;
+    private static final int COLUMN_COUNT = 5;
 
     private List<Cliente> dados;
 
@@ -65,8 +67,14 @@ public class ClienteTableModel extends AbstractTableModel {
             case COL_NOME:
                 columnName = "Nome";
                 break;
+            case COL_APELIDO:
+                columnName = "Apelido/Nome Fant.";
+                break;
             case COL_TELEFONE:
                 columnName = "Telefone";
+                break;
+            case COL_CELULAR: 
+                columnName = "Celular";
                 break;
             default:
                 throw new IllegalArgumentException("Coluna inválida!");
