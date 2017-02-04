@@ -40,6 +40,7 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
         // Se teclarmos ESC nesta janela, ela irá se fechar:  
         this.getRootPane().registerKeyboardAction((ActionEvent e) -> {
             FrmBuscaMaterial.this.retornarMaterial();
+            FrmBuscaMaterial.this.dispose();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
