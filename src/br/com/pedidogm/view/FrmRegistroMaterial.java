@@ -3,10 +3,12 @@ package br.com.pedidogm.view;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.domain.Material;
+import java.awt.Color;
 import java.awt.Window;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  *
@@ -21,6 +23,9 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     private List<Material> listaMateriais;
     private int indexRegistro;
     private Material material;
+
+    Border borderRed = BorderFactory.createLineBorder(Color.red);
+    Border borderDefault = BorderFactory.createLineBorder(Color.gray);
 
     /**
      * Creates new form FrmRegistroMaterial
@@ -125,8 +130,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
         if ((this.tfDescricao.getText().trim()).equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Favor informar a descrição do material!",
-                    "Campo obrigatório", JOptionPane.INFORMATION_MESSAGE);
+            this.tfDescricao.setBorder(borderRed);
             this.tfDescricao.requestFocus();
         } else {
 
