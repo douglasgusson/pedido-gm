@@ -6,7 +6,6 @@ import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.Material;
 import java.awt.Window;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +17,14 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private static FrmRegistroPedido INSTANCIA;
     private Cliente cliente;
 
+    private final int BLOCO = 0;
+    private final int CHAPA = 1;
+    private final int RECORTADO = 2;
+
+    private final String tipos[] = {"BLOCO", "CHAPA", "RECORTADO"};
+    private final String acabamentos[] = {"BRUTO", "POLIDO", "BIPOLIDO"};
+    private final String espessuras[] = {"1,5 cm", "2,0 cm", "3,0 cm", "4,0 cm"};
+
     public static FrmRegistroPedido getInstancia() {
         return INSTANCIA;
     }
@@ -26,6 +33,29 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         INSTANCIA = this;
+        initialize();
+    }
+
+    private void initialize() {
+
+        for (String tipo : tipos) {
+            this.cbTipo.addItem(tipo);
+        }
+
+        for (String acabamento : acabamentos) {
+            this.cbAcabamento.addItem(acabamento);
+        }
+
+        for (String espessura : espessuras) {
+            this.cbEspessura.addItem(espessura);
+        }
+
+        mudarEstadoFrm(CHAPA);
+
+        this.cbTipo.setSelectedItem("CHAPA");
+        this.cbAcabamento.setSelectedItem("POLIDO");
+        this.cbEspessura.setSelectedItem("2,0 cm");
+
     }
 
     public void setCliente(Cliente cliente) {
@@ -35,6 +65,24 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     public void setMaterial(Material material) {
         this.tfMaterial.setText(material.getNome());
+    }
+
+    private void mudarEstadoFrm(int index) {
+        switch (index) {
+            case BLOCO:
+                this.tfLarguraBr.setEnabled(true);
+                this.tfLarguraLiq.setEnabled(true);
+                this.cbAcabamento.setEnabled(false);
+                this.cbEspessura.setEnabled(false);
+                break;
+            default:
+                this.tfLarguraBr.setEnabled(false);
+                this.tfLarguraLiq.setEnabled(false);
+                this.cbAcabamento.setEnabled(true);
+                this.cbEspessura.setEnabled(true);
+                break;
+
+        }
     }
 
     /**
@@ -62,11 +110,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        cbTipo = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        tfLarguraBr = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -75,9 +123,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        tfLarguraLiq = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<String>();
+        cbAcabamento = new javax.swing.JComboBox<String>();
         jLabel14 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
@@ -86,8 +134,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jTextField13 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        cbEspessura = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Pedido");
 
         btGravar.setText("Gravar");
         btGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +224,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel5.setText("Quant.:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chapa", "Bloco" }));
+        cbTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoItemStateChanged(evt);
+            }
+        });
 
         jLabel6.setText("Tipo:");
 
@@ -197,8 +252,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel13.setText("Acabamento:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Polido", "Bipolido", "Bruto" }));
-
         jLabel14.setText("Metragem:");
 
         jLabel15.setText("Valor Unit.:");
@@ -206,6 +259,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel16.setText("Desc. (%):");
 
         jLabel17.setText("Total:");
+
+        jLabel18.setText("Espessura:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -229,12 +284,18 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel4)
+                                            .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel18)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(cbEspessura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addGap(6, 6, 6)
@@ -246,10 +307,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                             .addComponent(jLabel15))
                                         .addGap(5, 5, 5)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfLarguraBr, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel16))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel17)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -261,13 +323,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                                         .addGap(5, 5, 5)
                                                         .addComponent(jLabel12)
                                                         .addGap(5, 5, 5)
-                                                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(tfLarguraLiq, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel13)
-                                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(jLabel17)))))
+                                                    .addComponent(cbAcabamento, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel13)))))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,25 +336,23 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                 .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
                                 .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEspessura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -302,7 +361,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLarguraBr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -313,10 +372,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLarguraLiq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbAcabamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
@@ -339,18 +398,20 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btGravar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(brSair))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -426,11 +487,17 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tfNomeClienteFocusLost
 
+    private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
+        int index = this.cbTipo.getSelectedIndex();
+        mudarEstadoFrm(index);
+    }//GEN-LAST:event_cbTipoItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
     private javax.swing.JButton btGravar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cbAcabamento;
+    private javax.swing.JComboBox cbEspessura;
+    private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -440,6 +507,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -453,7 +521,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
@@ -462,9 +529,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField tfLarguraBr;
+    private javax.swing.JTextField tfLarguraLiq;
     private javax.swing.JTextField tfMaterial;
     private javax.swing.JTextField tfNomeCliente;
     // End of variables declaration//GEN-END:variables
