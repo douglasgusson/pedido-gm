@@ -1,8 +1,9 @@
 package br.com.pedidogm.view;
 
-import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
+import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.Material;
 import java.awt.Window;
 import java.util.ArrayList;
@@ -14,9 +15,22 @@ import java.util.List;
  */
 public class FrmRegistroPedido extends javax.swing.JDialog {
 
+    private static FrmRegistroPedido INSTANCIA;
+    private Cliente cliente;
+
+    public static FrmRegistroPedido getInstancia() {
+        return INSTANCIA;
+    }
+
     public FrmRegistroPedido(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
+        INSTANCIA = this;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        this.tfNomeCliente.setText(cliente.getNome());
     }
 
     /**
@@ -86,6 +100,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         });
 
         jLabel1.setText("Cliente:");
+
+        tfNomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNomeClienteFocusLost(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -374,6 +394,23 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_jTextField3FocusLost
+
+    private void tfNomeClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNomeClienteFocusLost
+
+        String query = this.tfNomeCliente.getText();
+ 
+        ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+
+        List<Cliente> clientes = clienteDAO.bucarPorNome(query);
+
+        if (clientes.size() == 1) {
+            this.tfNomeCliente.setText(clientes.get(0).getNome());
+        } else {
+            FrmBuscaCliente buscaCliente = new FrmBuscaCliente(this, clientes);
+            buscaCliente.setVisible(true);
+        }
+
+    }//GEN-LAST:event_tfNomeClienteFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;

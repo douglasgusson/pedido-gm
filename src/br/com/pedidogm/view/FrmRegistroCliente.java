@@ -270,7 +270,7 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
 
                     break;
             }
-
+            
             FrmClientes frmClientes = FrmClientes.getInstancia();
             frmClientes.atualizarTabela();
 

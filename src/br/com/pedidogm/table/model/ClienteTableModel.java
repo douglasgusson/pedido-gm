@@ -21,11 +21,15 @@ public class ClienteTableModel extends AbstractTableModel {
 
     private List<Cliente> dados;
 
+    public ClienteTableModel(List<Cliente> dados) {
+        this.dados = dados;
+    }
+    
     public ClienteTableModel() {
         dados = new ArrayList<>();
         carregarDoBD();
     }
-
+    
     @Override
     public int getRowCount() {
         return dados.size();
@@ -38,9 +42,9 @@ public class ClienteTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        
+
         Cliente obj = dados.get(rowIndex);
-        
+
         if (columnIndex == COL_CODIGO) {
             return String.format("%05d", obj.getId());
         } else if (columnIndex == COL_NOME) {
@@ -84,7 +88,7 @@ public class ClienteTableModel extends AbstractTableModel {
         ClienteDAO cd = DAOFactory.getDefaultDAOFactory().getClienteDAO();
         dados = cd.listarTodos();
     }
-    
+
     public List<Cliente> getColecao() {
         return dados;
     }
