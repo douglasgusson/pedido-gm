@@ -15,8 +15,9 @@ public class ClienteTableModel extends AbstractTableModel {
 
     private static final int COL_CODIGO = 0;
     private static final int COL_NOME = 1;
+    private static final int COL_TELEFONE = 2;
 
-    private static final int COLUMN_COUNT = 2;
+    private static final int COLUMN_COUNT = 3;
 
     private List<Cliente> dados;
 
@@ -44,6 +45,8 @@ public class ClienteTableModel extends AbstractTableModel {
             return String.format("%05d", obj.getId());
         } else if (columnIndex == COL_NOME) {
             return obj.getNome();
+        } else if (columnIndex == COL_TELEFONE) {
+            return obj.getTelefone();
         }
         return null;
     }
@@ -57,6 +60,9 @@ public class ClienteTableModel extends AbstractTableModel {
                 break;
             case COL_NOME:
                 columnName = "Nome";
+                break;
+            case COL_TELEFONE:
+                columnName = "Telefone";
                 break;
             default:
                 throw new IllegalArgumentException("Coluna inválida!");
@@ -77,6 +83,10 @@ public class ClienteTableModel extends AbstractTableModel {
     private void carregarDoBD() {
         ClienteDAO cd = DAOFactory.getDefaultDAOFactory().getClienteDAO();
         dados = cd.listarTodos();
+    }
+    
+    public List<Cliente> getColecao() {
+        return dados;
     }
 
 }

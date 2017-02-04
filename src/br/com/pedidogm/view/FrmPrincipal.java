@@ -42,6 +42,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemPedidos = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         menuUtiltarios = new javax.swing.JMenu();
@@ -169,6 +170,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemPedidos);
 
+        jMenuItem2.setText("Clientes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(jMenuItem2);
+
         itemMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/produto_16x16.png"))); // NOI18N
         itemMateriais.setText("Materiais");
         itemMateriais.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +284,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         registroPedido.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrmClientes clientes = new FrmClientes(this);
+        clientes.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     private void initialize() {
         setPermissoes();
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
@@ -308,6 +322,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lbAcesso;

@@ -1,7 +1,13 @@
 
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.ClienteDAO;
+import br.com.pedidogm.domain.Cliente;
+import br.com.pedidogm.table.model.ClienteTableModel;
 import java.awt.Window;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -22,6 +28,18 @@ public class FrmClientes extends javax.swing.JDialog {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         INSTANCIA = this;
+        initialize();
+    }
+    
+    public void atualizarTabela() {
+        tbClientes.setModel(new ClienteTableModel());
+        //tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
+        ((ClienteTableModel) tbClientes.getModel()).atualizarDoBD();
+        ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
+    }
+
+    private void initialize() {
+        atualizarTabela();
     }
 
     /**
@@ -34,27 +52,28 @@ public class FrmClientes extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbClientes = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btNovo = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clientes");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbClientes);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -127,42 +146,43 @@ public class FrmClientes extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        FrmRegistroMaterial registroMaterial = new FrmRegistroMaterial(this);
-        registroMaterial.setVisible(true);
+        FrmRegistroCliente registroCliente = new FrmRegistroCliente(this);
+        registroCliente.setVisible(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-//        int indice = tbMateriais.getSelectedRow();
-//        if (indice == -1) {
-//            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
-//        } else {
-//            FrmRegistroMaterial registroMaterial
-//            = new FrmRegistroMaterial(this, ((MaterialTableModel) tbMateriais.getModel()).getColecao(), indice);
-//            registroMaterial.setVisible(true);
-//        }
+        int indice = tbClientes.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            FrmRegistroCliente registroCliente
+            = new FrmRegistroCliente(this, ((ClienteTableModel) tbClientes.getModel()).getColecao(), indice);
+            registroCliente.setVisible(true);
+        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-//        int indice = tbMateriais.getSelectedRow();
-//        if (indice == -1) {
-//            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
-//        } else {
-//            Material m = ((MaterialTableModel) tbMateriais.getModel()).getColecao().get(indice);
-//
-//            int i = JOptionPane.showConfirmDialog(null,
-//                "Deseja realmente excluir este material?\n"
-//                + m.getId() + " - " + m.getNome(),
-//                "Confirmação",
-//                JOptionPane.YES_NO_OPTION);
-//            if (i == JOptionPane.YES_OPTION) {
-//                MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
-//                materialDAO.excluir(m);
-//                atualizarTabela();
-//            }
-//        }
+        int indice = tbClientes.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            Cliente c = ((ClienteTableModel) tbClientes.getModel()).getColecao().get(indice);
+
+            int i = JOptionPane.showConfirmDialog(null,
+                "Deseja realmente excluir este cliente?\n"
+                + c.getId() + " - " + c.getNome(),
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+                clienteDAO.excluir(c);
+                atualizarTabela();
+            }
+        }
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -175,7 +195,7 @@ public class FrmClientes extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tbClientes;
     // End of variables declaration//GEN-END:variables
 }
