@@ -162,8 +162,8 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 itemPedido.setAlturaBr(rs.getFloat(6));
                 itemPedido.setLarguraBr(rs.getFloat(7));
                 itemPedido.setComprimentoLiq(rs.getFloat(8));
-                itemPedido.setAlturaBr(rs.getFloat(9));
-                itemPedido.setLarguraBr(rs.getFloat(10));
+                itemPedido.setAlturaLiq(rs.getFloat(9));
+                itemPedido.setLarguraLiq(rs.getFloat(10));
                 itemPedido.setAcabamento(rs.getString(11));
                 itemPedido.setMetragem(rs.getFloat(12));
                 itemPedido.setValorUnitario(rs.getBigDecimal(13));
