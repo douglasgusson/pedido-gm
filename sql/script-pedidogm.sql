@@ -74,4 +74,56 @@ CREATE TABLE pedido (
     REFERENCES cliente (id_cliente)
 );
 
+    private Material material;
+    private Pedido pedido;
+    private Long quantidade;
+    private String tipo;
+    private Float comprimentoBr;
+    private Float alturaBr;
+    private Float larguraBr;
+    private Float comprimentoLiq;
+    private Float alturaLiq;
+    private Float larguraLiq;
+    private String acabamento;
+    private Float metragem;
+    private BigDecimal valorUnitario;
+    private BigDecimal desconto;
+    private BigDecimal valorTotal;
+
+CREATE TABLE item_pedido (
+  id_material     INTEGER       NOT NULL,
+  id_pedido       INTEGER       NOT NULL,
+  quantidade      INTEGER       NOT NULL,
+  tipo            VARCHAR(30)   NOT NULL,
+  comprimento_br  NUMERIC(3,2)  NOT NULL,
+  altura_br       NUMERIC(3,2)  NOT NULL,
+  largura_br      NUMERIC(3,2)  NOT NULL,
+  comprimento_liq NUMERIC(3,2)  NOT NULL,
+  altura_liq      NUMERIC(3,2)  NOT NULL,
+  largura_liq     NUMERIC(3,2)  NOT NULL,
+  acabamento      VARCHAR(30)   NOT NULL,
+  metragem        NUMERIC(12,2) NOT NULL,
+  valor_unitario  NUMERIC(12,2) NOT NULL,
+  desconto        NUMERIC(12,2) NOT NULL,
+  valor_total     NUMERIC(12,2) NOT NULL, 
+  CONSTRAINT pk_item_pedido
+    PRIMARY KEY (id_material, id_pedido),
+  CONSTRAINT fk_item_pedido_material
+    FOREING KEY (id_material)
+    REFERENCES material (id_material),
+  CONSTRAINT fk_item_pedido_pedido
+    FOREIGN KEY (id_pedido)
+    REFERENCES pedido (id_pedido)
+);
+
+
+
+
+
+
+
+
+
+
+
 
