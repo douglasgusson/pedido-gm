@@ -33,6 +33,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.tfNomeCliente.setText(cliente.getNome());
     }
 
+    public void setMaterial(Material material) {
+        this.tfMaterial.setText(material.getNome());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +58,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
+        tfMaterial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -159,9 +163,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Item"));
 
-        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+        tfMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField3FocusLost(evt);
+                tfMaterialFocusLost(evt);
             }
         });
 
@@ -225,7 +229,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel4))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +289,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -342,22 +346,22 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addComponent(btGravar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(brSair))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -382,23 +386,30 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_brSairActionPerformed
 
-    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+    private void tfMaterialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMaterialFocusLost
 
-        List<Material> materias = new ArrayList();
-        MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+        String query = this.tfMaterial.getText().trim();
 
-        materias = materialDAO.bucarPorNome(this.jTextField3.getText());
+        if (!query.equals("")) {
 
-        if (materias.size() == 1) {
-            this.jTextField3.setText(materias.get(0).getNome());
+            MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+
+            List<Material> materias = materialDAO.bucarPorNome(query);
+
+            if (materias.size() == 1) {
+                this.tfMaterial.setText(materias.get(0).getNome());
+            } else {
+                this.tfMaterial.setText("");
+                FrmBuscaMaterial buscaMaterial = new FrmBuscaMaterial(this, materias);
+                buscaMaterial.setVisible(true);
+            }
         }
-
-    }//GEN-LAST:event_jTextField3FocusLost
+    }//GEN-LAST:event_tfMaterialFocusLost
 
     private void tfNomeClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNomeClienteFocusLost
 
         String query = this.tfNomeCliente.getText();
- 
+
         ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
 
         List<Cliente> clientes = clienteDAO.bucarPorNome(query);
@@ -406,6 +417,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         if (clientes.size() == 1) {
             this.tfNomeCliente.setText(clientes.get(0).getNome());
         } else {
+            this.tfNomeCliente.setText("");
             FrmBuscaCliente buscaCliente = new FrmBuscaCliente(this, clientes);
             buscaCliente.setVisible(true);
         }
@@ -445,13 +457,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField tfMaterial;
     private javax.swing.JTextField tfNomeCliente;
     // End of variables declaration//GEN-END:variables
 }

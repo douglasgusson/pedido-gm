@@ -20,6 +20,10 @@ public class MaterialTableModel extends AbstractTableModel {
 
     private List<Material> dados;
 
+    public MaterialTableModel(List<Material> dados) {
+        this.dados = dados;
+    }
+
     public MaterialTableModel() {
         dados = new ArrayList<>();
         carregarDoBD();
