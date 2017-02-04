@@ -47,8 +47,11 @@ public class MascaraNumerica implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {}
 
+    @Override
+    public void keyReleased(KeyEvent e) {
+       
         String textoAntes = jTextField.getText();
 
         if (textoAntes.replace(".", "").replace(",", "").length() <= decimal) {
@@ -80,11 +83,6 @@ public class MascaraNumerica implements KeyListener {
             jTextField.setText(fim);
         }
 
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
