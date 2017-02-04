@@ -74,21 +74,6 @@ CREATE TABLE pedido (
     REFERENCES cliente (id_cliente)
 );
 
-    private Material material;
-    private Pedido pedido;
-    private Long quantidade;
-    private String tipo;
-    private Float comprimentoBr;
-    private Float alturaBr;
-    private Float larguraBr;
-    private Float comprimentoLiq;
-    private Float alturaLiq;
-    private Float larguraLiq;
-    private String acabamento;
-    private Float metragem;
-    private BigDecimal valorUnitario;
-    private BigDecimal desconto;
-    private BigDecimal valorTotal;
 
 CREATE TABLE item_pedido (
   id_material     INTEGER       NOT NULL,
