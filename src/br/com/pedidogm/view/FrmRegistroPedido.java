@@ -3,18 +3,19 @@ package br.com.pedidogm.view;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
+import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.Material;
+import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Window;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  *
@@ -24,6 +25,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private static FrmRegistroPedido INSTANCIA;
     private Cliente cliente;
+
+    private static final int OPCAO_INSERIR = 0;
+    private static final int OPCAO_ALTERAR = 1;
+
+    private int opcao;
 
     private final int BLOCO = 0;
     private final int CHAPA = 1;
@@ -40,11 +46,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         INSTANCIA = this;
+        opcao = OPCAO_INSERIR;
         initialize();
     }
 
     private void initialize() {
-        
+
         lbData.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy, HH:mm")));
 
         KeyAdapter somenteNumeros = new KeyAdapter() {
@@ -61,10 +68,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         tfComprimentoBr.addKeyListener(new MascaraNumerica(tfComprimentoBr, 3, 2));
         tfComprimentoLiq.addKeyListener(new MascaraNumerica(tfComprimentoLiq, 3, 2));
-        
+
         tfAlturaBr.addKeyListener(new MascaraNumerica(tfAlturaBr, 3, 2));
         tfAlturaLiq.addKeyListener(new MascaraNumerica(tfAlturaLiq, 3, 2));
-        
+
         tfLarguraBr.addKeyListener(new MascaraNumerica(tfLarguraBr, 3, 2));
         tfLarguraLiq.addKeyListener(new MascaraNumerica(tfLarguraLiq, 3, 2));
 
@@ -132,10 +139,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        tfPlaca = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfMotorista = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         tfMaterial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -172,7 +179,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         lbData = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taObservacoes = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Pedido");
@@ -226,13 +233,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField2))
+                    .addComponent(tfMotorista))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -244,8 +251,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -449,9 +456,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel20.setText("Observações:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        taObservacoes.setColumns(20);
+        taObservacoes.setRows(5);
+        jScrollPane2.setViewportView(taObservacoes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -516,6 +523,28 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
+        PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
+        Pedido p = new Pedido();
+
+        switch (opcao) {
+
+            case OPCAO_INSERIR:
+                p.setCliente(cliente);
+                p.setValor(new BigDecimal("0"));
+                p.setPlaca(this.tfPlaca.getText());
+                p.setMotorista(this.tfMotorista.getText());
+                p.setObservacoes(this.taObservacoes.getText());
+                p.setDataCarregamento(LocalDate.now());
+                p.setCriacao(LocalDateTime.now());
+                p.setAlteracao(LocalDateTime.now());
+
+                pedidoDAO.inserir(p);
+
+                break;
+
+            case OPCAO_ALTERAR:
+                break;
+        }
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void brSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brSairActionPerformed
@@ -533,7 +562,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             List<Material> materias = materialDAO.bucarPorNome(query);
 
             if (materias.size() == 1) {
-                this.tfMaterial.setText(materias.get(0).getNome());
+                setMaterial(materias.get(0));
             } else {
                 this.tfMaterial.setText("");
                 FrmBuscaMaterial buscaMaterial = new FrmBuscaMaterial(this, materias);
@@ -553,7 +582,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             List<Cliente> clientes = clienteDAO.bucarPorNome(query);
 
             if (clientes.size() == 1) {
-                this.tfNomeCliente.setText(clientes.get(0).getNome());
+                setCliente(clientes.get(0));
             } else {
                 this.tfNomeCliente.setText("");
                 FrmBuscaCliente buscaCliente = new FrmBuscaCliente(this, clientes);
@@ -614,15 +643,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lbData;
+    private javax.swing.JTextArea taObservacoes;
     private javax.swing.JTextField tfAlturaBr;
     private javax.swing.JTextField tfAlturaLiq;
     private javax.swing.JTextField tfComprimentoBr;
@@ -630,7 +657,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JTextField tfLarguraBr;
     private javax.swing.JTextField tfLarguraLiq;
     private javax.swing.JTextField tfMaterial;
+    private javax.swing.JTextField tfMotorista;
     private javax.swing.JTextField tfNomeCliente;
+    private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
 }
