@@ -238,4 +238,26 @@ public class PgUsuarioDAO implements UsuarioDAO {
         }
     }
 
+    @Override
+    public void excluir(Usuario usuario) {
+        
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        try {
+
+            String SQL = "DELETE FROM usuario WHERE id_usuario = ?;";
+
+            try (PreparedStatement ps = con.prepareStatement(SQL)) {
+
+                ps.setLong(1, usuario.getId());
+
+                ps.executeUpdate();
+            }
+            con.close();
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao excluir usuario em PgUsuarioDAO", ex);
+        }
+    }
+
 }

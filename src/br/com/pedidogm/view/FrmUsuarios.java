@@ -1,5 +1,8 @@
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.UsuarioDAO;
+import br.com.pedidogm.domain.Usuario;
 import br.com.pedidogm.table.cellrenderer.UsuarioCellRenderer;
 import br.com.pedidogm.table.model.UsuarioTableModel;
 import java.awt.Window;
@@ -159,7 +162,23 @@ public class FrmUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        int indice = tbUsuarios.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            Usuario u = ((UsuarioTableModel) tbUsuarios.getModel()).getColecao().get(indice);
 
+            int i = JOptionPane.showConfirmDialog(null,
+                    "Deseja realmente excluir este pedido?\n"
+                    + u.getId() + " - " + u.getNomeUsuario() + " (" + u.getNomeCompleto() + ")",
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+                usuarioDAO.excluir(u);
+                atualizarTabela();
+            }
+        }
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed

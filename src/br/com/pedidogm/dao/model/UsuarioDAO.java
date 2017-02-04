@@ -14,6 +14,7 @@ public interface UsuarioDAO {
     public boolean logar(Usuario usuario);
     public void inserir(Usuario usuario);
     public void alterar(Usuario usuario);
+    public void excluir(Usuario usuario);
     public Usuario buscar(Long id);
     
 }
