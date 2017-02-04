@@ -176,6 +176,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
     private void initialize() {
         this.tfDescricao.setText("");
         this.tfDescricao.requestFocus();
+        this.tfDescricao.setBorder(borderDefault);
         getRootPane().setDefaultButton(btGravar);
     }
 
