@@ -408,20 +408,22 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void tfNomeClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNomeClienteFocusLost
 
-        String query = this.tfNomeCliente.getText();
+        String query = this.tfNomeCliente.getText().trim();
 
-        ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+        if (!query.equals("")) {
 
-        List<Cliente> clientes = clienteDAO.bucarPorNome(query);
+            ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
 
-        if (clientes.size() == 1) {
-            this.tfNomeCliente.setText(clientes.get(0).getNome());
-        } else {
-            this.tfNomeCliente.setText("");
-            FrmBuscaCliente buscaCliente = new FrmBuscaCliente(this, clientes);
-            buscaCliente.setVisible(true);
+            List<Cliente> clientes = clienteDAO.bucarPorNome(query);
+
+            if (clientes.size() == 1) {
+                this.tfNomeCliente.setText(clientes.get(0).getNome());
+            } else {
+                this.tfNomeCliente.setText("");
+                FrmBuscaCliente buscaCliente = new FrmBuscaCliente(this, clientes);
+                buscaCliente.setVisible(true);
+            }
         }
-
     }//GEN-LAST:event_tfNomeClienteFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
