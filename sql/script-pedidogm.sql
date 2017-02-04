@@ -57,3 +57,21 @@ CREATE TABLE cliente (
 );
 
 
+CREATE TABLE pedido (
+  id_pedido         SERIAL          NOT NULL,
+  id_cliente        INTEGER         NOT NULL,
+  valor_pedido      NUMERIC(12,2)   NOT NULL,
+  placa_veiculo     VARCHAR(8),
+  nome_motorista    VARCHAR(80),
+  observacoes       VARCHAR(400),
+  data_carregamento DATE            NOT NULL,
+  data_criacao      TIMESTAMP       NOT NULL,
+  data_atualizacao  TIMESTAMP       NOT NULL,
+  CONSTRAINT pk_pedido
+    PRIMARY KEY (id_pedido),
+  CONSTRAINT fk_pedido_cliente
+    FOREIGN KEY (id_cliente)
+    REFERENCES cliente (id_cliente)
+);
+
+
