@@ -48,10 +48,8 @@
                           <Component id="tfApelido" alignment="0" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" pref="461" max="32767" attributes="0"/>
                           <Component id="tfEmail" alignment="0" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="tfCelular" alignment="0" pref="240" max="32767" attributes="0"/>
-                              <Component id="tfTelefone" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="tfCelular" alignment="0" pref="240" max="32767" attributes="0"/>
+                          <Component id="tfTelefone" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfContato" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                           <Component id="tfNome" max="32767" attributes="0"/>
                       </Group>

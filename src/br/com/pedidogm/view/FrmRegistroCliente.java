@@ -227,9 +227,6 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
         if ((this.tfNome.getText().trim()).equals("")) {
             this.tfNome.setBorder(borderRed);
             this.tfNome.requestFocus();
-        } else if ((this.tfApelido.getText().trim()).equals("")) {
-            this.tfApelido.setBorder(borderRed);
-            this.tfApelido.requestFocus();
         } else {
 
             ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
