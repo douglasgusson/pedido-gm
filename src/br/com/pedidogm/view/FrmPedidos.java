@@ -203,7 +203,7 @@ public class FrmPedidos extends javax.swing.JDialog {
             
             JasperViewer jasperViewer = relatorioDAO.impressaoPedido(pedido);
             
-            FrmReport frmReport = new FrmReport(this, pedido.getId().toString(), jasperViewer);
+            FrmReport frmReport = new FrmReport(this, pedido.toString(), jasperViewer);
             frmReport.setVisible(true);
         }
 

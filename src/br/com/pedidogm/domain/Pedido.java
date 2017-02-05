@@ -110,6 +110,11 @@ public class Pedido {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    } 
-    
+    }
+
+    @Override
+    public String toString() {
+        return this.getId() + " - " + this.getCliente().getNome();
+    }
+
 }

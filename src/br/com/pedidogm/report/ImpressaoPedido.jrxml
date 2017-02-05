@@ -263,7 +263,7 @@ WHERE
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="7" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +" / "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pág.: " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
@@ -288,7 +288,7 @@ WHERE
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="7" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +" / "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pág.: " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="190" y="0" width="169" height="20" uuid="026c125a-f5a9-40dd-a7b1-e45521ec24b5"/>
