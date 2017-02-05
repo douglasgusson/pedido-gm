@@ -101,7 +101,7 @@ public class PgPedidoDAO implements PedidoDAO {
                     = "INSERT INTO pedido(\n"
                     + "            id_cliente, valor_pedido, placa_veiculo, nome_motorista, \n"
                     + "            observacoes, data_carregamento, data_criacao, data_atualizacao, id_usuario)\n"
-                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
@@ -144,7 +144,8 @@ public class PgPedidoDAO implements PedidoDAO {
             String SQL
                     = "UPDATE pedido\n"
                     + "   SET id_cliente=?, valor_pedido=?, placa_veiculo=?, nome_motorista=?, \n"
-                    + "       observacoes=?, data_carregamento=?, data_criacao=?, data_atualizacao=?\n"
+                    + "       observacoes=?, data_carregamento=?, data_criacao=?, data_atualizacao=?, \n"
+                    + "       id_usuario=?"
                     + " WHERE id_pedido = ?;";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
