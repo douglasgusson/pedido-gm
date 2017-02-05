@@ -67,11 +67,15 @@ CREATE TABLE pedido (
   data_carregamento DATE            NOT NULL,
   data_criacao      TIMESTAMP       NOT NULL,
   data_atualizacao  TIMESTAMP       NOT NULL,
+  id_usuario        INTEGER         NOT NULL, 
   CONSTRAINT pk_pedido
     PRIMARY KEY (id_pedido),
   CONSTRAINT fk_pedido_cliente
     FOREIGN KEY (id_cliente)
-    REFERENCES cliente (id_cliente)
+    REFERENCES cliente (id_cliente),
+  CONSTRAINT fk_pedido_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
 );
 
 
