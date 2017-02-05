@@ -50,9 +50,9 @@ public class PgPedidoDAO implements PedidoDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                
+
                 Pedido p = new Pedido();
-                
+
                 p.setId(rs.getLong(1));
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 Cliente c = clienteDAO.buscar(rs.getLong(2));
@@ -107,11 +107,15 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setTimestamp(7, Timestamp.valueOf(pedido.getCriacao()));
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
 
+                Long idPedido = getNextIdPedido();
+                pedido.setId(idPedido);
+
                 ps.executeUpdate();
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
                 for (ItemPedido ip : pedido.getItensPedido()) {
+                    ip.setPedido(pedido);
                     itemPedidoDAO.inserir(ip);
                 }
             }
@@ -244,6 +248,32 @@ public class PgPedidoDAO implements PedidoDAO {
         }
 
         return p;
+    }
+
+    @Override
+    public Long getNextIdPedido() {
+
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+        Long nextIdPedido = null;
+
+        try {
+            String query = "SELECT max(id_pedido) FROM pedido;";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                nextIdPedido = rs.getLong(1);
+            }
+
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DAOException("Falha ao buscar id corente de pedido em PgPedidoDAO", ex);
+        }
+        return nextIdPedido + 1;
     }
 
 }

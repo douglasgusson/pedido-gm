@@ -14,5 +14,6 @@ public interface PedidoDAO {
     public void alterar(Pedido pedido);    
     public void excluir(Pedido pedido);
     public Pedido buscar(Long id);
+    public Long getNextIdPedido();
 
 }

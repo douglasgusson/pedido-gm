@@ -73,7 +73,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                     + "   SET quantidade=?, tipo=?, comprimento_br=?, \n"
                     + "       altura_br=?, largura_br=?, comprimento_liq=?, altura_liq=?, largura_liq=?, \n"
                     + "       acabamento=?, metragem=?, valor_unitario=?, desconto=?, valor_total=?\n"
-                    + " WHERE id_material=?, id_pedido=?;";
+                    + " WHERE id_item_pedido=? AND id_material=?, id_pedido=?;";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
@@ -90,9 +90,10 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 ps.setBigDecimal(11, itemPedido.getValorUnitario());
                 ps.setBigDecimal(12, itemPedido.getDesconto());
                 ps.setBigDecimal(13, itemPedido.getValorTotal());
-
-                ps.setLong(14, itemPedido.getMaterial().getId());
-                ps.setLong(15, itemPedido.getPedido().getId());
+                
+                ps.setLong(14, itemPedido.getId());
+                ps.setLong(15, itemPedido.getMaterial().getId());
+                ps.setLong(16, itemPedido.getPedido().getId());
 
                 ps.executeUpdate();
             }
@@ -111,19 +112,20 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
         try {
 
             String SQL = "DELETE FROM item_pedido\n"
-                    + "  WHERE id_material=?, id_pedido=?;";
+                    + "  WHERE id_item_pedido=? AND id_material=? AND id_pedido=?;";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
-                ps.setLong(1, itemPedido.getMaterial().getId());
-                ps.setLong(2, itemPedido.getPedido().getId());
+                ps.setLong(1, itemPedido.getId());
+                ps.setLong(2, itemPedido.getMaterial().getId());
+                ps.setLong(3, itemPedido.getPedido().getId());
 
                 ps.executeUpdate();
             }
             con.close();
 
         } catch (SQLException ex) {
-            throw new DAOException("Falha ao excluir pedido em PgPedidoDAO", ex);
+            throw new DAOException("Falha ao excluir item_pedido em PgItemPedidoDAO", ex);
         }
     }
 
@@ -135,7 +137,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
 
         try {
             String query
-                    = "SELECT id_material, id_pedido, quantidade, tipo, comprimento_br, altura_br, \n"
+                    = "SELECT id_item_pedido, id_material, id_pedido, quantidade, tipo, comprimento_br, altura_br, \n"
                     + "       largura_br, comprimento_liq, altura_liq, largura_liq, acabamento, \n"
                     + "       metragem, valor_unitario, desconto, valor_total\n"
                     + "  FROM item_pedido \n"
@@ -150,25 +152,27 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
 
                 ItemPedido itemPedido = new ItemPedido();
                 
+                itemPedido.setId(rs.getLong(1));
+                
                 MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
-                Material m = materialDAO.buscar(rs.getLong(1));
+                Material m = materialDAO.buscar(rs.getLong(2));
                 itemPedido.setMaterial(m);
 
                 itemPedido.setPedido(pedido);
                 
-                itemPedido.setQuantidade(rs.getLong(3));
-                itemPedido.setTipo(rs.getString(4));
-                itemPedido.setComprimentoBr(rs.getFloat(5));
-                itemPedido.setAlturaBr(rs.getFloat(6));
-                itemPedido.setLarguraBr(rs.getFloat(7));
-                itemPedido.setComprimentoLiq(rs.getFloat(8));
-                itemPedido.setAlturaLiq(rs.getFloat(9));
-                itemPedido.setLarguraLiq(rs.getFloat(10));
-                itemPedido.setAcabamento(rs.getString(11));
-                itemPedido.setMetragem(rs.getFloat(12));
-                itemPedido.setValorUnitario(rs.getBigDecimal(13));
-                itemPedido.setDesconto(rs.getBigDecimal(14));
-                itemPedido.setValorTotal(rs.getBigDecimal(15));
+                itemPedido.setQuantidade(rs.getLong(4));
+                itemPedido.setTipo(rs.getString(5));
+                itemPedido.setComprimentoBr(rs.getFloat(6));
+                itemPedido.setAlturaBr(rs.getFloat(7));
+                itemPedido.setLarguraBr(rs.getFloat(8));
+                itemPedido.setComprimentoLiq(rs.getFloat(9));
+                itemPedido.setAlturaLiq(rs.getFloat(10));
+                itemPedido.setLarguraLiq(rs.getFloat(11));
+                itemPedido.setAcabamento(rs.getString(12));
+                itemPedido.setMetragem(rs.getFloat(13));
+                itemPedido.setValorUnitario(rs.getBigDecimal(14));
+                itemPedido.setDesconto(rs.getBigDecimal(15));
+                itemPedido.setValorTotal(rs.getBigDecimal(16));
                 
                 itensPedido.add(itemPedido);
 

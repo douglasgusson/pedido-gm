@@ -1,9 +1,6 @@
 package br.com.pedidogm.table.model;
 
-import br.com.pedidogm.dao.DAOFactory;
-import br.com.pedidogm.dao.model.ClienteDAO;
-import br.com.pedidogm.domain.Cliente;
-import java.util.ArrayList;
+import br.com.pedidogm.domain.ItemPedido;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -11,25 +8,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author douglas
  */
-public class ClienteTableModel extends AbstractTableModel {
+public class ItemPedidoTableModel extends AbstractTableModel {
 
-    private static final int COL_CODIGO = 0;
-    private static final int COL_NOME = 1;
-    private static final int COL_APELIDO = 2;
-    private static final int COL_TELEFONE = 3;
-    private static final int COL_CELULAR = 4;
+    private static final int COL_QUANT = 0;
+    private static final int COL_MATERIAL = 1;
+    private static final int COL_METRAGEM = 2;
+    private static final int COL_VALOR_UNIT = 3;
+    private static final int COL_VALOR_TOTAL = 4;
 
     private static final int COLUMN_COUNT = 5;
 
-    private List<Cliente> dados;
+    private List<ItemPedido> dados;
 
-    public ClienteTableModel(List<Cliente> dados) {
+    public ItemPedidoTableModel(List<ItemPedido> dados) {
         this.dados = dados;
-    }
-    
-    public ClienteTableModel() {
-        dados = new ArrayList<>();
-        carregarDoBD();
     }
     
     @Override
@@ -39,20 +31,24 @@ public class ClienteTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return ClienteTableModel.COLUMN_COUNT;
+        return ItemPedidoTableModel.COLUMN_COUNT;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        Cliente obj = dados.get(rowIndex);
+        ItemPedido obj = dados.get(rowIndex);
 
-        if (columnIndex == COL_CODIGO) {
-            return String.format("%05d", obj.getId());
-        } else if (columnIndex == COL_NOME) {
-            return obj.getNome();
-        } else if (columnIndex == COL_TELEFONE) {
-            return obj.getTelefone();
+        if (columnIndex == COL_QUANT) {
+            return obj.getQuantidade();
+        } else if (columnIndex == COL_MATERIAL) {
+            return obj.getMaterial().getNome();
+        } else if (columnIndex == COL_METRAGEM) {
+            return obj.getMetragem();
+        } else if (columnIndex == COL_VALOR_UNIT) {
+            return obj.getValorUnitario();
+        } else if (columnIndex == COL_VALOR_TOTAL) {
+            return obj.getValorTotal();
         }
         return null;
     }
@@ -61,20 +57,20 @@ public class ClienteTableModel extends AbstractTableModel {
     public String getColumnName(int colunm) {
         String columnName = "";
         switch (colunm) {
-            case COL_CODIGO:
-                columnName = "Código";
+            case COL_QUANT:
+                columnName = "Quant.";
                 break;
-            case COL_NOME:
-                columnName = "Nome";
+            case COL_MATERIAL:
+                columnName = "Material";
                 break;
-            case COL_APELIDO:
-                columnName = "Apelido/Nome Fant.";
+            case COL_METRAGEM:
+                columnName = "Metragem";
                 break;
-            case COL_TELEFONE:
-                columnName = "Telefone";
+            case COL_VALOR_UNIT:
+                columnName = "Valor Unit.";
                 break;
-            case COL_CELULAR: 
-                columnName = "Celular";
+            case COL_VALOR_TOTAL: 
+                columnName = "Valor Total";
                 break;
             default:
                 throw new IllegalArgumentException("Coluna inválida!");
@@ -83,21 +79,11 @@ public class ClienteTableModel extends AbstractTableModel {
         return columnName;
     }
 
-    public Cliente get(int row) {
+    public ItemPedido get(int row) {
         return dados.get(row);
     }
 
-    public void atualizarDoBD() {
-        dados.clear();
-        carregarDoBD();
-    }
-
-    private void carregarDoBD() {
-        ClienteDAO cd = DAOFactory.getDefaultDAOFactory().getClienteDAO();
-        dados = cd.listarTodos();
-    }
-
-    public List<Cliente> getColecao() {
+    public List<ItemPedido> getColecao() {
         return dados;
     }
 

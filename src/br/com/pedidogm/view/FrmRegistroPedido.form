@@ -126,15 +126,10 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tbItensPedido">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
+              <Table columnCount="0" rowCount="4"/>
             </Property>
           </Properties>
         </Component>
@@ -224,7 +219,7 @@
                       <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jTextField11" alignment="0" pref="78" max="32767" attributes="0"/>
+                              <Component id="tfMetragem" alignment="0" pref="78" max="32767" attributes="0"/>
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="tfComprimentoBr" alignment="0" max="32767" attributes="0"/>
                               <Component id="tfQuantidade" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
@@ -294,9 +289,9 @@
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jTextField3" min="-2" pref="77" max="-2" attributes="0"/>
+                                                  <Component id="tfValorDesconto" min="-2" pref="77" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jTextField14" min="-2" pref="168" max="-2" attributes="0"/>
+                                                  <Component id="tfTotalItem" min="-2" pref="168" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -309,9 +304,9 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="jTextField12" min="-2" pref="78" max="-2" attributes="0"/>
+                                  <Component id="tfValorUnitario" min="-2" pref="78" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextField13" min="-2" pref="75" max="-2" attributes="0"/>
+                                  <Component id="tfDesconto" min="-2" pref="75" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -377,11 +372,11 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField13" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField14" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfMetragem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfValorUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfTotalItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfValorDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -504,28 +499,31 @@
             <Property name="text" type="java.lang.String" value="Metragem:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField11">
+        <Component class="javax.swing.JTextField" name="tfMetragem">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
             <Property name="text" type="java.lang.String" value="Valor Unit.:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField12">
+        <Component class="javax.swing.JTextField" name="tfValorUnitario">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
             <Property name="text" type="java.lang.String" value="Desc. (%):"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField13">
+        <Component class="javax.swing.JTextField" name="tfDesconto">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
             <Property name="text" type="java.lang.String" value="Total:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField14">
+        <Component class="javax.swing.JTextField" name="tfTotalItem">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfTotalItemFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
@@ -542,7 +540,7 @@
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cbEspessuraFocusLost"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="tfValorDesconto">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>

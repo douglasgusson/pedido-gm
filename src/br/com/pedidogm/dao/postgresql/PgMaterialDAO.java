@@ -136,7 +136,35 @@ public class PgMaterialDAO implements MaterialDAO {
 
     @Override
     public Material buscar(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+        Material m = new Material();
+
+        try {
+            String query
+                    = "SELECT id_material, nome_material, data_criacao, data_atualizacao\n"
+                    + "  FROM material WHERE id_material = ?;";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setLong(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                m.setId(rs.getLong(1));
+                m.setNome(rs.getString(2));
+                m.setCriacao(rs.getTimestamp(3).toLocalDateTime());
+                m.setAlteracao(rs.getTimestamp(4).toLocalDateTime());
+            }
+
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DAOException("Falha ao buscar material em PgMaterialDAO", ex);
+        }
+
+        return m;
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.math.BigDecimal;
  */
 public class ItemPedido {
     
+    private Long id;
     private Material material;
     private Pedido pedido;
     private Long quantidade;
@@ -24,7 +25,14 @@ public class ItemPedido {
     private BigDecimal valorUnitario;
     private BigDecimal desconto;
     private BigDecimal valorTotal;
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Material getMaterial() {
         return material;
