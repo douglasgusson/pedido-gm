@@ -8,6 +8,7 @@ import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
+import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Window;
@@ -560,6 +561,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 p.setCriacao(LocalDateTime.now());
                 p.setAlteracao(LocalDateTime.now());
 
+                p.setUsuario(Sessao.getUsuario());
                 p.setItensPedido(itensPedido);
 
                 pedidoDAO.inserir(p);

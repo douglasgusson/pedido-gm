@@ -5,9 +5,11 @@ import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
+import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Pedido;
+import br.com.pedidogm.domain.Usuario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -42,7 +44,8 @@ public class PgPedidoDAO implements PedidoDAO {
                     + "    observacoes, \n"
                     + "    data_carregamento, \n"
                     + "    data_criacao, \n"
-                    + "    data_atualizacao\n"
+                    + "    data_atualizacao, \n"
+                    + "    id_usuario \n"
                     + "  FROM pedido;";
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -64,6 +67,10 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setDataCarregamento(rs.getDate(7).toLocalDate());
                 p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
+                
+                UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+                Usuario u = usuarioDAO.buscar(rs.getLong(10));
+                p.setUsuario(u);
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
                 List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
@@ -93,7 +100,7 @@ public class PgPedidoDAO implements PedidoDAO {
             String SQL
                     = "INSERT INTO pedido(\n"
                     + "            id_cliente, valor_pedido, placa_veiculo, nome_motorista, \n"
-                    + "            observacoes, data_carregamento, data_criacao, data_atualizacao)\n"
+                    + "            observacoes, data_carregamento, data_criacao, data_atualizacao, id_usuario)\n"
                     + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
@@ -106,6 +113,7 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setDate(6, Date.valueOf(pedido.getDataCarregamento()));
                 ps.setTimestamp(7, Timestamp.valueOf(pedido.getCriacao()));
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
+                ps.setLong(9, pedido.getUsuario().getId());
 
                 Long idPedido = getNextIdPedido();
                 pedido.setId(idPedido);
@@ -150,6 +158,7 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setTimestamp(7, Timestamp.valueOf(pedido.getCriacao()));
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
                 ps.setLong(9, pedido.getId());
+                ps.setLong(10, pedido.getUsuario().getId());
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
@@ -212,7 +221,8 @@ public class PgPedidoDAO implements PedidoDAO {
                     + "    observacoes, \n"
                     + "    data_carregamento, \n"
                     + "    data_criacao, \n"
-                    + "    data_atualizacao\n"
+                    + "    data_atualizacao, \n"
+                    + "    id_usuario \n"
                     + "  FROM pedido WHERE id_pedido = ?;";
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -232,6 +242,11 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setDataCarregamento(rs.getDate(7).toLocalDate());
                 p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
+                
+                UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+                Usuario u = usuarioDAO.buscar(rs.getLong(10));
+                p.setUsuario(u);
+
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
                 List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);

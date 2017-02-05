@@ -20,6 +20,7 @@ public class Pedido {
     private LocalDate dataCarregamento;
     private LocalDateTime criacao;
     private LocalDateTime alteracao;
+    private Usuario usuario;
 
     private List<ItemPedido> itensPedido;
 
@@ -103,4 +104,12 @@ public class Pedido {
         this.itensPedido = itensPedido;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    } 
+    
 }
