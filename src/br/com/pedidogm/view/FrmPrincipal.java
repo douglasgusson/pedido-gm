@@ -207,6 +207,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         itemSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/info_16x16.png"))); // NOI18N
         itemSobre.setText("Sobre");
+        itemSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSobreActionPerformed(evt);
+            }
+        });
         menuAjuda.add(itemSobre);
 
         barraMenu.add(menuAjuda);
@@ -272,6 +277,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmClientes clientes = new FrmClientes(this);
         clientes.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void itemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSobreActionPerformed
+        FrmSobre sobre = new FrmSobre(this);
+        sobre.setVisible(true);
+    }//GEN-LAST:event_itemSobreActionPerformed
 
     private void initialize() {
         setPermissoes();
