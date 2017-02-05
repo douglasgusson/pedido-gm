@@ -399,6 +399,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfQuantidade">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfQuantidadeFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -424,16 +427,25 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfAlturaBr">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfAlturaBrFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfComprimentoBr">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfComprimentoBrFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfLarguraBr">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfLarguraBrFocusLost"/>
           </Events>
@@ -477,6 +489,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfComprimentoLiq">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfComprimentoLiqFocusLost"/>
           </Events>
@@ -487,6 +502,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfAlturaLiq">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfAlturaLiqFocusLost"/>
           </Events>
@@ -497,6 +515,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfLarguraLiq">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfLarguraLiqFocusLost"/>
           </Events>
@@ -522,6 +543,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfMetragem">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfMetragemFocusLost"/>
           </Events>
@@ -532,6 +556,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfValorUnitario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfValorUnitarioFocusLost"/>
           </Events>
@@ -542,6 +569,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfDesconto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfDescontoFocusLost"/>
           </Events>
@@ -552,6 +582,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfTotalItem">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfTotalItemFocusLost"/>
           </Events>
@@ -572,6 +605,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfValorDesconto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>

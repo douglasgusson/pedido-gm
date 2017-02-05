@@ -53,7 +53,7 @@ public class Main extends JWindow {
         JPanel content = (JPanel) getContentPane();
         content.setBackground(Color.white);
 
-        int comprimento = 580;
+        int comprimento = 420;
         int altura = 320;
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screen.width - comprimento) / 2;

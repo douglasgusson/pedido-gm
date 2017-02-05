@@ -14,6 +14,8 @@ import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
 import java.awt.Window;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
@@ -23,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 
@@ -146,6 +149,19 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.cbAcabamento.setSelectedItem("POLIDO");
         this.cbEspessura.setSelectedItem("2,0 cm");
 
+        FocusAdapter selectAllText = new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent evt) {
+                JTextField src = (JTextField) evt.getSource();
+                src.selectAll();
+            }
+        };
+
+        tfQuantidade.addFocusListener(selectAllText);
+        tfComprimentoBr.addFocusListener(selectAllText);
+        
+        tfQuantidade.setText("0");
+
     }
 
     public void setCliente(Cliente cliente) {
@@ -182,44 +198,38 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         int tipo = 0;
 
         String quant = "0";
-        BigDecimal compBr = new BigDecimal("0.00");
-        BigDecimal altBr = new BigDecimal("0.00");
-        BigDecimal largBr = new BigDecimal("0.00");
+
+        BigDecimal compLiq = new BigDecimal("0.00");
+        BigDecimal altLiq = new BigDecimal("0.00");
+        BigDecimal largLiq = new BigDecimal("0.00");
+
         BigDecimal valorUnit = new BigDecimal("0.00");
         BigDecimal desconto = new BigDecimal("0.00");
         BigDecimal metragem = new BigDecimal("0.00");
-        BigDecimal valorDesconto = new BigDecimal("0.00");
-        BigDecimal totalItem = new BigDecimal("0.00");
 
         try {
             quant = this.tfQuantidade.getText();
-            compBr = new BigDecimal(this.tfComprimentoBr.getText().replace(",", "."));
-            altBr = new BigDecimal(this.tfAlturaBr.getText().replace(",", "."));
-            largBr = new BigDecimal(this.tfLarguraBr.getText().replace(",", "."));
+            compLiq = new BigDecimal(this.tfComprimentoLiq.getText().replace(",", "."));
+            altLiq = new BigDecimal(this.tfAlturaLiq.getText().replace(",", "."));
             valorUnit = new BigDecimal(this.tfValorUnitario.getText().replace(",", "."));
             desconto = new BigDecimal(this.tfDesconto.getText().replace(",", "."));
         } catch (NumberFormatException e) {
-
         }
-
-        BigDecimal compLiq = compBr.subtract(new BigDecimal("0.05"));
-        BigDecimal altLiq = altBr.subtract(new BigDecimal("0.05"));
-        BigDecimal largLiq = largBr;
 
         switch (tipo) {
             case METRO_QUADRADO:
                 metragem = compLiq.multiply(altLiq).multiply(new BigDecimal(quant));
-                totalItem = metragem.multiply(valorUnit);
-                valorDesconto = totalItem.multiply((desconto.divide(new BigDecimal("100"))));
-                totalItem = totalItem.subtract(valorDesconto);
                 break;
             case METRO_CUBICO:
+                metragem = compLiq.multiply(altLiq).multiply(largLiq).multiply(new BigDecimal(quant));
                 break;
 
         }
 
-        this.tfComprimentoLiq.setText(compLiq.toString().replace(".", ","));
-        this.tfAlturaLiq.setText(altBr.toString().replace(".", ","));
+        BigDecimal totalItem = metragem.multiply(valorUnit);
+        BigDecimal valorDesconto = totalItem.multiply((desconto.divide(new BigDecimal("100.0"))));
+        totalItem = totalItem.subtract(valorDesconto);
+
         this.tfMetragem.setText(metragem.toString().replace(".", ","));
         this.tfValorDesconto.setText(valorDesconto.toString().replace(".", ","));
         this.tfTotalItem.setText(totalItem.toString().replace(".", ","));
@@ -371,6 +381,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel4.setText("Material:");
 
+        tfQuantidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfQuantidadeFocusLost(evt);
+            }
+        });
+
         jLabel5.setText("Quant.:");
 
         cbTipo.addItemListener(new java.awt.event.ItemListener() {
@@ -381,18 +397,21 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel6.setText("Tipo:");
 
+        tfAlturaBr.setText("0,00");
         tfAlturaBr.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfAlturaBrFocusLost(evt);
             }
         });
 
+        tfComprimentoBr.setText("0,00");
         tfComprimentoBr.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfComprimentoBrFocusLost(evt);
             }
         });
 
+        tfLarguraBr.setText("0,00");
         tfLarguraBr.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfLarguraBrFocusLost(evt);
@@ -413,6 +432,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel10.setText("Medidas Líquidas");
         jLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tfComprimentoLiq.setText("0,00");
         tfComprimentoLiq.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfComprimentoLiqFocusLost(evt);
@@ -421,6 +441,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel11.setText("X");
 
+        tfAlturaLiq.setText("0,00");
         tfAlturaLiq.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfAlturaLiqFocusLost(evt);
@@ -429,6 +450,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel12.setText("X");
 
+        tfLarguraLiq.setText("0,00");
         tfLarguraLiq.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfLarguraLiqFocusLost(evt);
@@ -439,6 +461,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel14.setText("Metragem:");
 
+        tfMetragem.setText("0,00");
         tfMetragem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfMetragemFocusLost(evt);
@@ -447,6 +470,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel15.setText("Valor Unit.:");
 
+        tfValorUnitario.setText("0,00");
         tfValorUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfValorUnitarioFocusLost(evt);
@@ -455,6 +479,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel16.setText("Desc. (%):");
 
+        tfDesconto.setText("0,00");
         tfDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfDescontoFocusLost(evt);
@@ -463,6 +488,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel17.setText("Total:");
 
+        tfTotalItem.setText("0,00");
         tfTotalItem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfTotalItemFocusLost(evt);
@@ -476,6 +502,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 cbEspessuraFocusLost(evt);
             }
         });
+
+        tfValorDesconto.setText("0,00");
 
         jLabel19.setText("Desc. (R$):");
 
@@ -842,11 +870,35 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfComprimentoBrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfComprimentoBrFocusLost
+
+        BigDecimal compBr = new BigDecimal("0.00");
+
+        try {
+            compBr = new BigDecimal(this.tfComprimentoBr.getText().replace(",", "."));
+        } catch (NumberFormatException e) {
+        }
+
+        BigDecimal compLiq = compBr.subtract(new BigDecimal("0.05"));
+        this.tfComprimentoLiq.setText(compLiq.toString().replace(".", ","));
+
         calcularValores();
+
     }//GEN-LAST:event_tfComprimentoBrFocusLost
 
     private void tfAlturaBrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfAlturaBrFocusLost
+
+        BigDecimal altBr = new BigDecimal("0.00");
+
+        try {
+            altBr = new BigDecimal(this.tfAlturaBr.getText().replace(",", "."));
+        } catch (NumberFormatException e) {
+        }
+
+        BigDecimal altLiq = altBr.subtract(new BigDecimal("0.05"));
+        this.tfAlturaLiq.setText(altLiq.toString().replace(".", ","));
+
         calcularValores();
+
     }//GEN-LAST:event_tfAlturaBrFocusLost
 
     private void tfLarguraBrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLarguraBrFocusLost
@@ -876,6 +928,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private void tfDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDescontoFocusLost
         calcularValores();
     }//GEN-LAST:event_tfDescontoFocusLost
+
+    private void tfQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfQuantidadeFocusLost
+        calcularValores();
+    }//GEN-LAST:event_tfQuantidadeFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;

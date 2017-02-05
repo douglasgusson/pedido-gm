@@ -272,12 +272,12 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_pedido_valor_unitario}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement x="450" y="0" width="42" height="20" uuid="c7ce0312-a012-4edb-b0e7-8906031beb1b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{item_pedido_desconto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{item_pedido_valor_unitario} * $F{item_pedido_metragem}) * ($F{item_pedido_desconto} / 100)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="492" y="0" width="50" height="20" uuid="b21c9519-cdcb-4ebb-84a4-ee53496fe66d"/>
