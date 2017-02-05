@@ -2,6 +2,7 @@ package br.com.pedidogm.view;
 
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ClienteDAO;
+import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.domain.Cliente;
@@ -562,9 +563,16 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 p.setAlteracao(LocalDateTime.now());
 
                 p.setUsuario(Sessao.getUsuario());
-                p.setItensPedido(itensPedido);
-
+                
                 pedidoDAO.inserir(p);
+                
+                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
+                Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
+                for (ItemPedido ip : itensPedido) {                    
+                    ip.setPedido(ultimoPedido);
+                    itemPedidoDAO.inserir(ip);
+                }                
 
                 break;
 

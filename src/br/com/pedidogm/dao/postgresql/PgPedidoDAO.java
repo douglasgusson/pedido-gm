@@ -67,7 +67,7 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setDataCarregamento(rs.getDate(7).toLocalDate());
                 p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
-                
+
                 UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
                 Usuario u = usuarioDAO.buscar(rs.getLong(10));
                 p.setUsuario(u);
@@ -115,17 +115,8 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
                 ps.setLong(9, pedido.getUsuario().getId());
 
-                Long idPedido = getNextIdPedido();
-                pedido.setId(idPedido);
-
                 ps.executeUpdate();
 
-                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
-
-                for (ItemPedido ip : pedido.getItensPedido()) {
-                    ip.setPedido(pedido);
-                    itemPedidoDAO.inserir(ip);
-                }
             }
             con.close();
 
@@ -243,11 +234,10 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setDataCarregamento(rs.getDate(7).toLocalDate());
                 p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
-                
+
                 UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
                 Usuario u = usuarioDAO.buscar(rs.getLong(10));
                 p.setUsuario(u);
-
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
                 List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
@@ -267,29 +257,31 @@ public class PgPedidoDAO implements PedidoDAO {
     }
 
     @Override
-    public Long getNextIdPedido() {
+    public Pedido buscarUltimoPedido() {
 
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
-        Long nextIdPedido = null;
+        Pedido p = new Pedido();
 
         try {
-            String query = "SELECT max(id_pedido) FROM pedido;";
+            
+            String query = "SELECT MAX(id_pedido) FROM pedido;";
 
             PreparedStatement ps = con.prepareStatement(query);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                nextIdPedido = rs.getLong(1);
+                p.setId(rs.getLong(1));
             }
 
             con.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            throw new DAOException("Falha ao buscar id corente de pedido em PgPedidoDAO", ex);
+            throw new DAOException("Falha ao buscar ultimo pedido em PgPedidoDAO", ex);
         }
-        return nextIdPedido + 1;
+
+        return p;
     }
 
 }
