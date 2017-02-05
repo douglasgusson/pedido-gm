@@ -26,12 +26,12 @@ public class ClienteTableModel extends AbstractTableModel {
     public ClienteTableModel(List<Cliente> dados) {
         this.dados = dados;
     }
-    
+
     public ClienteTableModel() {
         dados = new ArrayList<>();
         carregarDoBD();
     }
-    
+
     @Override
     public int getRowCount() {
         return dados.size();
@@ -51,8 +51,12 @@ public class ClienteTableModel extends AbstractTableModel {
             return String.format("%05d", obj.getId());
         } else if (columnIndex == COL_NOME) {
             return obj.getNome();
+        } else if (columnIndex == COL_APELIDO) {
+            return obj.getApelido();
         } else if (columnIndex == COL_TELEFONE) {
             return obj.getTelefone();
+        } else if (columnIndex == COL_CELULAR) {
+            return obj.getCelular();
         }
         return null;
     }
@@ -73,7 +77,7 @@ public class ClienteTableModel extends AbstractTableModel {
             case COL_TELEFONE:
                 columnName = "Telefone";
                 break;
-            case COL_CELULAR: 
+            case COL_CELULAR:
                 columnName = "Celular";
                 break;
             default:
