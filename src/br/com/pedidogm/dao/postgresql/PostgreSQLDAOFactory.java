@@ -6,6 +6,7 @@ import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
+import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Database;
 import br.com.pedidogm.view.FrmConfiguraBanco;
@@ -102,6 +103,11 @@ public class PostgreSQLDAOFactory extends DAOFactory {
     @Override
     public ItemPedidoDAO getItemPedidoDAO() {
         return new PgItemPedidoDAO();
+    }
+
+    @Override
+    public RelatorioDAO getRelatorioDAO() {
+        return new PgRelatorioDAO();
     }
 
 }

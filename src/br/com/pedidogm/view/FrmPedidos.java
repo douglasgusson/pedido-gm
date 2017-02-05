@@ -2,11 +2,13 @@ package br.com.pedidogm.view;
 
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.PedidoDAO;
+import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.table.model.PedidoTableModel;
 import java.awt.Window;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -101,6 +103,11 @@ public class FrmPedidos extends javax.swing.JDialog {
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton1);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
@@ -182,6 +189,25 @@ public class FrmPedidos extends javax.swing.JDialog {
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        int indice = tbPedidos.getSelectedRow();
+        
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            
+            RelatorioDAO relatorioDAO = DAOFactory.getDefaultDAOFactory().getRelatorioDAO();
+            Pedido pedido = ((PedidoTableModel) tbPedidos.getModel()).getColecao().get(indice);
+            
+            JasperViewer jasperViewer = relatorioDAO.impressaoPedido(pedido);
+            
+            FrmReport frmReport = new FrmReport(this, pedido.getId().toString(), jasperViewer);
+            frmReport.setVisible(true);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
