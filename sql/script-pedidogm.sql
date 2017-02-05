@@ -76,6 +76,7 @@ CREATE TABLE pedido (
 
 
 CREATE TABLE item_pedido (
+  id_item_pedido  SERIAL        NOT NULL,
   id_material     INTEGER       NOT NULL,
   id_pedido       INTEGER       NOT NULL,
   quantidade      INTEGER       NOT NULL,
@@ -92,7 +93,7 @@ CREATE TABLE item_pedido (
   desconto        NUMERIC(12,2) NOT NULL,
   valor_total     NUMERIC(12,2) NOT NULL, 
   CONSTRAINT pk_item_pedido
-    PRIMARY KEY (id_material, id_pedido),
+    PRIMARY KEY (id_item_pedido, id_material, id_pedido),
   CONSTRAINT fk_item_pedido_material
     FOREIGN KEY (id_material)
     REFERENCES material (id_material),
