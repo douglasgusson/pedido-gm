@@ -124,7 +124,7 @@ WHERE
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{pedido_data_carregamento})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="43" width="175" height="20" uuid="8c840d23-651e-4251-9248-0bb31fdf7177"/>
+				<reportElement x="50" y="43" width="188" height="20" uuid="8c840d23-651e-4251-9248-0bb31fdf7177"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -234,13 +234,6 @@ WHERE
 	</detail>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="499" y="0" width="43" height="20" uuid="ba58fe61-1a5b-4beb-ab49-d78863050820"/>
-				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="7" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +" / "+ $V{PAGE_COUNT}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="11" y="0" width="89" height="20" uuid="a210b402-91bf-416e-935d-631818446992"/>
 				<textElement verticalAlignment="Top">
@@ -256,12 +249,22 @@ WHERE
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="190" y="0" width="206" height="20" uuid="cf92737a-84c6-41d7-a3c4-954f4ec9d662"/>
+				<reportElement x="190" y="0" width="169" height="20" uuid="cf92737a-84c6-41d7-a3c4-954f4ec9d662"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[PedidoGM desenvolvido por Douglas Gusson douglasgusson@gmail.com]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="551" height="1" uuid="2db79622-676d-4cb7-8dc5-0305ae86d32c"/>
+			</line>
+			<textField>
+				<reportElement x="499" y="0" width="43" height="20" uuid="75f27e31-ed7f-450e-8974-aea5dc8409ba"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="7" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +" / "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
@@ -285,24 +288,39 @@ WHERE
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="7" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +" / "+ $V{PAGE_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +" / "+ $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="190" y="0" width="206" height="20" uuid="026c125a-f5a9-40dd-a7b1-e45521ec24b5"/>
+				<reportElement x="190" y="0" width="169" height="20" uuid="026c125a-f5a9-40dd-a7b1-e45521ec24b5"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[PedidoGM desenvolvido por Douglas Gusson douglasgusson@gmail.com]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="551" height="1" uuid="bd3865f6-54a8-4cdb-81e1-0b051b4e4860"/>
+			</line>
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="50">
+		<band height="40">
 			<textField>
-				<reportElement x="486" y="0" width="56" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="471" y="20" width="71" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido_valor_pedido}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="19" width="551" height="1" uuid="69618d53-d750-4544-82cc-15fa92b8b85b"/>
+			</line>
+			<staticText>
+				<reportElement x="382" y="20" width="89" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor total:]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
