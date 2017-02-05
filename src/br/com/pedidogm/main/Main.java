@@ -53,12 +53,16 @@ public class Main extends JWindow {
         JPanel content = (JPanel) getContentPane();
         content.setBackground(Color.white);
 
-        int comprimento = 400;
-        int altura = 220;
+        int comprimento = 580;
+        int altura = 320;
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screen.width - comprimento) / 2;
         int y = (screen.height - altura) / 2;
         setBounds(x, y, comprimento, altura);
+        
+        ImageIcon imageIcone = new ImageIcon(
+                Main.this.getClass().getResource("/br/com/pedidogm/img/icon-sobre.png"));
+        JLabel lbIcone = new JLabel(imageIcone);
 
         ImageIcon imageIcon = new ImageIcon(
                 Main.this.getClass().getResource("/br/com/pedidogm/img/load.gif"));
@@ -71,8 +75,9 @@ public class Main extends JWindow {
         load.setFont(new Font("Calibri", Font.BOLD, 12));
 
         content.add(lbTitulo, BorderLayout.NORTH);
-        content.add(lbGif, BorderLayout.CENTER);
-        content.add(load, BorderLayout.SOUTH);
+        content.add(lbIcone, BorderLayout.CENTER);
+        content.add(lbGif, BorderLayout.SOUTH);
+//        content.add(load, BorderLayout.SOUTH);
 
         Color borda = new Color(201, 201, 201);
         content.setBorder(BorderFactory.createLineBorder(borda, 12));

@@ -41,14 +41,14 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 ps.setLong(2, itemPedido.getPedido().getId());
                 ps.setLong(3, itemPedido.getQuantidade());
                 ps.setString(4, itemPedido.getTipo());
-                ps.setFloat(5, itemPedido.getComprimentoBr());
-                ps.setFloat(6, itemPedido.getAlturaBr());
-                ps.setFloat(7, itemPedido.getLarguraBr());
-                ps.setFloat(8, itemPedido.getComprimentoLiq());
-                ps.setFloat(9, itemPedido.getAlturaLiq());
-                ps.setFloat(10, itemPedido.getLarguraLiq());
+                ps.setBigDecimal(5, itemPedido.getComprimentoBr());
+                ps.setBigDecimal(6, itemPedido.getAlturaBr());
+                ps.setBigDecimal(7, itemPedido.getLarguraBr());
+                ps.setBigDecimal(8, itemPedido.getComprimentoLiq());
+                ps.setBigDecimal(9, itemPedido.getAlturaLiq());
+                ps.setBigDecimal(10, itemPedido.getLarguraLiq());
                 ps.setString(11, itemPedido.getAcabamento());
-                ps.setFloat(12, itemPedido.getMetragem());
+                ps.setBigDecimal(12, itemPedido.getMetragem());
                 ps.setBigDecimal(13, itemPedido.getValorUnitario());
                 ps.setBigDecimal(14, itemPedido.getDesconto());
                 ps.setBigDecimal(15, itemPedido.getValorTotal());
@@ -79,18 +79,18 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
 
                 ps.setLong(1, itemPedido.getQuantidade());
                 ps.setString(2, itemPedido.getTipo());
-                ps.setFloat(3, itemPedido.getComprimentoBr());
-                ps.setFloat(4, itemPedido.getAlturaBr());
-                ps.setFloat(5, itemPedido.getLarguraBr());
-                ps.setFloat(6, itemPedido.getComprimentoLiq());
-                ps.setFloat(7, itemPedido.getAlturaLiq());
-                ps.setFloat(8, itemPedido.getLarguraLiq());
+                ps.setBigDecimal(3, itemPedido.getComprimentoBr());
+                ps.setBigDecimal(4, itemPedido.getAlturaBr());
+                ps.setBigDecimal(5, itemPedido.getLarguraBr());
+                ps.setBigDecimal(6, itemPedido.getComprimentoLiq());
+                ps.setBigDecimal(7, itemPedido.getAlturaLiq());
+                ps.setBigDecimal(8, itemPedido.getLarguraLiq());
                 ps.setString(9, itemPedido.getAcabamento());
-                ps.setFloat(10, itemPedido.getMetragem());
+                ps.setBigDecimal(10, itemPedido.getMetragem());
                 ps.setBigDecimal(11, itemPedido.getValorUnitario());
                 ps.setBigDecimal(12, itemPedido.getDesconto());
                 ps.setBigDecimal(13, itemPedido.getValorTotal());
-                
+
                 ps.setLong(14, itemPedido.getId());
                 ps.setLong(15, itemPedido.getMaterial().getId());
                 ps.setLong(16, itemPedido.getPedido().getId());
@@ -151,29 +151,29 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
             while (rs.next()) {
 
                 ItemPedido itemPedido = new ItemPedido();
-                
+
                 itemPedido.setId(rs.getLong(1));
-                
+
                 MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
                 Material m = materialDAO.buscar(rs.getLong(2));
                 itemPedido.setMaterial(m);
 
                 itemPedido.setPedido(pedido);
-                
+
                 itemPedido.setQuantidade(rs.getLong(4));
                 itemPedido.setTipo(rs.getString(5));
-                itemPedido.setComprimentoBr(rs.getFloat(6));
-                itemPedido.setAlturaBr(rs.getFloat(7));
-                itemPedido.setLarguraBr(rs.getFloat(8));
-                itemPedido.setComprimentoLiq(rs.getFloat(9));
-                itemPedido.setAlturaLiq(rs.getFloat(10));
-                itemPedido.setLarguraLiq(rs.getFloat(11));
+                itemPedido.setComprimentoBr(rs.getBigDecimal(6));
+                itemPedido.setAlturaBr(rs.getBigDecimal(7));
+                itemPedido.setLarguraBr(rs.getBigDecimal(8));
+                itemPedido.setComprimentoLiq(rs.getBigDecimal(9));
+                itemPedido.setAlturaLiq(rs.getBigDecimal(10));
+                itemPedido.setLarguraLiq(rs.getBigDecimal(11));
                 itemPedido.setAcabamento(rs.getString(12));
-                itemPedido.setMetragem(rs.getFloat(13));
+                itemPedido.setMetragem(rs.getBigDecimal(13));
                 itemPedido.setValorUnitario(rs.getBigDecimal(14));
                 itemPedido.setDesconto(rs.getBigDecimal(15));
                 itemPedido.setValorTotal(rs.getBigDecimal(16));
-                
+
                 itensPedido.add(itemPedido);
 
             }

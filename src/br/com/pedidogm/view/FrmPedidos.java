@@ -53,7 +53,7 @@ public class FrmPedidos extends javax.swing.JDialog {
         btNovo = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPedidos = new javax.swing.JTable();
@@ -99,16 +99,16 @@ public class FrmPedidos extends javax.swing.JDialog {
         });
         jToolBar1.add(btExcluir);
 
-        jButton1.setText("Imprimir");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btImprimir.setText("Imprimir");
+        btImprimir.setFocusable(false);
+        btImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btImprimirActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btImprimir);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
         btSair.setText("Sair");
@@ -164,6 +164,15 @@ public class FrmPedidos extends javax.swing.JDialog {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        int indice = tbPedidos.getSelectedRow();
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            FrmRegistroPedido registroPedido
+                    = new FrmRegistroPedido(this,
+                            ((PedidoTableModel) tbPedidos.getModel()).getColecao(), indice);
+            registroPedido.setVisible(true);
+        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -190,31 +199,31 @@ public class FrmPedidos extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
 
         int indice = tbPedidos.getSelectedRow();
-        
+
         if (indice == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
-            
+
             RelatorioDAO relatorioDAO = DAOFactory.getDefaultDAOFactory().getRelatorioDAO();
             Pedido pedido = ((PedidoTableModel) tbPedidos.getModel()).getColecao().get(indice);
-            
+
             JasperViewer jasperViewer = relatorioDAO.impressaoPedido(pedido);
-            
+
             FrmReport frmReport = new FrmReport(this, pedido.toString(), jasperViewer);
             frmReport.setVisible(true);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btImprimir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tbPedidos;

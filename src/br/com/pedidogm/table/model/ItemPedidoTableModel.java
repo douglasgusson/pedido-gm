@@ -44,7 +44,7 @@ public class ItemPedidoTableModel extends AbstractTableModel {
         } else if (columnIndex == COL_MATERIAL) {
             return obj.getMaterial().getNome();
         } else if (columnIndex == COL_METRAGEM) {
-            return obj.getMetragem();
+            return obj.getMetragem().toString();
         } else if (columnIndex == COL_VALOR_UNIT) {
             return obj.getValorUnitario();
         } else if (columnIndex == COL_VALOR_TOTAL) {

@@ -1,4 +1,3 @@
-
 package br.com.pedidogm.domain;
 
 import java.math.BigDecimal;
@@ -8,20 +7,20 @@ import java.math.BigDecimal;
  * @author douglas
  */
 public class ItemPedido {
-    
+
     private Long id;
     private Material material;
     private Pedido pedido;
     private Long quantidade;
     private String tipo;
-    private Float comprimentoBr;
-    private Float alturaBr;
-    private Float larguraBr;
-    private Float comprimentoLiq;
-    private Float alturaLiq;
-    private Float larguraLiq;
+    private BigDecimal comprimentoBr;
+    private BigDecimal alturaBr;
+    private BigDecimal larguraBr;
+    private BigDecimal comprimentoLiq;
+    private BigDecimal alturaLiq;
+    private BigDecimal larguraLiq;
     private String acabamento;
-    private Float metragem;
+    private BigDecimal metragem;
     private BigDecimal valorUnitario;
     private BigDecimal desconto;
     private BigDecimal valorTotal;
@@ -66,51 +65,51 @@ public class ItemPedido {
         this.tipo = tipo;
     }
 
-    public Float getComprimentoBr() {
+    public BigDecimal getComprimentoBr() {
         return comprimentoBr;
     }
 
-    public void setComprimentoBr(Float comprimentoBr) {
+    public void setComprimentoBr(BigDecimal comprimentoBr) {
         this.comprimentoBr = comprimentoBr;
     }
 
-    public Float getAlturaBr() {
+    public BigDecimal getAlturaBr() {
         return alturaBr;
     }
 
-    public void setAlturaBr(Float alturaBr) {
+    public void setAlturaBr(BigDecimal alturaBr) {
         this.alturaBr = alturaBr;
     }
 
-    public Float getLarguraBr() {
+    public BigDecimal getLarguraBr() {
         return larguraBr;
     }
 
-    public void setLarguraBr(Float larguraBr) {
+    public void setLarguraBr(BigDecimal larguraBr) {
         this.larguraBr = larguraBr;
     }
 
-    public Float getComprimentoLiq() {
+    public BigDecimal getComprimentoLiq() {
         return comprimentoLiq;
     }
 
-    public void setComprimentoLiq(Float comprimentoLiq) {
+    public void setComprimentoLiq(BigDecimal comprimentoLiq) {
         this.comprimentoLiq = comprimentoLiq;
     }
 
-    public Float getAlturaLiq() {
+    public BigDecimal getAlturaLiq() {
         return alturaLiq;
     }
 
-    public void setAlturaLiq(Float alturaLiq) {
+    public void setAlturaLiq(BigDecimal alturaLiq) {
         this.alturaLiq = alturaLiq;
     }
 
-    public Float getLarguraLiq() {
+    public BigDecimal getLarguraLiq() {
         return larguraLiq;
     }
 
-    public void setLarguraLiq(Float larguraLiq) {
+    public void setLarguraLiq(BigDecimal larguraLiq) {
         this.larguraLiq = larguraLiq;
     }
 
@@ -122,11 +121,11 @@ public class ItemPedido {
         this.acabamento = acabamento;
     }
 
-    public Float getMetragem() {
+    public BigDecimal getMetragem() {
         return metragem;
     }
 
-    public void setMetragem(Float metragem) {
+    public void setMetragem(BigDecimal metragem) {
         this.metragem = metragem;
     }
 
@@ -154,6 +153,4 @@ public class ItemPedido {
         this.valorTotal = valorTotal;
     }
 
-
-    
 }
