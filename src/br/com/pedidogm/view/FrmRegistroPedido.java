@@ -170,7 +170,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     }
 
-    private void limparCamposItem() {        
+    private void limparCamposItem() {
         tfMaterial.setText("");
         tfQuantidade.setText("");
         tfMetragem.setText("");
@@ -774,7 +774,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
                 Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
-              
+
                 for (int i = 0; i < itensPedido.size(); i++) {
                     itensPedido.get(i).setPedido(ultimoPedido);
                     itemPedidoDAO.inserir(itensPedido.get(i));
@@ -831,7 +831,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
             List<Cliente> clientes = clienteDAO.bucarPorNome(query);
 
-            if (clientes.size() == 1) {
+            if (clientes.isEmpty()) {
+                this.tfNomeCliente.setText("");
+            } else if (clientes.size() == 1) {
                 setCliente(clientes.get(0));
             } else {
                 this.tfNomeCliente.setText("");
