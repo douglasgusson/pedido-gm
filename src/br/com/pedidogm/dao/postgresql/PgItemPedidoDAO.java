@@ -4,7 +4,6 @@ import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
-import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.TipoItemDAO;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Material;
@@ -35,7 +34,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                     + "            comprimento_br, altura_br, largura_br, comprimento_liq, altura_liq, \n"
                     + "            largura_liq, acabamento, metragem, valor_unitario, desconto, \n"
                     + "            valor_total)\n"
-                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
@@ -60,8 +59,6 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
             con.close();
 
         } catch (SQLException ex) {
-            PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
-            pedidoDAO.excluir(itemPedido.getPedido());
             throw new DAOException("Falha ao inserir item_pedido em PgItemPedidoDAO", ex);
         }
     }

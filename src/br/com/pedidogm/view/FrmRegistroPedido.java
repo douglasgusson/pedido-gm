@@ -111,7 +111,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private void initialize() {
 
         atualizarTabela();
-        limparCampos();
+        tfNomeCliente.setText("");
+        limparCamposItem();
 
         lbData.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy, HH:mm")));
 
@@ -169,8 +170,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     }
 
-    private void limparCampos() {
-        tfNomeCliente.setText("");
+    private void limparCamposItem() {        
         tfMaterial.setText("");
         tfQuantidade.setText("");
         tfMetragem.setText("");
@@ -774,10 +774,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
                 Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
-
-                for (ItemPedido ip : itensPedido) {
-                    ip.setPedido(ultimoPedido);
-                    itemPedidoDAO.inserir(ip);
+              
+                for (int i = 0; i < itensPedido.size(); i++) {
+                    itensPedido.get(i).setPedido(ultimoPedido);
+                    itemPedidoDAO.inserir(itensPedido.get(i));
                 }
 
                 break;
@@ -890,7 +890,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
             itensPedido.add(itemPedido);
             atualizarTabela();
-            limparCampos();
+            limparCamposItem();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Formato inválido para número. \nERRO:" + e);
