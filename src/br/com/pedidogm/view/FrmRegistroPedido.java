@@ -811,7 +811,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
             List<Material> materias = materialDAO.bucarPorNome(query);
 
-            if (materias.size() == 1) {
+            if (materias.isEmpty()) {
+                this.tfMaterial.setText("");
+            } else if (materias.size() == 1) {
                 setMaterial(materias.get(0));
             } else {
                 this.tfMaterial.setText("");
