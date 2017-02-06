@@ -4,9 +4,12 @@ import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
+import br.com.pedidogm.dao.model.PedidoDAO;
+import br.com.pedidogm.dao.model.TipoItemDAO;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
+import br.com.pedidogm.domain.TipoItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,19 +31,18 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
         try {
             String SQL
                     = "INSERT INTO item_pedido(\n"
-                    + "            id_material, id_pedido, quantidade, tipo, comprimento_br, altura_br, \n"
-                    + "            largura_br, comprimento_liq, altura_liq, largura_liq, acabamento, \n"
-                    + "            metragem, valor_unitario, desconto, valor_total)\n"
-                    + "    VALUES (?, ?, ?, ?, ?, ?, \n"
-                    + "            ?, ?, ?, ?, ?, \n"
-                    + "            ?, ?, ?, ?);";
+                    + "            id_material, id_pedido, id_tipo_item, quantidade, \n"
+                    + "            comprimento_br, altura_br, largura_br, comprimento_liq, altura_liq, \n"
+                    + "            largura_liq, acabamento, metragem, valor_unitario, desconto, \n"
+                    + "            valor_total)\n"
+                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
                 ps.setLong(1, itemPedido.getMaterial().getId());
                 ps.setLong(2, itemPedido.getPedido().getId());
-                ps.setLong(3, itemPedido.getQuantidade());
-                ps.setString(4, itemPedido.getTipo());
+                ps.setLong(3, itemPedido.getTipoItem().getId());
+                ps.setLong(4, itemPedido.getQuantidade());
                 ps.setBigDecimal(5, itemPedido.getComprimentoBr());
                 ps.setBigDecimal(6, itemPedido.getAlturaBr());
                 ps.setBigDecimal(7, itemPedido.getLarguraBr());
@@ -58,6 +60,8 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
             con.close();
 
         } catch (SQLException ex) {
+            PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
+            pedidoDAO.excluir(itemPedido.getPedido());
             throw new DAOException("Falha ao inserir item_pedido em PgItemPedidoDAO", ex);
         }
     }
@@ -70,30 +74,34 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
         try {
             String SQL
                     = "UPDATE item_pedido\n"
-                    + "   SET quantidade=?, tipo=?, comprimento_br=?, \n"
-                    + "       altura_br=?, largura_br=?, comprimento_liq=?, altura_liq=?, largura_liq=?, \n"
-                    + "       acabamento=?, metragem=?, valor_unitario=?, desconto=?, valor_total=?\n"
-                    + " WHERE id_item_pedido=? AND id_material=?, id_pedido=?;";
+                    + "   SET id_material=?, id_pedido=?, id_tipo_item=?, \n"
+                    + "       quantidade=?, comprimento_br=?, altura_br=?, largura_br=?, comprimento_liq=?, \n"
+                    + "       altura_liq=?, largura_liq=?, acabamento=?, metragem=?, valor_unitario=?, \n"
+                    + "       desconto=?, valor_total=?\n"
+                    + " WHERE id_item_pedido=? AND id_material=? AND id_pedido=?;";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
-                ps.setLong(1, itemPedido.getQuantidade());
-                ps.setString(2, itemPedido.getTipo());
-                ps.setBigDecimal(3, itemPedido.getComprimentoBr());
-                ps.setBigDecimal(4, itemPedido.getAlturaBr());
-                ps.setBigDecimal(5, itemPedido.getLarguraBr());
-                ps.setBigDecimal(6, itemPedido.getComprimentoLiq());
-                ps.setBigDecimal(7, itemPedido.getAlturaLiq());
-                ps.setBigDecimal(8, itemPedido.getLarguraLiq());
-                ps.setString(9, itemPedido.getAcabamento());
-                ps.setBigDecimal(10, itemPedido.getMetragem());
-                ps.setBigDecimal(11, itemPedido.getValorUnitario());
-                ps.setBigDecimal(12, itemPedido.getDesconto());
-                ps.setBigDecimal(13, itemPedido.getValorTotal());
+                ps.setLong(1, itemPedido.getMaterial().getId());
+                ps.setLong(2, itemPedido.getPedido().getId());
+                ps.setLong(3, itemPedido.getTipoItem().getId());
 
-                ps.setLong(14, itemPedido.getId());
-                ps.setLong(15, itemPedido.getMaterial().getId());
-                ps.setLong(16, itemPedido.getPedido().getId());
+                ps.setLong(4, itemPedido.getQuantidade());
+                ps.setBigDecimal(5, itemPedido.getComprimentoBr());
+                ps.setBigDecimal(6, itemPedido.getAlturaBr());
+                ps.setBigDecimal(7, itemPedido.getLarguraBr());
+                ps.setBigDecimal(8, itemPedido.getComprimentoLiq());
+                ps.setBigDecimal(9, itemPedido.getAlturaLiq());
+                ps.setBigDecimal(10, itemPedido.getLarguraLiq());
+                ps.setString(9, itemPedido.getAcabamento());
+                ps.setBigDecimal(11, itemPedido.getMetragem());
+                ps.setBigDecimal(12, itemPedido.getValorUnitario());
+                ps.setBigDecimal(13, itemPedido.getDesconto());
+                ps.setBigDecimal(14, itemPedido.getValorTotal());
+
+                ps.setLong(15, itemPedido.getId());
+                ps.setLong(16, itemPedido.getMaterial().getId());
+                ps.setLong(17, itemPedido.getPedido().getId());
 
                 ps.executeUpdate();
             }
@@ -137,9 +145,10 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
 
         try {
             String query
-                    = "SELECT id_item_pedido, id_material, id_pedido, quantidade, tipo, comprimento_br, altura_br, \n"
-                    + "       largura_br, comprimento_liq, altura_liq, largura_liq, acabamento, \n"
-                    + "       metragem, valor_unitario, desconto, valor_total\n"
+                    = "SELECT id_item_pedido, id_material, id_pedido, id_tipo_item, quantidade, \n"
+                    + "       comprimento_br, altura_br, largura_br, comprimento_liq, altura_liq, \n"
+                    + "       largura_liq, acabamento, metragem, valor_unitario, desconto, \n"
+                    + "       valor_total\n"
                     + "  FROM item_pedido \n"
                     + "  WHERE id_pedido = ?;";
 
@@ -160,8 +169,11 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
 
                 itemPedido.setPedido(pedido);
 
-                itemPedido.setQuantidade(rs.getLong(4));
-                itemPedido.setTipo(rs.getString(5));
+                TipoItemDAO tipoItemDAO = DAOFactory.getDefaultDAOFactory().getTipoItemDAO();
+                TipoItem tipoItem = tipoItemDAO.buscar(rs.getLong(4));
+                itemPedido.setTipoItem(tipoItem);
+
+                itemPedido.setQuantidade(rs.getLong(5));
                 itemPedido.setComprimentoBr(rs.getBigDecimal(6));
                 itemPedido.setAlturaBr(rs.getBigDecimal(7));
                 itemPedido.setLarguraBr(rs.getBigDecimal(8));

@@ -5,6 +5,7 @@ import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.RelatorioDAO;
+import br.com.pedidogm.dao.model.TipoItemDAO;
 import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.dao.postgresql.PostgreSQLDAOFactory;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ public abstract class DAOFactory {
     public abstract ClienteDAO getClienteDAO();
     public abstract PedidoDAO getPedidoDAO();
     public abstract ItemPedidoDAO getItemPedidoDAO();
+    public abstract TipoItemDAO getTipoItemDAO();
     public abstract RelatorioDAO getRelatorioDAO();
     public abstract Connection getConnection();
 

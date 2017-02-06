@@ -9,32 +9,19 @@
 	<queryString>
 		<![CDATA[SELECT
      pedido."id_pedido" AS pedido_id_pedido,
-     pedido."id_cliente" AS pedido_id_cliente,
      pedido."valor_pedido" AS pedido_valor_pedido,
      pedido."placa_veiculo" AS pedido_placa_veiculo,
      pedido."nome_motorista" AS pedido_nome_motorista,
      pedido."observacoes" AS pedido_observacoes,
      pedido."data_carregamento" AS pedido_data_carregamento,
-     pedido."data_criacao" AS pedido_data_criacao,
-     pedido."data_atualizacao" AS pedido_data_atualizacao,
      pedido."id_usuario" AS pedido_id_usuario,
      usuario."nome_usuario" AS usuario_nome_usuario,
      usuario."nome_completo" AS usuario_nome_completo,
-     cliente."id_cliente" AS cliente_id_cliente,
      cliente."nome_cliente" AS cliente_nome_cliente,
-     cliente."apelido" AS cliente_apelido,
-     cliente."telefone" AS cliente_telefone,
-     cliente."celular" AS cliente_celular,
-     cliente."email" AS cliente_email,
-     cliente."contato" AS cliente_contato,
-     cliente."observacoes" AS cliente_observacoes,
-     cliente."data_criacao" AS cliente_data_criacao,
-     cliente."data_atualizacao" AS cliente_data_atualizacao,
      item_pedido."id_item_pedido" AS item_pedido_id_item_pedido,
      item_pedido."id_material" AS item_pedido_id_material,
      item_pedido."id_pedido" AS item_pedido_id_pedido,
      item_pedido."quantidade" AS item_pedido_quantidade,
-     item_pedido."tipo" AS item_pedido_tipo,
      item_pedido."comprimento_br" AS item_pedido_comprimento_br,
      item_pedido."altura_br" AS item_pedido_altura_br,
      item_pedido."largura_br" AS item_pedido_largura_br,
@@ -46,42 +33,33 @@
      item_pedido."valor_unitario" AS item_pedido_valor_unitario,
      item_pedido."desconto" AS item_pedido_desconto,
      item_pedido."valor_total" AS item_pedido_valor_total,
-     material."nome_material" AS material_nome_material
+     material."nome_material" AS material_nome_material,
+     tipo_item."id_tipo_item" AS tipo_item_id_tipo_item,
+     tipo_item."descricao" AS tipo_item_descricao,
+     item_pedido."id_tipo_item" AS item_pedido_id_tipo_item
 FROM
      "public"."usuario" usuario INNER JOIN "public"."pedido" pedido ON usuario."id_usuario" = pedido."id_usuario"
      INNER JOIN "public"."cliente" cliente ON pedido."id_cliente" = cliente."id_cliente"
      INNER JOIN "public"."item_pedido" item_pedido ON pedido."id_pedido" = item_pedido."id_pedido"
      INNER JOIN "public"."material" material ON item_pedido."id_material" = material."id_material"
+     INNER JOIN "public"."tipo_item" tipo_item ON item_pedido."id_tipo_item" = tipo_item."id_tipo_item"
 WHERE
      pedido."id_pedido" = $P{ID_PEDIDO}]]>
 	</queryString>
 	<field name="pedido_id_pedido" class="java.lang.Integer"/>
-	<field name="pedido_id_cliente" class="java.lang.Integer"/>
 	<field name="pedido_valor_pedido" class="java.math.BigDecimal"/>
 	<field name="pedido_placa_veiculo" class="java.lang.String"/>
 	<field name="pedido_nome_motorista" class="java.lang.String"/>
 	<field name="pedido_observacoes" class="java.lang.String"/>
 	<field name="pedido_data_carregamento" class="java.sql.Date"/>
-	<field name="pedido_data_criacao" class="java.sql.Timestamp"/>
-	<field name="pedido_data_atualizacao" class="java.sql.Timestamp"/>
 	<field name="pedido_id_usuario" class="java.lang.Integer"/>
 	<field name="usuario_nome_usuario" class="java.lang.String"/>
 	<field name="usuario_nome_completo" class="java.lang.String"/>
-	<field name="cliente_id_cliente" class="java.lang.Integer"/>
 	<field name="cliente_nome_cliente" class="java.lang.String"/>
-	<field name="cliente_apelido" class="java.lang.String"/>
-	<field name="cliente_telefone" class="java.lang.String"/>
-	<field name="cliente_celular" class="java.lang.String"/>
-	<field name="cliente_email" class="java.lang.String"/>
-	<field name="cliente_contato" class="java.lang.String"/>
-	<field name="cliente_observacoes" class="java.lang.String"/>
-	<field name="cliente_data_criacao" class="java.sql.Timestamp"/>
-	<field name="cliente_data_atualizacao" class="java.sql.Timestamp"/>
 	<field name="item_pedido_id_item_pedido" class="java.lang.Integer"/>
 	<field name="item_pedido_id_material" class="java.lang.Integer"/>
 	<field name="item_pedido_id_pedido" class="java.lang.Integer"/>
 	<field name="item_pedido_quantidade" class="java.lang.Integer"/>
-	<field name="item_pedido_tipo" class="java.lang.String"/>
 	<field name="item_pedido_comprimento_br" class="java.math.BigDecimal"/>
 	<field name="item_pedido_altura_br" class="java.math.BigDecimal"/>
 	<field name="item_pedido_largura_br" class="java.math.BigDecimal"/>
@@ -94,6 +72,9 @@ WHERE
 	<field name="item_pedido_desconto" class="java.math.BigDecimal"/>
 	<field name="item_pedido_valor_total" class="java.math.BigDecimal"/>
 	<field name="material_nome_material" class="java.lang.String"/>
+	<field name="tipo_item_id_tipo_item" class="java.lang.Integer"/>
+	<field name="tipo_item_descricao" class="java.lang.String"/>
+	<field name="item_pedido_id_tipo_item" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -235,7 +216,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{item_pedido_tipo} +" - "+ $F{material_nome_material}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipo_item_descricao} +" - "+ $F{material_nome_material}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="202" y="0" width="80" height="20" uuid="c1615e39-2385-43a9-9056-2f367ecc6d4d"/>

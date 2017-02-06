@@ -11,8 +11,8 @@ public class ItemPedido {
     private Long id;
     private Material material;
     private Pedido pedido;
+    private TipoItem tipoItem;
     private Long quantidade;
-    private String tipo;
     private BigDecimal comprimentoBr;
     private BigDecimal alturaBr;
     private BigDecimal larguraBr;
@@ -49,20 +49,20 @@ public class ItemPedido {
         this.pedido = pedido;
     }
 
+    public TipoItem getTipoItem() {
+        return tipoItem;
+    }
+
+    public void setTipoItem(TipoItem tipoItem) {
+        this.tipoItem = tipoItem;
+    }
+
     public Long getQuantidade() {
         return quantidade;
     }
 
     public void setQuantidade(Long quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public BigDecimal getComprimentoBr() {

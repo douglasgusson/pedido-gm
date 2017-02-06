@@ -5,11 +5,13 @@ import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
+import br.com.pedidogm.dao.model.TipoItemDAO;
 import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.domain.TipoItem;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
@@ -24,7 +26,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
@@ -44,20 +48,19 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private List<ItemPedido> itensPedido = new ArrayList<>();
     private BigDecimal totalPedido = new BigDecimal("0");
 
+    private Vector<TipoItem> tipos;
+    private DefaultComboBoxModel<TipoItem> modeloComboBoxTipoItem;
+
     private static final int OPCAO_INSERIR = 0;
     private static final int OPCAO_ALTERAR = 1;
 
     private int indexRegistro;
     private int opcao;
 
-    private final int BLOCO = 0;
-    private final int CHAPA = 1;
-
     private final int METRO_QUADRADO = 0;
     private final int METRO_CUBICO = 1;
     private final int METRO_LINEAR = 2;
 
-    private final String tipos[] = {"BLOCO", "CHAPA", "RECORTADO"};
     private final String acabamentos[] = {"BRUTO", "POLIDO", "BIPOLIDO", "LEVIGADO"};
     private final String espessuras[] = {"1,5 cm", "2,0 cm", "3,0 cm", "4,0 cm"};
 
@@ -131,10 +134,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfLarguraBr.addKeyListener(new MascaraNumerica(tfLarguraBr, 3, 2));
         tfLarguraLiq.addKeyListener(new MascaraNumerica(tfLarguraLiq, 3, 2));
 
-        for (String tipo : tipos) {
-            this.cbTipo.addItem(tipo);
-        }
-
         for (String acabamento : acabamentos) {
             this.cbAcabamento.addItem(acabamento);
         }
@@ -143,7 +142,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             this.cbEspessura.addItem(espessura);
         }
 
-        mudarEstadoFrm(CHAPA);
+        mudarEstadoFrm(METRO_QUADRADO);
 
         this.cbTipo.setSelectedItem("CHAPA");
         this.cbAcabamento.setSelectedItem("POLIDO");
@@ -159,8 +158,14 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         tfQuantidade.addFocusListener(selectAllText);
         tfComprimentoBr.addFocusListener(selectAllText);
-        
+
         tfQuantidade.setText("0");
+
+        TipoItemDAO tipoItemDAO = DAOFactory.getDefaultDAOFactory().getTipoItemDAO();
+        tipos = new Vector<>(tipoItemDAO.listarTodos());
+
+        modeloComboBoxTipoItem = new DefaultComboBoxModel<>(tipos);
+        cbTipo.setModel(modeloComboBoxTipoItem);
 
     }
 
@@ -176,7 +181,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void mudarEstadoFrm(int index) {
         switch (index) {
-            case BLOCO:
+            case METRO_CUBICO:
                 this.tfLarguraBr.setEnabled(true);
                 this.tfLarguraLiq.setEnabled(true);
                 this.cbAcabamento.setEnabled(false);
@@ -261,7 +266,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         tfQuantidade = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbTipo = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         tfAlturaBr = new javax.swing.JTextField();
         tfComprimentoBr = new javax.swing.JTextField();
@@ -290,6 +294,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfValorDesconto = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        cbTipo = new javax.swing.JComboBox();
         lbData = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -388,12 +393,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         });
 
         jLabel5.setText("Quant.:");
-
-        cbTipo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbTipoItemStateChanged(evt);
-            }
-        });
 
         jLabel6.setText("Tipo:");
 
@@ -514,6 +513,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         });
 
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -538,8 +544,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                     .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -609,8 +615,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEspessura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbEspessura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -749,6 +755,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
                 Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
+
                 for (ItemPedido ip : itensPedido) {
                     ip.setPedido(ultimoPedido);
                     itemPedidoDAO.inserir(ip);
@@ -815,11 +822,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tfNomeClienteFocusLost
 
-    private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
-        int index = this.cbTipo.getSelectedIndex();
-        mudarEstadoFrm(index);
-    }//GEN-LAST:event_cbTipoItemStateChanged
-
     private void cbEspessuraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbEspessuraFocusLost
         if (this.cbEspessura.getSelectedIndex() == 0) {
             this.tfLarguraBr.setText("0,015");
@@ -846,9 +848,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         ItemPedido itemPedido = new ItemPedido();
 
         itemPedido.setMaterial(this.material);
+        TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
 
         itemPedido.setQuantidade(Long.parseLong(this.tfQuantidade.getText()));
-        itemPedido.setTipo(this.cbTipo.getSelectedItem().toString());
+        itemPedido.setTipoItem(ti);
         itemPedido.setComprimentoBr(new BigDecimal(this.tfComprimentoBr.getText().replace(",", ".")));
         itemPedido.setAlturaBr(new BigDecimal(this.tfAlturaBr.getText().replace(",", ".")));
         itemPedido.setLarguraBr(new BigDecimal(this.tfLarguraBr.getText().replace(",", ".")));
@@ -933,12 +936,17 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         calcularValores();
     }//GEN-LAST:event_tfQuantidadeFocusLost
 
+    private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
+        TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
+        mudarEstadoFrm(ti.getReferenciaCalculo());
+    }//GEN-LAST:event_cbTipoItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
     private javax.swing.JButton btGravar;
     private javax.swing.JComboBox<String> cbAcabamento;
     private javax.swing.JComboBox cbEspessura;
-    private javax.swing.JComboBox<String> cbTipo;
+    private javax.swing.JComboBox cbTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

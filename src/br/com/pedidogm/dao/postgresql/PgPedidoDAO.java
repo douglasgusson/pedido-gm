@@ -179,8 +179,10 @@ public class PgPedidoDAO implements PedidoDAO {
 
             ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
-            for (ItemPedido ip : pedido.getItensPedido()) {
-                itemPedidoDAO.excluir(ip);
+            if (!pedido.getItensPedido().isEmpty()) {
+                for (ItemPedido ip : pedido.getItensPedido()) {
+                    itemPedidoDAO.excluir(ip);
+                }
             }
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
@@ -263,7 +265,7 @@ public class PgPedidoDAO implements PedidoDAO {
         Pedido p = new Pedido();
 
         try {
-            
+
             String query = "SELECT MAX(id_pedido) FROM pedido;";
 
             PreparedStatement ps = con.prepareStatement(query);
