@@ -21,6 +21,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
@@ -109,6 +111,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private void initialize() {
 
         atualizarTabela();
+        limparCampos();
 
         lbData.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy, HH:mm")));
 
@@ -148,6 +151,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.cbAcabamento.setSelectedItem("POLIDO");
         this.cbEspessura.setSelectedItem("2,0 cm");
 
+        TipoItemDAO tipoItemDAO = DAOFactory.getDefaultDAOFactory().getTipoItemDAO();
+        tipos = new Vector<>(tipoItemDAO.listarTodos());
+
         FocusAdapter selectAllText = new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent evt) {
@@ -156,17 +162,30 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         };
 
-        tfQuantidade.addFocusListener(selectAllText);
-        tfComprimentoBr.addFocusListener(selectAllText);
-
-        tfQuantidade.setText("0");
-
-        TipoItemDAO tipoItemDAO = DAOFactory.getDefaultDAOFactory().getTipoItemDAO();
-        tipos = new Vector<>(tipoItemDAO.listarTodos());
+        tfDesconto.addFocusListener(selectAllText);
 
         modeloComboBoxTipoItem = new DefaultComboBoxModel<>(tipos);
         cbTipo.setModel(modeloComboBoxTipoItem);
 
+    }
+
+    private void limparCampos() {
+        tfNomeCliente.setText("");
+        tfMaterial.setText("");
+        tfQuantidade.setText("");
+        tfMetragem.setText("");
+        tfComprimentoBr.setText("");
+        tfComprimentoLiq.setText("");
+        tfAlturaBr.setText("");
+        tfAlturaLiq.setText("");
+        tfLarguraBr.setText("");
+        tfLarguraLiq.setText("");
+        tfLarguraLiq.setText("");
+        tfMetragem.setText("");
+        tfValorUnitario.setText("");
+        tfDesconto.setText("0,00");
+        tfValorDesconto.setText("0,00");
+        tfTotalItem.setText("0,00");
     }
 
     public void setCliente(Cliente cliente) {
@@ -223,17 +242,17 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         switch (tipo) {
             case METRO_QUADRADO:
-                metragem = compLiq.multiply(altLiq).multiply(new BigDecimal(quant));
+                metragem = compLiq.multiply(altLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
                 break;
             case METRO_CUBICO:
-                metragem = compLiq.multiply(altLiq).multiply(largLiq).multiply(new BigDecimal(quant));
+                metragem = compLiq.multiply(altLiq).multiply(largLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
                 break;
 
         }
 
-        BigDecimal totalItem = metragem.multiply(valorUnit);
-        BigDecimal valorDesconto = totalItem.multiply((desconto.divide(new BigDecimal("100.0"))));
-        totalItem = totalItem.subtract(valorDesconto);
+        BigDecimal totalItem = metragem.multiply(valorUnit).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal valorDesconto = totalItem.multiply((desconto.divide(new BigDecimal("100.0")))).setScale(2, RoundingMode.HALF_EVEN);
+        totalItem = totalItem.subtract(valorDesconto).setScale(2, RoundingMode.HALF_EVEN);
 
         this.tfMetragem.setText(metragem.toString().replace(".", ","));
         this.tfValorDesconto.setText(valorDesconto.toString().replace(".", ","));
@@ -845,30 +864,37 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        ItemPedido itemPedido = new ItemPedido();
+        try {
 
-        itemPedido.setMaterial(this.material);
-        TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
+            ItemPedido itemPedido = new ItemPedido();
 
-        itemPedido.setQuantidade(Long.parseLong(this.tfQuantidade.getText()));
-        itemPedido.setTipoItem(ti);
-        itemPedido.setComprimentoBr(new BigDecimal(this.tfComprimentoBr.getText().replace(",", ".")));
-        itemPedido.setAlturaBr(new BigDecimal(this.tfAlturaBr.getText().replace(",", ".")));
-        itemPedido.setLarguraBr(new BigDecimal(this.tfLarguraBr.getText().replace(",", ".")));
-        itemPedido.setComprimentoLiq(new BigDecimal(this.tfComprimentoLiq.getText().replace(",", ".")));
-        itemPedido.setAlturaLiq(new BigDecimal(this.tfAlturaLiq.getText().replace(",", ".")));
-        itemPedido.setLarguraLiq(new BigDecimal(this.tfLarguraLiq.getText().replace(",", ".")));
-        itemPedido.setAcabamento(this.cbAcabamento.getSelectedItem().toString());
-        itemPedido.setMetragem(new BigDecimal(this.tfMetragem.getText().replace(",", ".")));
-        itemPedido.setValorUnitario(new BigDecimal(this.tfValorUnitario.getText().replace(",", ".")));
-        itemPedido.setDesconto(new BigDecimal(this.tfDesconto.getText().replace(",", ".")));
-        itemPedido.setValorTotal(new BigDecimal(this.tfTotalItem.getText().replace(",", ".")));
+            itemPedido.setMaterial(this.material);
+            TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
+            itemPedido.setTipoItem(ti);
 
-        this.totalPedido = this.totalPedido.add(itemPedido.getValorTotal());
-        this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
+            itemPedido.setQuantidade(Long.parseLong(this.tfQuantidade.getText()));
+            itemPedido.setComprimentoBr(new BigDecimal(this.tfComprimentoBr.getText().replace(",", ".")));
+            itemPedido.setAlturaBr(new BigDecimal(this.tfAlturaBr.getText().replace(",", ".")));
+            itemPedido.setLarguraBr(new BigDecimal(this.tfLarguraBr.getText().replace(",", ".")));
+            itemPedido.setComprimentoLiq(new BigDecimal(this.tfComprimentoLiq.getText().replace(",", ".")));
+            itemPedido.setAlturaLiq(new BigDecimal(this.tfAlturaLiq.getText().replace(",", ".")));
+            itemPedido.setLarguraLiq(new BigDecimal(this.tfLarguraLiq.getText().replace(",", ".")));
+            itemPedido.setAcabamento(this.cbAcabamento.getSelectedItem().toString());
+            itemPedido.setMetragem(new BigDecimal(this.tfMetragem.getText().replace(",", ".")));
+            itemPedido.setValorUnitario(new BigDecimal(this.tfValorUnitario.getText().replace(",", ".")));
+            itemPedido.setDesconto(new BigDecimal(this.tfDesconto.getText().replace(",", ".")));
+            itemPedido.setValorTotal(new BigDecimal(this.tfTotalItem.getText().replace(",", ".")));
 
-        itensPedido.add(itemPedido);
-        atualizarTabela();
+            this.totalPedido = this.totalPedido.add(itemPedido.getValorTotal());
+            this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
+
+            itensPedido.add(itemPedido);
+            atualizarTabela();
+            limparCampos();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Formato inválido para número. \nERRO:" + e);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
