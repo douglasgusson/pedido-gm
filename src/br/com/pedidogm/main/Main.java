@@ -53,8 +53,8 @@ public class Main extends JWindow {
         JPanel content = (JPanel) getContentPane();
         content.setBackground(Color.white);
 
-        int comprimento = 420;
-        int altura = 320;
+        int comprimento = 400;
+        int altura = 280;
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screen.width - comprimento) / 2;
         int y = (screen.height - altura) / 2;
@@ -65,7 +65,7 @@ public class Main extends JWindow {
         JLabel lbIcone = new JLabel(imageIcone);
 
         ImageIcon imageIcon = new ImageIcon(
-                Main.this.getClass().getResource("/br/com/pedidogm/img/load.gif"));
+                Main.this.getClass().getResource("/br/com/pedidogm/img/ripple.gif"));
         JLabel lbGif = new JLabel(imageIcon);
 
         JLabel lbTitulo = new JLabel("PedidoGM", JLabel.CENTER);
