@@ -1,5 +1,4 @@
-
-﻿CREATE TABLE usuario (
+CREATE TABLE usuario (
   id_usuario    SERIAL      NOT NULL,
   nome_usuario  VARCHAR(60) NOT NULL,
   senha         CHAR(64)    NOT NULL,
@@ -79,12 +78,23 @@ CREATE TABLE pedido (
 );
 
 
+CREATE TABLE tipo_item (
+  id_tipo_item       SERIAL      NOT NULL,
+  descricao          VARCHAR(40) NOT NULL,
+  referencia_calculo INTEGER     NOT NULL,
+  data_criacao       TIMESTAMP   NOT NULL,
+  data_atualizacao   TIMESTAMP   NOT NULL,
+  CONSTRAINT pk_tipo_item
+    PRIMARY KEY (id_tipo_item)
+);
+
+
 CREATE TABLE item_pedido (
   id_item_pedido  SERIAL        NOT NULL,
   id_material     INTEGER       NOT NULL,
   id_pedido       INTEGER       NOT NULL,
+  id_tipo_item    INTEGER       NOT NULL,
   quantidade      INTEGER       NOT NULL,
-  tipo            VARCHAR(30)   NOT NULL,
   comprimento_br  NUMERIC(3,2)  NOT NULL,
   altura_br       NUMERIC(3,2)  NOT NULL,
   largura_br      NUMERIC(3,2)  NOT NULL,
@@ -92,7 +102,7 @@ CREATE TABLE item_pedido (
   altura_liq      NUMERIC(3,2)  NOT NULL,
   largura_liq     NUMERIC(3,2)  NOT NULL,
   acabamento      VARCHAR(30)   NOT NULL,
-  metragem        NUMERIC(12,2) NOT NULL,
+  metragem        NUMERIC(12,3) NOT NULL,
   valor_unitario  NUMERIC(12,2) NOT NULL,
   desconto        NUMERIC(12,2) NOT NULL,
   valor_total     NUMERIC(12,2) NOT NULL, 
@@ -103,17 +113,8 @@ CREATE TABLE item_pedido (
     REFERENCES material (id_material),
   CONSTRAINT fk_item_pedido_pedido
     FOREIGN KEY (id_pedido)
-    REFERENCES pedido (id_pedido)
+    REFERENCES pedido (id_pedido),
+  CONSTRAINT fk_item_pedido_tipo_item
+    FOREIGN KEY (id_tipo_item)
+    REFERENCES tipo_item (id_tipo_item)
 );
-
-
-
-
-
-
-
-
-
-
-
-
