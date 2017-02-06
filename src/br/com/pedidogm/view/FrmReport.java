@@ -57,6 +57,8 @@ public class FrmReport extends JDialog {
      * @return javax.swing.JPanel
      */
     private JPanel getJContentPane() {
+        
+        jasperViewer.setBounds(0, 0, screenSize.width, screenSize.height);
 
         if (jContentPane == null) {
             jContentPane = new JPanel();
