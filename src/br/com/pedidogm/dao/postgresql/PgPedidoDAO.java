@@ -46,7 +46,7 @@ public class PgPedidoDAO implements PedidoDAO {
                     + "    data_criacao, \n"
                     + "    data_atualizacao, \n"
                     + "    id_usuario \n"
-                    + "  FROM pedido;";
+                    + "  FROM pedido ORDER BY id_pedido DESC;";
 
             PreparedStatement ps = con.prepareStatement(query);
 
