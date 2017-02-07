@@ -42,7 +42,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         itemPedidos = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
-        menuRelatorios = new javax.swing.JMenu();
         menuUtiltarios = new javax.swing.JMenu();
         itemMudarSenha = new javax.swing.JMenuItem();
         itemConfiguracoes = new javax.swing.JMenuItem();
@@ -151,6 +150,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuCadastros.setText("Cadastros");
 
+        itemPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/pedido_16x16.png"))); // NOI18N
         itemPedidos.setText("Pedidos");
         itemPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +159,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemPedidos);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/cliente_16x16.png"))); // NOI18N
         jMenuItem2.setText("Clientes");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,9 +178,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros.add(itemMateriais);
 
         barraMenu.add(menuCadastros);
-
-        menuRelatorios.setText("Relatórios");
-        barraMenu.add(menuRelatorios);
 
         menuUtiltarios.setText("Utilitários");
 
@@ -322,7 +320,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuCadastros;
-    private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenu menuUtiltarios;
     // End of variables declaration//GEN-END:variables
 }

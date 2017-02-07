@@ -248,7 +248,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="40" y="0" width="111" height="20" uuid="f332f2c2-cbce-434e-9682-c6216e472cd5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo_item_descricao} +" - "+ $F{material_nome_material}]]></textFieldExpression>
