@@ -113,6 +113,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btSair">
       <Properties>
+        <Property name="mnemonic" type="int" value="83"/>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
       <Events>
@@ -156,6 +157,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btGravar">
       <Properties>
+        <Property name="mnemonic" type="int" value="71"/>
         <Property name="text" type="java.lang.String" value="Gravar"/>
       </Properties>
       <Events>
@@ -164,6 +166,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btAlterar">
       <Properties>
+        <Property name="mnemonic" type="int" value="65"/>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
       <Events>
@@ -172,6 +175,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btCancelar">
       <Properties>
+        <Property name="mnemonic" type="int" value="67"/>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
@@ -180,6 +184,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btImportar">
       <Properties>
+        <Property name="mnemonic" type="int" value="73"/>
         <Property name="text" type="java.lang.String" value="Importar"/>
       </Properties>
       <Events>

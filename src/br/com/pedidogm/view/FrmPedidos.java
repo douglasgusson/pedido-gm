@@ -64,6 +64,7 @@ public class FrmPedidos extends javax.swing.JDialog {
         jToolBar1.setRollover(true);
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/novo_16x16.png"))); // NOI18N
+        btNovo.setMnemonic('N');
         btNovo.setText("Novo");
         btNovo.setFocusable(false);
         btNovo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -76,6 +77,7 @@ public class FrmPedidos extends javax.swing.JDialog {
         jToolBar1.add(btNovo);
 
         btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/alterar_16x16.png"))); // NOI18N
+        btAlterar.setMnemonic('A');
         btAlterar.setText("Alterar");
         btAlterar.setFocusable(false);
         btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -88,6 +90,7 @@ public class FrmPedidos extends javax.swing.JDialog {
         jToolBar1.add(btAlterar);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/excluir_16x16.png"))); // NOI18N
+        btExcluir.setMnemonic('E');
         btExcluir.setText("Excluir");
         btExcluir.setFocusable(false);
         btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -99,9 +102,11 @@ public class FrmPedidos extends javax.swing.JDialog {
         });
         jToolBar1.add(btExcluir);
 
+        btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/impressao_16x16.png"))); // NOI18N
+        btImprimir.setMnemonic('I');
         btImprimir.setText("Imprimir");
         btImprimir.setFocusable(false);
-        btImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +116,7 @@ public class FrmPedidos extends javax.swing.JDialog {
         jToolBar1.add(btImprimir);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
+        btSair.setMnemonic('S');
         btSair.setText("Sair");
         btSair.setFocusable(false);
         btSair.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);

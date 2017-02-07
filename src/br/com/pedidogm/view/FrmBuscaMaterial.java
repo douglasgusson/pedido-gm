@@ -85,17 +85,19 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btsair = new javax.swing.JButton();
+        btOk = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busca de Clientes");
 
-        btsair.setText("Sair");
-        btsair.addActionListener(new java.awt.event.ActionListener() {
+        btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/entrar_16x16.png"))); // NOI18N
+        btOk.setMnemonic('O');
+        btOk.setText("OK");
+        btOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btsairActionPerformed(evt);
+                btOkActionPerformed(evt);
             }
         });
 
@@ -128,16 +130,16 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btsair)))
+                        .addComponent(btOk)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btsair)
+                .addComponent(btOk)
                 .addContainerGap())
         );
 
@@ -145,11 +147,11 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btsairActionPerformed
+    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
         if (!retornarMaterial()) {
             this.dispose();
         }
-    }//GEN-LAST:event_btsairActionPerformed
+    }//GEN-LAST:event_btOkActionPerformed
 
     private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
         if (evt.getClickCount() == 2) {
@@ -158,7 +160,7 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
     }//GEN-LAST:event_tbClientesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btsair;
+    private javax.swing.JButton btOk;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbClientes;
     // End of variables declaration//GEN-END:variables

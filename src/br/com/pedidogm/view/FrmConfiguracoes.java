@@ -28,6 +28,7 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configurações");
 
+        jLabel1.setDisplayedMnemonic('B');
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/database-128.png"))); // NOI18N
         jLabel1.setText("Banco de Dados");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -40,6 +41,7 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setDisplayedMnemonic('U');
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/users-128.png"))); // NOI18N
         jLabel2.setText("Usuários");
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

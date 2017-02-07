@@ -66,6 +66,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
+        btSair.setMnemonic('S');
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +84,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
 
         jLabel5.setText("Nome do banco:");
 
+        btGravar.setMnemonic('G');
         btGravar.setText("Gravar");
         btGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +92,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             }
         });
 
+        btAlterar.setMnemonic('A');
         btAlterar.setText("Alterar");
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +100,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             }
         });
 
+        btCancelar.setMnemonic('C');
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +108,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             }
         });
 
+        btImportar.setMnemonic('I');
         btImportar.setText("Importar");
         btImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

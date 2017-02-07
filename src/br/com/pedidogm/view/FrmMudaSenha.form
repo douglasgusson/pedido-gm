@@ -150,6 +150,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="btSair">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/pedidogm/img/sair_16x16.png"/>
+        </Property>
+        <Property name="mnemonic" type="int" value="83"/>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
       <Events>
@@ -158,6 +162,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="btGravar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/pedidogm/img/gravar_16x16.png"/>
+        </Property>
+        <Property name="mnemonic" type="int" value="71"/>
         <Property name="text" type="java.lang.String" value="Gravar"/>
       </Properties>
       <Events>
@@ -166,6 +174,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/pedidogm/img/alterar_16x16.png"/>
+        </Property>
+        <Property name="mnemonic" type="int" value="77"/>
         <Property name="text" type="java.lang.String" value="Mudar"/>
       </Properties>
       <Events>

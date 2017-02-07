@@ -341,6 +341,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Pedido");
 
+        btGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/gravar_16x16.png"))); // NOI18N
+        btGravar.setMnemonic('G');
         btGravar.setText("Gravar");
         btGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,6 +350,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         });
 
+        brSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
+        brSair.setMnemonic('S');
         brSair.setText("Sair");
         brSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -548,6 +552,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel19.setText("Desc. (R$):");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/add_16x16.png"))); // NOI18N
+        jButton1.setMnemonic('A');
         jButton1.setText("Adicionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
