@@ -251,6 +251,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 break;
 
         }
+        
+        this.tfMetragem.setText(metragem.toString().replace(".", ","));
 
         calcularValores();
     }
@@ -271,7 +273,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         BigDecimal valorDesconto = totalItem.multiply((desconto.divide(new BigDecimal("100.0")))).setScale(2, RoundingMode.HALF_EVEN);
         totalItem = totalItem.subtract(valorDesconto).setScale(2, RoundingMode.HALF_EVEN);
 
-        this.tfMetragem.setText(metragem.toString().replace(".", ","));
         this.tfValorDesconto.setText(valorDesconto.toString().replace(".", ","));
         this.tfTotalItem.setText(totalItem.toString().replace(".", ","));
 
@@ -538,7 +539,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         });
 
+        tfValorDesconto.setEditable(false);
+        tfValorDesconto.setBackground(java.awt.Color.white);
+        tfValorDesconto.setForeground(java.awt.Color.black);
         tfValorDesconto.setText("0,00");
+        tfValorDesconto.setDisabledTextColor(java.awt.Color.black);
+        tfValorDesconto.setEnabled(false);
 
         jLabel19.setText("Desc. (R$):");
 
@@ -977,7 +983,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorUnitarioFocusLost
 
     private void tfDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDescontoFocusLost
-        calcularMetragem();
+        calcularValores();
     }//GEN-LAST:event_tfDescontoFocusLost
 
     private void tfQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfQuantidadeFocusLost
