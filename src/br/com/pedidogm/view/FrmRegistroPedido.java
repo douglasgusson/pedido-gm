@@ -31,7 +31,6 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 
@@ -49,6 +48,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private List<Pedido> listaPedidos = new ArrayList<>();
     private List<ItemPedido> itensPedido = new ArrayList<>();
     private BigDecimal totalPedido = new BigDecimal("0");
+    private BigDecimal metragem = new BigDecimal("0.00");
 
     private Vector<TipoItem> tipos;
     private DefaultComboBoxModel<TipoItem> modeloComboBoxTipoItem;
@@ -110,8 +110,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void initialize() {
 
+        itensPedido.clear();
         atualizarTabela();
+
         tfNomeCliente.setText("");
+        tfNomeCliente.requestFocus();
+        tfTotalPedido.setText("0,00");
         limparCamposItem();
 
         lbData.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy, HH:mm")));
@@ -155,15 +159,18 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         TipoItemDAO tipoItemDAO = DAOFactory.getDefaultDAOFactory().getTipoItemDAO();
         tipos = new Vector<>(tipoItemDAO.listarTodos());
 
-        FocusAdapter selectAllText = new FocusAdapter() {
+        FocusAdapter calcularMetragem = new FocusAdapter() {
             @Override
-            public void focusGained(FocusEvent evt) {
-                JTextField src = (JTextField) evt.getSource();
-                src.selectAll();
+            public void focusLost(FocusEvent evt) {
+                calcularMetragem();
             }
         };
 
-        tfDesconto.addFocusListener(selectAllText);
+        tfLarguraBr.addFocusListener(calcularMetragem);
+        tfComprimentoLiq.addFocusListener(calcularMetragem);
+        tfAlturaLiq.addFocusListener(calcularMetragem);
+        tfLarguraLiq.addFocusListener(calcularMetragem);
+        tfQuantidade.addFocusListener(calcularMetragem);
 
         modeloComboBoxTipoItem = new DefaultComboBoxModel<>(tipos);
         cbTipo.setModel(modeloComboBoxTipoItem);
@@ -217,9 +224,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
     }
 
-    private void calcularValores() {
-
-        int tipo = 0;
+    private void calcularMetragem() {
 
         String quant = "0";
 
@@ -227,20 +232,17 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         BigDecimal altLiq = new BigDecimal("0.00");
         BigDecimal largLiq = new BigDecimal("0.00");
 
-        BigDecimal valorUnit = new BigDecimal("0.00");
-        BigDecimal desconto = new BigDecimal("0.00");
-        BigDecimal metragem = new BigDecimal("0.00");
+        TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
+        int ref = ti.getReferenciaCalculo();
 
         try {
             quant = this.tfQuantidade.getText();
             compLiq = new BigDecimal(this.tfComprimentoLiq.getText().replace(",", "."));
             altLiq = new BigDecimal(this.tfAlturaLiq.getText().replace(",", "."));
-            valorUnit = new BigDecimal(this.tfValorUnitario.getText().replace(",", "."));
-            desconto = new BigDecimal(this.tfDesconto.getText().replace(",", "."));
         } catch (NumberFormatException e) {
         }
 
-        switch (tipo) {
+        switch (ref) {
             case METRO_QUADRADO:
                 metragem = compLiq.multiply(altLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
                 break;
@@ -248,6 +250,21 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 metragem = compLiq.multiply(altLiq).multiply(largLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
                 break;
 
+        }
+
+        calcularValores();
+    }
+
+    private void calcularValores() {
+
+        BigDecimal valorUnit = new BigDecimal("0.00");
+        BigDecimal desconto = new BigDecimal("0.00");
+
+        try {
+            metragem = new BigDecimal(this.tfMetragem.getText().replace(",", "."));
+            valorUnit = new BigDecimal(this.tfValorUnitario.getText().replace(",", "."));
+            desconto = new BigDecimal(this.tfDesconto.getText().replace(",", "."));
+        } catch (NumberFormatException e) {
         }
 
         BigDecimal totalItem = metragem.multiply(valorUnit).setScale(2, RoundingMode.HALF_EVEN);
@@ -895,6 +912,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             itensPedido.add(itemPedido);
             atualizarTabela();
             limparCamposItem();
+            tfQuantidade.requestFocus();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Formato inválido para número. \nERRO:" + e);
@@ -914,7 +932,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         BigDecimal compLiq = compBr.subtract(new BigDecimal("0.05"));
         this.tfComprimentoLiq.setText(compLiq.toString().replace(".", ","));
 
-        calcularValores();
+        calcularMetragem();
 
     }//GEN-LAST:event_tfComprimentoBrFocusLost
 
@@ -930,24 +948,24 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         BigDecimal altLiq = altBr.subtract(new BigDecimal("0.05"));
         this.tfAlturaLiq.setText(altLiq.toString().replace(".", ","));
 
-        calcularValores();
+        calcularMetragem();
 
     }//GEN-LAST:event_tfAlturaBrFocusLost
 
     private void tfLarguraBrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLarguraBrFocusLost
-        calcularValores();
+        calcularMetragem();
     }//GEN-LAST:event_tfLarguraBrFocusLost
 
     private void tfComprimentoLiqFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfComprimentoLiqFocusLost
-        calcularValores();
+        calcularMetragem();
     }//GEN-LAST:event_tfComprimentoLiqFocusLost
 
     private void tfAlturaLiqFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfAlturaLiqFocusLost
-        calcularValores();
+        calcularMetragem();
     }//GEN-LAST:event_tfAlturaLiqFocusLost
 
     private void tfLarguraLiqFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLarguraLiqFocusLost
-        calcularValores();
+        calcularMetragem();
     }//GEN-LAST:event_tfLarguraLiqFocusLost
 
     private void tfMetragemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMetragemFocusLost
@@ -959,11 +977,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorUnitarioFocusLost
 
     private void tfDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDescontoFocusLost
-        calcularValores();
+        calcularMetragem();
     }//GEN-LAST:event_tfDescontoFocusLost
 
     private void tfQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfQuantidadeFocusLost
-        calcularValores();
+        calcularMetragem();
     }//GEN-LAST:event_tfQuantidadeFocusLost
 
     private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
