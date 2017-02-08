@@ -1,6 +1,7 @@
 package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Material;
+import br.com.pedidogm.table.cellrenderer.MaterialCellRenderer;
 import br.com.pedidogm.table.model.MaterialTableModel;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -28,8 +29,8 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
     }
 
     public void atualizarTabela() {
-        tbClientes.setModel(new MaterialTableModel(this.listaMateriais));
-//        tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
+        tbMaterias.setModel(new MaterialTableModel(this.listaMateriais));
+        tbMaterias.setDefaultRenderer(Object.class, new MaterialCellRenderer());
     }
 
     private void initialize() {
@@ -57,7 +58,7 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
 
     private Boolean retornarMaterial() {
 
-        int row = this.tbClientes.getSelectedRow();
+        int row = this.tbMaterias.getSelectedRow();
 
         if (row != (-1)) {
 
@@ -87,7 +88,7 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
 
         btOk = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbClientes = new javax.swing.JTable();
+        tbMaterias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busca de Clientes");
@@ -101,7 +102,7 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
             }
         });
 
-        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -112,13 +113,13 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
 
             }
         ));
-        tbClientes.setToolTipText("");
-        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbMaterias.setToolTipText("");
+        tbMaterias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbClientesMouseClicked(evt);
+                tbMateriasMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbClientes);
+        jScrollPane2.setViewportView(tbMaterias);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,15 +154,15 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btOkActionPerformed
 
-    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+    private void tbMateriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMateriasMouseClicked
         if (evt.getClickCount() == 2) {
             retornarMaterial();
         }
-    }//GEN-LAST:event_tbClientesMouseClicked
+    }//GEN-LAST:event_tbMateriasMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btOk;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tbClientes;
+    private javax.swing.JTable tbMaterias;
     // End of variables declaration//GEN-END:variables
 }
