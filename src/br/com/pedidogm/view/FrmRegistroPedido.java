@@ -116,6 +116,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         tfNomeCliente.setText("");
         tfNomeCliente.requestFocus();
+        tfPlaca.setText("");
+        tfMotorista.setText("");
+        taObservacoes.setText("");
         tfTotalPedido.setText("0,00");
         limparCamposItem();
 
@@ -162,7 +165,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         FocusAdapter calcularMetragem = new FocusAdapter() {
             @Override
-            public void focusLost(FocusEvent evt) {                
+            public void focusLost(FocusEvent evt) {
                 calcularMetragem();
             }
         };
@@ -172,8 +175,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfAlturaLiq.addFocusListener(calcularMetragem);
         tfLarguraLiq.addFocusListener(calcularMetragem);
         tfQuantidade.addFocusListener(calcularMetragem);
-        
-        
+
         FocusAdapter setBorderDefault = new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent evt) {
@@ -184,6 +186,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         };
 
+        tfNomeCliente.addFocusListener(setBorderDefault);
         tfQuantidade.addFocusListener(setBorderDefault);
         tfMaterial.addFocusListener(setBorderDefault);
         tfComprimentoBr.addFocusListener(setBorderDefault);
@@ -272,6 +275,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             quant = this.tfQuantidade.getText();
             compLiq = new BigDecimal(this.tfComprimentoLiq.getText().replace(",", "."));
             altLiq = new BigDecimal(this.tfAlturaLiq.getText().replace(",", "."));
+            largLiq = new BigDecimal(this.tfLarguraLiq.getText().replace(",", "."));
         } catch (NumberFormatException e) {
         }
 
@@ -571,6 +575,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel18.setText("Espessura:");
 
+        cbEspessura.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbEspessuraItemStateChanged(evt);
+            }
+        });
         cbEspessura.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cbEspessuraFocusLost(evt);
@@ -815,47 +824,56 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
-        PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
-        Pedido p = new Pedido();
-
-        switch (opcao) {
-
-            case OPCAO_INSERIR:
-                p.setCliente(cliente);
-                p.setValor(new BigDecimal(this.tfTotalPedido.getText().replace(",", ".")));
-                p.setPlaca(this.tfPlaca.getText());
-                p.setMotorista(this.tfMotorista.getText());
-                p.setObservacoes(this.taObservacoes.getText());
-                p.setDataCarregamento(LocalDate.now());
-                p.setCriacao(LocalDateTime.now());
-                p.setAlteracao(LocalDateTime.now());
-
-                p.setUsuario(Sessao.getUsuario());
-
-                pedidoDAO.inserir(p);
-
-                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
-
-                Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
-
-                for (int i = 0; i < itensPedido.size(); i++) {
-                    itensPedido.get(i).setPedido(ultimoPedido);
-                    itemPedidoDAO.inserir(itensPedido.get(i));
-                }
-
-                break;
-
-            case OPCAO_ALTERAR:
-                break;
-        }
-
-        FrmPedidos frmPedidos = FrmPedidos.getInstancia();
-        frmPedidos.atualizarTabela();
-
-        if (OPCAO_ALTERAR == opcao) {
-            this.dispose();
+        if (tfNomeCliente.getText().trim().equals("")) {
+            tfNomeCliente.setBorder(borderRed);
+            tfNomeCliente.requestFocus();
+        } else if (itensPedido.size() <= 0) {
+            tfQuantidade.setBorder(borderRed);
+            tfQuantidade.requestFocus();
         } else {
-            initialize();
+
+            PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
+            Pedido p = new Pedido();
+
+            switch (opcao) {
+
+                case OPCAO_INSERIR:
+                    p.setCliente(cliente);
+                    p.setValor(new BigDecimal(this.tfTotalPedido.getText().replace(",", ".")));
+                    p.setPlaca(this.tfPlaca.getText());
+                    p.setMotorista(this.tfMotorista.getText());
+                    p.setObservacoes(this.taObservacoes.getText());
+                    p.setDataCarregamento(LocalDate.now());
+                    p.setCriacao(LocalDateTime.now());
+                    p.setAlteracao(LocalDateTime.now());
+
+                    p.setUsuario(Sessao.getUsuario());
+
+                    pedidoDAO.inserir(p);
+
+                    ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
+                    Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
+
+                    for (int i = 0; i < itensPedido.size(); i++) {
+                        itensPedido.get(i).setPedido(ultimoPedido);
+                        itemPedidoDAO.inserir(itensPedido.get(i));
+                    }
+
+                    break;
+
+                case OPCAO_ALTERAR:
+                    break;
+            }
+
+            FrmPedidos frmPedidos = FrmPedidos.getInstancia();
+            frmPedidos.atualizarTabela();
+
+            if (OPCAO_ALTERAR == opcao) {
+                this.dispose();
+            } else {
+                initialize();
+            }
         }
 
     }//GEN-LAST:event_btGravarActionPerformed
@@ -1035,6 +1053,16 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfAlturaBrFocusLost
 
     private void tfLarguraBrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLarguraBrFocusLost
+        BigDecimal largBr = new BigDecimal("0.00");
+
+        try {
+            largBr = new BigDecimal(this.tfLarguraBr.getText().replace(",", "."));
+        } catch (NumberFormatException e) {
+        }
+
+        BigDecimal altLiq = largBr.subtract(new BigDecimal("0.05"));
+        this.tfLarguraLiq.setText(altLiq.toString().replace(".", ","));
+
         calcularMetragem();
     }//GEN-LAST:event_tfLarguraBrFocusLost
 
@@ -1059,8 +1087,14 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorUnitarioFocusLost
 
     private void tfDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDescontoFocusLost
-        if ((this.tfDesconto.getText().trim()).equals("")) {
-            this.tfDesconto.setText("0,00");
+        if ((tfDesconto.getText().trim()).equals("")) {
+            tfDesconto.setText("0,00");
+        } else if (Float.parseFloat(tfDesconto.getText().replace(",", ".")) < 0
+                || Float.parseFloat(tfDesconto.getText().replace(",", ".")) > 100) {
+            tfDesconto.setBorder(borderRed);
+            JOptionPane.showMessageDialog(null,
+                    "O desconto deve ser um valor entre 0,00 e 100,00%.");
+            tfDesconto.requestFocus();
         }
         calcularValores();
     }//GEN-LAST:event_tfDescontoFocusLost
@@ -1073,6 +1107,22 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
         mudarEstadoFrm(ti.getReferenciaCalculo());
     }//GEN-LAST:event_cbTipoItemStateChanged
+
+    private void cbEspessuraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEspessuraItemStateChanged
+        if (this.cbEspessura.getSelectedIndex() == 0) {
+            this.tfLarguraBr.setText("0,015");
+            this.tfLarguraLiq.setText("0,015");
+        } else if (this.cbEspessura.getSelectedIndex() == 1) {
+            this.tfLarguraBr.setText("0,02");
+            this.tfLarguraLiq.setText("0,02");
+        } else if (this.cbEspessura.getSelectedIndex() == 2) {
+            this.tfLarguraBr.setText("0,03");
+            this.tfLarguraLiq.setText("0,03");
+        } else {
+            this.tfLarguraBr.setText("0,04");
+            this.tfLarguraLiq.setText("0,04");
+        }
+    }//GEN-LAST:event_cbEspessuraItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
