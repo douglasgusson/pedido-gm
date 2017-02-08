@@ -2,9 +2,11 @@ package br.com.pedidogm.dao.postgresql;
 
 import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.AcabamentoDAO;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.TipoItemDAO;
+import br.com.pedidogm.domain.Acabamento;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
@@ -32,7 +34,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                     = "INSERT INTO item_pedido(\n"
                     + "            id_material, id_pedido, id_tipo_item, quantidade, \n"
                     + "            comprimento_br, altura_br, largura_br, comprimento_liq, altura_liq, \n"
-                    + "            largura_liq, acabamento, metragem, valor_unitario, desconto, \n"
+                    + "            largura_liq, id_acabamento, metragem, valor_unitario, desconto, \n"
                     + "            valor_total)\n"
                     + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -48,7 +50,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 ps.setBigDecimal(8, itemPedido.getComprimentoLiq());
                 ps.setBigDecimal(9, itemPedido.getAlturaLiq());
                 ps.setBigDecimal(10, itemPedido.getLarguraLiq());
-                ps.setString(11, itemPedido.getAcabamento());
+                ps.setLong(11, itemPedido.getAcabamento().getId());
                 ps.setBigDecimal(12, itemPedido.getMetragem());
                 ps.setBigDecimal(13, itemPedido.getValorUnitario());
                 ps.setBigDecimal(14, itemPedido.getDesconto());
@@ -73,7 +75,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                     = "UPDATE item_pedido\n"
                     + "   SET id_material=?, id_pedido=?, id_tipo_item=?, \n"
                     + "       quantidade=?, comprimento_br=?, altura_br=?, largura_br=?, comprimento_liq=?, \n"
-                    + "       altura_liq=?, largura_liq=?, acabamento=?, metragem=?, valor_unitario=?, \n"
+                    + "       altura_liq=?, largura_liq=?, id_acabamento=?, metragem=?, valor_unitario=?, \n"
                     + "       desconto=?, valor_total=?\n"
                     + " WHERE id_item_pedido=? AND id_material=? AND id_pedido=?;";
 
@@ -90,7 +92,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 ps.setBigDecimal(8, itemPedido.getComprimentoLiq());
                 ps.setBigDecimal(9, itemPedido.getAlturaLiq());
                 ps.setBigDecimal(10, itemPedido.getLarguraLiq());
-                ps.setString(9, itemPedido.getAcabamento());
+                ps.setLong(9, itemPedido.getAcabamento().getId());
                 ps.setBigDecimal(11, itemPedido.getMetragem());
                 ps.setBigDecimal(12, itemPedido.getValorUnitario());
                 ps.setBigDecimal(13, itemPedido.getDesconto());
@@ -144,7 +146,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
             String query
                     = "SELECT id_item_pedido, id_material, id_pedido, id_tipo_item, quantidade, \n"
                     + "       comprimento_br, altura_br, largura_br, comprimento_liq, altura_liq, \n"
-                    + "       largura_liq, acabamento, metragem, valor_unitario, desconto, \n"
+                    + "       largura_liq, id_acabamento, metragem, valor_unitario, desconto, \n"
                     + "       valor_total\n"
                     + "  FROM item_pedido \n"
                     + "  WHERE id_pedido = ?;";
@@ -177,7 +179,11 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 itemPedido.setComprimentoLiq(rs.getBigDecimal(9));
                 itemPedido.setAlturaLiq(rs.getBigDecimal(10));
                 itemPedido.setLarguraLiq(rs.getBigDecimal(11));
-                itemPedido.setAcabamento(rs.getString(12));
+                
+                AcabamentoDAO acabamentoDAO = DAOFactory.getDefaultDAOFactory().getAcabamentoDAO();
+                Acabamento acabamento = acabamentoDAO.buscar(rs.getLong(12));                
+                itemPedido.setAcabamento(acabamento);                
+                
                 itemPedido.setMetragem(rs.getBigDecimal(13));
                 itemPedido.setValorUnitario(rs.getBigDecimal(14));
                 itemPedido.setDesconto(rs.getBigDecimal(15));
@@ -190,7 +196,7 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
             con.close();
 
         } catch (SQLException ex) {
-            throw new DAOException("Falha ao buscar pedido em PgPedidoDAO", ex);
+            throw new DAOException("Falha ao buscar item_pedido em PgItemPedidoDAO", ex);
         }
 
         return itensPedido;

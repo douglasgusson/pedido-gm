@@ -1,5 +1,6 @@
 package br.com.pedidogm.dao;
 
+import br.com.pedidogm.dao.model.AcabamentoDAO;
 import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
@@ -26,6 +27,7 @@ public abstract class DAOFactory {
     public abstract PedidoDAO getPedidoDAO();
     public abstract ItemPedidoDAO getItemPedidoDAO();
     public abstract TipoItemDAO getTipoItemDAO();
+    public abstract AcabamentoDAO getAcabamentoDAO();
     public abstract RelatorioDAO getRelatorioDAO();
     public abstract Connection getConnection();
 

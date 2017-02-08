@@ -19,7 +19,7 @@ public class ItemPedido {
     private BigDecimal comprimentoLiq;
     private BigDecimal alturaLiq;
     private BigDecimal larguraLiq;
-    private String acabamento;
+    private Acabamento acabamento;
     private BigDecimal metragem;
     private BigDecimal valorUnitario;
     private BigDecimal desconto;
@@ -113,11 +113,11 @@ public class ItemPedido {
         this.larguraLiq = larguraLiq;
     }
 
-    public String getAcabamento() {
+    public Acabamento getAcabamento() {
         return acabamento;
     }
 
-    public void setAcabamento(String acabamento) {
+    public void setAcabamento(Acabamento acabamento) {
         this.acabamento = acabamento;
     }
 

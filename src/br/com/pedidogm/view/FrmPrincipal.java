@@ -42,6 +42,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         itemPedidos = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        itemAcabamentos = new javax.swing.JMenuItem();
         menuUtiltarios = new javax.swing.JMenu();
         itemMudarSenha = new javax.swing.JMenuItem();
         itemConfiguracoes = new javax.swing.JMenuItem();
@@ -184,6 +186,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuCadastros.add(itemMateriais);
+        menuCadastros.add(jSeparator1);
+
+        itemAcabamentos.setText("Acabamentos");
+        itemAcabamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAcabamentosActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemAcabamentos);
 
         barraMenu.add(menuCadastros);
 
@@ -329,6 +340,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btLogoutActionPerformed(evt);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void itemAcabamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAcabamentosActionPerformed
+        FrmAcabamentos acabamentos = new FrmAcabamentos(this);
+        acabamentos.setVisible(true);
+    }//GEN-LAST:event_itemAcabamentosActionPerformed
+
     private void initialize() {
         setPermissoes();
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
@@ -353,6 +369,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btLogout;
     private javax.swing.JButton btSair;
+    private javax.swing.JMenuItem itemAcabamentos;
     private javax.swing.JMenuItem itemConfiguracoes;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JMenuItem itemMudarSenha;
@@ -365,6 +382,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lbAcesso;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbUsuario;

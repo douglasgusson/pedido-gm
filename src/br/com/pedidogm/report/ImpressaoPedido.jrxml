@@ -24,20 +24,21 @@
      item_pedido."comprimento_liq" AS item_pedido_comprimento_liq,
      item_pedido."altura_liq" AS item_pedido_altura_liq,
      item_pedido."largura_liq" AS item_pedido_largura_liq,
-     item_pedido."acabamento" AS item_pedido_acabamento,
      item_pedido."metragem" AS item_pedido_metragem,
      item_pedido."valor_unitario" AS item_pedido_valor_unitario,
      item_pedido."desconto" AS item_pedido_desconto,
      item_pedido."valor_total" AS item_pedido_valor_total,
      material."nome_material" AS material_nome_material,
      tipo_item."descricao" AS tipo_item_descricao,
-     item_pedido."id_tipo_item" AS item_pedido_id_tipo_item
+     item_pedido."id_tipo_item" AS item_pedido_id_tipo_item,
+     acabamento."descricao" AS acabamento_descricao
 FROM
      "public"."usuario" usuario INNER JOIN "public"."pedido" pedido ON usuario."id_usuario" = pedido."id_usuario"
      INNER JOIN "public"."cliente" cliente ON pedido."id_cliente" = cliente."id_cliente"
      INNER JOIN "public"."item_pedido" item_pedido ON pedido."id_pedido" = item_pedido."id_pedido"
      INNER JOIN "public"."tipo_item" tipo_item ON item_pedido."id_tipo_item" = tipo_item."id_tipo_item"
      INNER JOIN "public"."material" material ON item_pedido."id_material" = material."id_material"
+     INNER JOIN "public"."acabamento" acabamento ON item_pedido."id_acabamento" = acabamento."id_acabamento"
 WHERE
      pedido."id_pedido" = $P{ID_PEDIDO}]]>
 	</queryString>
@@ -57,7 +58,6 @@ WHERE
 	<field name="item_pedido_comprimento_liq" class="java.math.BigDecimal"/>
 	<field name="item_pedido_altura_liq" class="java.math.BigDecimal"/>
 	<field name="item_pedido_largura_liq" class="java.math.BigDecimal"/>
-	<field name="item_pedido_acabamento" class="java.lang.String"/>
 	<field name="item_pedido_metragem" class="java.math.BigDecimal"/>
 	<field name="item_pedido_valor_unitario" class="java.math.BigDecimal"/>
 	<field name="item_pedido_desconto" class="java.math.BigDecimal"/>
@@ -65,6 +65,7 @@ WHERE
 	<field name="material_nome_material" class="java.lang.String"/>
 	<field name="tipo_item_descricao" class="java.lang.String"/>
 	<field name="item_pedido_id_tipo_item" class="java.lang.Integer"/>
+	<field name="acabamento_descricao" class="java.lang.String"/>
 	<variable name="item_pedido_quantidade_1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{item_pedido_quantidade}]]></variableExpression>
 	</variable>
@@ -226,7 +227,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{item_pedido_acabamento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{acabamento_descricao}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="282" y="0" width="77" height="20" uuid="6d3e5678-8fe7-4eb8-95cf-f4ca6f05a0fe"/>

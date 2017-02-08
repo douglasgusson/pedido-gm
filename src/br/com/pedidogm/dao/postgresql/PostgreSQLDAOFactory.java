@@ -2,6 +2,7 @@ package br.com.pedidogm.dao.postgresql;
 
 import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.AcabamentoDAO;
 import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
@@ -114,6 +115,11 @@ public class PostgreSQLDAOFactory extends DAOFactory {
     @Override
     public TipoItemDAO getTipoItemDAO() {
         return new PgTipoItemDAO();
+    }
+
+    @Override
+    public AcabamentoDAO getAcabamentoDAO() {
+        return new PgAcabamentoDAO();
     }
 
 }
