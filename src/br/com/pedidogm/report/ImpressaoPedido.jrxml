@@ -380,7 +380,7 @@ WHERE
 				<textFieldExpression><![CDATA[String.format("%03d", $V{item_pedido_quantidade_1})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="359" y="8" width="55" height="11" uuid="df6beeda-1993-43c7-ba24-e76bca85644b"/>
+				<reportElement x="371" y="7" width="55" height="11" uuid="df6beeda-1993-43c7-ba24-e76bca85644b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
