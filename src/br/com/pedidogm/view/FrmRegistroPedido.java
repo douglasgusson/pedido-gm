@@ -380,6 +380,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         taObservacoes = new javax.swing.JTextArea();
         tfTotalPedido = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuCadastros = new javax.swing.JMenu();
+        itemClientes = new javax.swing.JMenuItem();
+        itemMateriais = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Pedido");
@@ -758,6 +762,28 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         taObservacoes.setRows(5);
         jScrollPane2.setViewportView(taObservacoes);
 
+        menuCadastros.setText("Cadastros");
+
+        itemClientes.setText("Clientes");
+        itemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemClientesActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemClientes);
+
+        itemMateriais.setText("Materiais");
+        itemMateriais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMateriaisActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemMateriais);
+
+        jMenuBar1.add(menuCadastros);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1124,6 +1150,16 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbEspessuraItemStateChanged
 
+    private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
+        FrmClientes clientes = new FrmClientes(this);
+        clientes.setVisible(true);
+    }//GEN-LAST:event_itemClientesActionPerformed
+
+    private void itemMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMateriaisActionPerformed
+        FrmMateriais materiais = new FrmMateriais(this);
+        materiais.setVisible(true);
+    }//GEN-LAST:event_itemMateriaisActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
     private javax.swing.JButton btAdicionar;
@@ -1131,6 +1167,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbAcabamento;
     private javax.swing.JComboBox cbEspessura;
     private javax.swing.JComboBox cbTipo;
+    private javax.swing.JMenuItem itemClientes;
+    private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1151,11 +1189,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbData;
+    private javax.swing.JMenu menuCadastros;
     private javax.swing.JTextArea taObservacoes;
     private javax.swing.JTable tbItensPedido;
     private javax.swing.JTextField tfAlturaBr;
