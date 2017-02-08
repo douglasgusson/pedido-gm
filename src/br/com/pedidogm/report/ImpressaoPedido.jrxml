@@ -14,13 +14,9 @@
      pedido."nome_motorista" AS pedido_nome_motorista,
      pedido."observacoes" AS pedido_observacoes,
      pedido."data_carregamento" AS pedido_data_carregamento,
-     pedido."id_usuario" AS pedido_id_usuario,
      usuario."nome_usuario" AS usuario_nome_usuario,
      usuario."nome_completo" AS usuario_nome_completo,
      cliente."nome_cliente" AS cliente_nome_cliente,
-     item_pedido."id_item_pedido" AS item_pedido_id_item_pedido,
-     item_pedido."id_material" AS item_pedido_id_material,
-     item_pedido."id_pedido" AS item_pedido_id_pedido,
      item_pedido."quantidade" AS item_pedido_quantidade,
      item_pedido."comprimento_br" AS item_pedido_comprimento_br,
      item_pedido."altura_br" AS item_pedido_altura_br,
@@ -34,34 +30,14 @@
      item_pedido."desconto" AS item_pedido_desconto,
      item_pedido."valor_total" AS item_pedido_valor_total,
      material."nome_material" AS material_nome_material,
-     tipo_item."id_tipo_item" AS tipo_item_id_tipo_item,
      tipo_item."descricao" AS tipo_item_descricao,
-     item_pedido."id_tipo_item" AS item_pedido_id_tipo_item,
-     item_pedido_A."id_item_pedido" AS item_pedido_A_id_item_pedido,
-     item_pedido_A."id_material" AS item_pedido_A_id_material,
-     item_pedido_A."id_pedido" AS item_pedido_A_id_pedido,
-     item_pedido_A."id_tipo_item" AS item_pedido_A_id_tipo_item,
-     item_pedido_A."quantidade" AS item_pedido_A_quantidade,
-     item_pedido_A."comprimento_br" AS item_pedido_A_comprimento_br,
-     item_pedido_A."altura_br" AS item_pedido_A_altura_br,
-     item_pedido_A."largura_br" AS item_pedido_A_largura_br,
-     item_pedido_A."comprimento_liq" AS item_pedido_A_comprimento_liq,
-     item_pedido_A."altura_liq" AS item_pedido_A_altura_liq,
-     item_pedido_A."largura_liq" AS item_pedido_A_largura_liq,
-     item_pedido_A."acabamento" AS item_pedido_A_acabamento,
-     item_pedido_A."metragem" AS item_pedido_A_metragem,
-     item_pedido_A."valor_unitario" AS item_pedido_A_valor_unitario,
-     item_pedido_A."desconto" AS item_pedido_A_desconto,
-     item_pedido_A."valor_total" AS item_pedido_A_valor_total
+     item_pedido."id_tipo_item" AS item_pedido_id_tipo_item
 FROM
      "public"."usuario" usuario INNER JOIN "public"."pedido" pedido ON usuario."id_usuario" = pedido."id_usuario"
      INNER JOIN "public"."cliente" cliente ON pedido."id_cliente" = cliente."id_cliente"
      INNER JOIN "public"."item_pedido" item_pedido ON pedido."id_pedido" = item_pedido."id_pedido"
-     INNER JOIN "public"."item_pedido" item_pedido_A ON pedido."id_pedido" = item_pedido_A."id_pedido"
-     INNER JOIN "public"."material" material ON item_pedido_A."id_material" = material."id_material"
-     INNER JOIN "public"."tipo_item" tipo_item ON item_pedido_A."id_tipo_item" = tipo_item."id_tipo_item"
-     AND item_pedido."id_tipo_item" = tipo_item."id_tipo_item"
-     AND item_pedido."id_material" = material."id_material"
+     INNER JOIN "public"."tipo_item" tipo_item ON item_pedido."id_tipo_item" = tipo_item."id_tipo_item"
+     INNER JOIN "public"."material" material ON item_pedido."id_material" = material."id_material"
 WHERE
      pedido."id_pedido" = $P{ID_PEDIDO}]]>
 	</queryString>
@@ -71,13 +47,9 @@ WHERE
 	<field name="pedido_nome_motorista" class="java.lang.String"/>
 	<field name="pedido_observacoes" class="java.lang.String"/>
 	<field name="pedido_data_carregamento" class="java.sql.Date"/>
-	<field name="pedido_id_usuario" class="java.lang.Integer"/>
 	<field name="usuario_nome_usuario" class="java.lang.String"/>
 	<field name="usuario_nome_completo" class="java.lang.String"/>
 	<field name="cliente_nome_cliente" class="java.lang.String"/>
-	<field name="item_pedido_id_item_pedido" class="java.lang.Integer"/>
-	<field name="item_pedido_id_material" class="java.lang.Integer"/>
-	<field name="item_pedido_id_pedido" class="java.lang.Integer"/>
 	<field name="item_pedido_quantidade" class="java.lang.Integer"/>
 	<field name="item_pedido_comprimento_br" class="java.math.BigDecimal"/>
 	<field name="item_pedido_altura_br" class="java.math.BigDecimal"/>
@@ -91,25 +63,8 @@ WHERE
 	<field name="item_pedido_desconto" class="java.math.BigDecimal"/>
 	<field name="item_pedido_valor_total" class="java.math.BigDecimal"/>
 	<field name="material_nome_material" class="java.lang.String"/>
-	<field name="tipo_item_id_tipo_item" class="java.lang.Integer"/>
 	<field name="tipo_item_descricao" class="java.lang.String"/>
 	<field name="item_pedido_id_tipo_item" class="java.lang.Integer"/>
-	<field name="item_pedido_a_id_item_pedido" class="java.lang.Integer"/>
-	<field name="item_pedido_a_id_material" class="java.lang.Integer"/>
-	<field name="item_pedido_a_id_pedido" class="java.lang.Integer"/>
-	<field name="item_pedido_a_id_tipo_item" class="java.lang.Integer"/>
-	<field name="item_pedido_a_quantidade" class="java.lang.Integer"/>
-	<field name="item_pedido_a_comprimento_br" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_altura_br" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_largura_br" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_comprimento_liq" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_altura_liq" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_largura_liq" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_acabamento" class="java.lang.String"/>
-	<field name="item_pedido_a_metragem" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_valor_unitario" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_desconto" class="java.math.BigDecimal"/>
-	<field name="item_pedido_a_valor_total" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
