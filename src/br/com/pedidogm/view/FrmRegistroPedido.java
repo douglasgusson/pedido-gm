@@ -31,6 +31,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 
@@ -161,7 +162,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         FocusAdapter calcularMetragem = new FocusAdapter() {
             @Override
-            public void focusLost(FocusEvent evt) {
+            public void focusLost(FocusEvent evt) {                
                 calcularMetragem();
             }
         };
@@ -171,6 +172,30 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfAlturaLiq.addFocusListener(calcularMetragem);
         tfLarguraLiq.addFocusListener(calcularMetragem);
         tfQuantidade.addFocusListener(calcularMetragem);
+        
+        
+        FocusAdapter setBorderDefault = new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent evt) {
+                JTextField field = (JTextField) evt.getSource();
+                if (!field.getText().trim().equals("")) {
+                    field.setBorder(borderDefault);
+                }
+            }
+        };
+
+        tfQuantidade.addFocusListener(setBorderDefault);
+        tfMaterial.addFocusListener(setBorderDefault);
+        tfComprimentoBr.addFocusListener(setBorderDefault);
+        tfAlturaBr.addFocusListener(setBorderDefault);
+        tfLarguraBr.addFocusListener(setBorderDefault);
+        tfComprimentoLiq.addFocusListener(setBorderDefault);
+        tfAlturaLiq.addFocusListener(setBorderDefault);
+        tfLarguraLiq.addFocusListener(setBorderDefault);
+        tfMetragem.addFocusListener(setBorderDefault);
+        tfValorUnitario.addFocusListener(setBorderDefault);
+        tfDesconto.addFocusListener(setBorderDefault);
+        tfTotalItem.addFocusListener(setBorderDefault);
 
         modeloComboBoxTipoItem = new DefaultComboBoxModel<>(tipos);
         cbTipo.setModel(modeloComboBoxTipoItem);
@@ -179,20 +204,30 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void limparCamposItem() {
         tfMaterial.setText("");
+        tfMaterial.setBorder(borderDefault);
         tfQuantidade.setText("");
-        tfMetragem.setText("");
+        tfQuantidade.setBorder(borderDefault);
         tfComprimentoBr.setText("");
+        tfComprimentoBr.setBorder(borderDefault);
         tfComprimentoLiq.setText("");
+        tfComprimentoLiq.setBorder(borderDefault);
         tfAlturaBr.setText("");
+        tfAlturaBr.setBorder(borderDefault);
         tfAlturaLiq.setText("");
+        tfAlturaLiq.setBorder(borderDefault);
         tfLarguraBr.setText("");
+        tfLarguraBr.setBorder(borderDefault);
         tfLarguraLiq.setText("");
-        tfLarguraLiq.setText("");
+        tfLarguraLiq.setBorder(borderDefault);
         tfMetragem.setText("");
+        tfMetragem.setBorder(borderDefault);
         tfValorUnitario.setText("");
+        tfValorUnitario.setBorder(borderDefault);
         tfDesconto.setText("0,00");
+        tfDesconto.setBorder(borderDefault);
         tfValorDesconto.setText("0,00");
         tfTotalItem.setText("0,00");
+        tfTotalItem.setBorder(borderDefault);
     }
 
     public void setCliente(Cliente cliente) {
@@ -210,9 +245,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             case METRO_CUBICO:
                 this.tfLarguraBr.setEnabled(true);
                 this.tfLarguraLiq.setEnabled(true);
-                this.cbAcabamento.setEnabled(false);
                 this.cbEspessura.setEnabled(false);
-                this.cbAcabamento.setSelectedItem("BRUTO");
                 break;
             default:
                 this.tfLarguraBr.setEnabled(false);
@@ -244,14 +277,20 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         switch (ref) {
             case METRO_QUADRADO:
-                metragem = compLiq.multiply(altLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
+                try {
+                    metragem = compLiq.multiply(altLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
+                } catch (NumberFormatException e) {
+                }
                 break;
             case METRO_CUBICO:
-                metragem = compLiq.multiply(altLiq).multiply(largLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
+                try {
+                    metragem = compLiq.multiply(altLiq).multiply(largLiq).multiply(new BigDecimal(quant)).setScale(3, RoundingMode.HALF_EVEN);
+                } catch (NumberFormatException e) {
+                }
                 break;
 
         }
-        
+
         this.tfMetragem.setText(metragem.toString().replace(".", ","));
 
         calcularValores();
@@ -330,7 +369,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         cbEspessura = new javax.swing.JComboBox();
         tfValorDesconto = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btAdicionar = new javax.swing.JButton();
         cbTipo = new javax.swing.JComboBox();
         lbData = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -529,11 +568,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel17.setText("Total:");
 
         tfTotalItem.setText("0,00");
-        tfTotalItem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfTotalItemFocusLost(evt);
-            }
-        });
 
         jLabel18.setText("Espessura:");
 
@@ -552,12 +586,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel19.setText("Desc. (R$):");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/add_16x16.png"))); // NOI18N
-        jButton1.setMnemonic('A');
-        jButton1.setText("Adicionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/add_16x16.png"))); // NOI18N
+        btAdicionar.setMnemonic('A');
+        btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btAdicionarActionPerformed(evt);
             }
         });
 
@@ -647,7 +681,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbAcabamento, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(btAdicionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -702,7 +736,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTotalItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfValorDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btAdicionar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -890,47 +924,83 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbEspessuraFocusLost
 
-    private void tfTotalItemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTotalItemFocusLost
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
 
+        if ((this.tfQuantidade.getText().trim()).equals("")) {
+            this.tfQuantidade.setBorder(borderRed);
+            this.tfQuantidade.requestFocus();
+        } else if ((this.tfMaterial.getText().trim()).equals("")) {
+            this.tfMaterial.setBorder(borderRed);
+            this.tfMaterial.requestFocus();
+        } else if ((this.tfComprimentoBr.getText().trim()).equals("")) {
+            this.tfComprimentoBr.setBorder(borderRed);
+            this.tfComprimentoBr.requestFocus();
+        } else if ((this.tfAlturaBr.getText().trim()).equals("")) {
+            this.tfAlturaBr.setBorder(borderRed);
+            this.tfAlturaBr.requestFocus();
+        } else if ((this.tfLarguraBr.getText().trim()).equals("")) {
+            this.tfLarguraBr.setBorder(borderRed);
+            this.tfLarguraBr.requestFocus();
+        } else if ((this.tfComprimentoLiq.getText().trim()).equals("")) {
+            this.tfComprimentoLiq.setBorder(borderRed);
+            this.tfComprimentoLiq.requestFocus();
+        } else if ((this.tfAlturaLiq.getText().trim()).equals("")) {
+            this.tfAlturaLiq.setBorder(borderRed);
+            this.tfAlturaLiq.requestFocus();
+        } else if ((this.tfLarguraLiq.getText().trim()).equals("")) {
+            this.tfLarguraLiq.setBorder(borderRed);
+            this.tfLarguraLiq.requestFocus();
+        } else if ((this.tfMetragem.getText().trim()).equals("")) {
+            this.tfMetragem.setBorder(borderRed);
+            this.tfMetragem.requestFocus();
+        } else if ((this.tfValorUnitario.getText().trim()).equals("")) {
+            this.tfValorUnitario.setBorder(borderRed);
+            this.tfValorUnitario.requestFocus();
+        } else if ((this.tfDesconto.getText().trim()).equals("")) {
+            this.tfDesconto.setBorder(borderRed);
+            this.tfDesconto.requestFocus();
+        } else if ((this.tfTotalItem.getText().trim()).equals("")) {
+            this.tfTotalItem.setBorder(borderRed);
+            this.tfTotalItem.requestFocus();
+        } else {
 
-    }//GEN-LAST:event_tfTotalItemFocusLost
+            try {
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                ItemPedido itemPedido = new ItemPedido();
 
-        try {
+                itemPedido.setMaterial(this.material);
+                TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
+                itemPedido.setTipoItem(ti);
 
-            ItemPedido itemPedido = new ItemPedido();
+                itemPedido.setQuantidade(Long.parseLong(this.tfQuantidade.getText()));
+                itemPedido.setComprimentoBr(new BigDecimal(this.tfComprimentoBr.getText().replace(",", ".")));
+                itemPedido.setAlturaBr(new BigDecimal(this.tfAlturaBr.getText().replace(",", ".")));
+                itemPedido.setLarguraBr(new BigDecimal(this.tfLarguraBr.getText().replace(",", ".")));
+                itemPedido.setComprimentoLiq(new BigDecimal(this.tfComprimentoLiq.getText().replace(",", ".")));
+                itemPedido.setAlturaLiq(new BigDecimal(this.tfAlturaLiq.getText().replace(",", ".")));
+                itemPedido.setLarguraLiq(new BigDecimal(this.tfLarguraLiq.getText().replace(",", ".")));
+                itemPedido.setAcabamento(this.cbAcabamento.getSelectedItem().toString());
+                itemPedido.setMetragem(new BigDecimal(this.tfMetragem.getText().replace(",", ".")));
+                itemPedido.setValorUnitario(new BigDecimal(this.tfValorUnitario.getText().replace(",", ".")));
+                itemPedido.setDesconto(new BigDecimal(this.tfDesconto.getText().replace(",", ".")));
+                itemPedido.setValorTotal(new BigDecimal(this.tfTotalItem.getText().replace(",", ".")));
 
-            itemPedido.setMaterial(this.material);
-            TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
-            itemPedido.setTipoItem(ti);
+                this.totalPedido = this.totalPedido.add(itemPedido.getValorTotal());
+                this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
 
-            itemPedido.setQuantidade(Long.parseLong(this.tfQuantidade.getText()));
-            itemPedido.setComprimentoBr(new BigDecimal(this.tfComprimentoBr.getText().replace(",", ".")));
-            itemPedido.setAlturaBr(new BigDecimal(this.tfAlturaBr.getText().replace(",", ".")));
-            itemPedido.setLarguraBr(new BigDecimal(this.tfLarguraBr.getText().replace(",", ".")));
-            itemPedido.setComprimentoLiq(new BigDecimal(this.tfComprimentoLiq.getText().replace(",", ".")));
-            itemPedido.setAlturaLiq(new BigDecimal(this.tfAlturaLiq.getText().replace(",", ".")));
-            itemPedido.setLarguraLiq(new BigDecimal(this.tfLarguraLiq.getText().replace(",", ".")));
-            itemPedido.setAcabamento(this.cbAcabamento.getSelectedItem().toString());
-            itemPedido.setMetragem(new BigDecimal(this.tfMetragem.getText().replace(",", ".")));
-            itemPedido.setValorUnitario(new BigDecimal(this.tfValorUnitario.getText().replace(",", ".")));
-            itemPedido.setDesconto(new BigDecimal(this.tfDesconto.getText().replace(",", ".")));
-            itemPedido.setValorTotal(new BigDecimal(this.tfTotalItem.getText().replace(",", ".")));
+                itensPedido.add(itemPedido);
+                atualizarTabela();
+                limparCamposItem();
+                metragem = new BigDecimal("0.00");
+                tfQuantidade.requestFocus();
 
-            this.totalPedido = this.totalPedido.add(itemPedido.getValorTotal());
-            this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Formato inválido para número. \nERRO:" + e);
+            }
 
-            itensPedido.add(itemPedido);
-            atualizarTabela();
-            limparCamposItem();
-            tfQuantidade.requestFocus();
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Formato inválido para número. \nERRO:" + e);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void tfComprimentoBrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfComprimentoBrFocusLost
 
@@ -989,6 +1059,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorUnitarioFocusLost
 
     private void tfDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDescontoFocusLost
+        if ((this.tfDesconto.getText().trim()).equals("")) {
+            this.tfDesconto.setText("0,00");
+        }
         calcularValores();
     }//GEN-LAST:event_tfDescontoFocusLost
 
@@ -1003,11 +1076,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
+    private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btGravar;
     private javax.swing.JComboBox<String> cbAcabamento;
     private javax.swing.JComboBox cbEspessura;
     private javax.swing.JComboBox cbTipo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
