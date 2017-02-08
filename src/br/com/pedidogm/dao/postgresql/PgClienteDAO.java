@@ -244,7 +244,8 @@ public class PgClienteDAO implements ClienteDAO {
                     + "    data_atualizacao\n"
                     + "  FROM cliente WHERE LOWER(nome_cliente) "
                     + "    LIKE '%" + str.toLowerCase() + "%'"
-                    + "      OR LOWER(apelido) LIKE '%" + str.toLowerCase() + "%';";
+                    + "      OR LOWER(apelido) LIKE '%" + str.toLowerCase() + "%' \n"
+                    + "  ORDER BY nome_cliente;";
 
             PreparedStatement ps = con.prepareStatement(query);
 

@@ -181,7 +181,8 @@ public class PgMaterialDAO implements MaterialDAO {
                     + "    data_criacao, \n"
                     + "    data_atualizacao \n"
                     + "  FROM material WHERE LOWER(nome_material) "
-                    + "LIKE '%" + str.toLowerCase() + "%';";
+                    + "LIKE '%" + str.toLowerCase() + "%' \n"
+                    + "  ORDER BY nome_material;";
 
             PreparedStatement ps = con.prepareStatement(query);
 
