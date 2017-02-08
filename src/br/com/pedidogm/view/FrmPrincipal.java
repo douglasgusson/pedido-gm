@@ -43,6 +43,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        itemTipos = new javax.swing.JMenuItem();
         itemAcabamentos = new javax.swing.JMenuItem();
         menuUtiltarios = new javax.swing.JMenu();
         itemMudarSenha = new javax.swing.JMenuItem();
@@ -187,6 +188,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemMateriais);
         menuCadastros.add(jSeparator1);
+
+        itemTipos.setText("Tipos de Item");
+        itemTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTiposActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemTipos);
 
         itemAcabamentos.setText("Acabamentos");
         itemAcabamentos.addActionListener(new java.awt.event.ActionListener() {
@@ -345,6 +354,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         acabamentos.setVisible(true);
     }//GEN-LAST:event_itemAcabamentosActionPerformed
 
+    private void itemTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTiposActionPerformed
+        FrmTiposItem tiposItem = new FrmTiposItem(this);
+        tiposItem.setVisible(true);
+    }//GEN-LAST:event_itemTiposActionPerformed
+
     private void initialize() {
         setPermissoes();
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
@@ -375,6 +389,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMudarSenha;
     private javax.swing.JMenuItem itemPedidos;
     private javax.swing.JMenuItem itemSobre;
+    private javax.swing.JMenuItem itemTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
