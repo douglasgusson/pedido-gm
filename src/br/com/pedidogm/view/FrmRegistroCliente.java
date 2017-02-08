@@ -5,9 +5,12 @@ import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.domain.Cliente;
 import java.awt.Color;
 import java.awt.Window;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 /**
@@ -26,7 +29,7 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
 
     Border borderRed = BorderFactory.createLineBorder(Color.red);
     Border borderDefault = BorderFactory.createLineBorder(Color.gray);
-    
+
     /**
      * Creates new form FrmRegistroCliente
      *
@@ -78,6 +81,19 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
         this.taObservacoes.setText("");
         this.tfNome.requestFocus();
         getRootPane().setDefaultButton(btGravar);
+
+        FocusAdapter setBorderDefault = new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent evt) {
+                JTextField field = (JTextField) evt.getSource();
+                if (!field.getText().trim().equals("")) {
+                    field.setBorder(borderDefault);
+                }
+            }
+        };
+
+        tfNome.addFocusListener(setBorderDefault);
+
     }
 
     /**
@@ -238,7 +254,7 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
             switch (opcao) {
 
                 case OPCAO_INSERIR:
-                    
+
                     c.setNome(this.tfNome.getText().trim());
                     c.setApelido(this.tfApelido.getText().trim());
                     c.setTelefone(this.tfTelefone.getText());
@@ -270,7 +286,7 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
 
                     break;
             }
-            
+
             FrmClientes frmClientes = FrmClientes.getInstancia();
             frmClientes.atualizarTabela();
 
