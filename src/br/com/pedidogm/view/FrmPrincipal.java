@@ -4,6 +4,7 @@ import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -366,6 +367,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lbNome.setText(Sessao.getUsuario().getNomeCompleto());
         setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
         setIcon(this);
+
+        if (Sessao.getUsuario().isNovaSenha()) {
+            JOptionPane.showMessageDialog(null, "Por motivos de segurança, será necessário mudar sua senha.");
+            FrmMudaSenha mudaSenha = new FrmMudaSenha(this);
+            mudaSenha.setVisible(true);
+        }
+
     }
 
     private void setIcon(Window w) {

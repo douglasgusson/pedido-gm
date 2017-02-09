@@ -67,6 +67,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         this.tfSenha.setText("");
         this.tfConfirmacao.setText("");
         this.ckNovaSenha.setSelected(true);
+        this.ckNovaSenha.setEnabled(false);
         this.ckAtivo.setSelected(true);
         this.ckAdministrador.setSelected(false);
     }
@@ -115,6 +116,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
             }
         });
 
+        ckNovaSenha.setSelected(true);
         ckNovaSenha.setText("Nova senha");
 
         ckAtivo.setText("Ativo");

@@ -223,6 +223,7 @@ public class FrmMudaSenha extends javax.swing.JDialog {
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         Usuario u = Sessao.getUsuario();
         u.setSenha(Seguranca.criptografarSHA256(tfNovaSenha.getText()));
+        u.setNovaSenha(false);
         UsuarioDAO udao = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
         udao.alterar(u);
         initialize();
