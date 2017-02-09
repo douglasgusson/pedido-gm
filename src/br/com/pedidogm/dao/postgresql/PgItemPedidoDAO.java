@@ -92,15 +92,15 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 ps.setBigDecimal(8, itemPedido.getComprimentoLiq());
                 ps.setBigDecimal(9, itemPedido.getAlturaLiq());
                 ps.setBigDecimal(10, itemPedido.getLarguraLiq());
-                ps.setLong(9, itemPedido.getAcabamento().getId());
-                ps.setBigDecimal(11, itemPedido.getMetragem());
-                ps.setBigDecimal(12, itemPedido.getValorUnitario());
-                ps.setBigDecimal(13, itemPedido.getDesconto());
-                ps.setBigDecimal(14, itemPedido.getValorTotal());
+                ps.setLong(11, itemPedido.getAcabamento().getId());
+                ps.setBigDecimal(12, itemPedido.getMetragem());
+                ps.setBigDecimal(13, itemPedido.getValorUnitario());
+                ps.setBigDecimal(14, itemPedido.getDesconto());
+                ps.setBigDecimal(15, itemPedido.getValorTotal());
 
-                ps.setLong(15, itemPedido.getId());
-                ps.setLong(16, itemPedido.getMaterial().getId());
-                ps.setLong(17, itemPedido.getPedido().getId());
+                ps.setLong(16, itemPedido.getId());
+                ps.setLong(17, itemPedido.getMaterial().getId());
+                ps.setLong(18, itemPedido.getPedido().getId());
 
                 ps.executeUpdate();
             }

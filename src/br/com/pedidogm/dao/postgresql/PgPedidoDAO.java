@@ -149,12 +149,13 @@ public class PgPedidoDAO implements PedidoDAO {
                 ps.setDate(6, Date.valueOf(pedido.getDataCarregamento()));
                 ps.setTimestamp(7, Timestamp.valueOf(pedido.getCriacao()));
                 ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
-                ps.setLong(9, pedido.getId());
-                ps.setLong(10, pedido.getUsuario().getId());
+                ps.setLong(9, pedido.getUsuario().getId());
+                ps.setLong(10, pedido.getId());
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
                 for (ItemPedido ip : pedido.getItensPedido()) {
+                    ip.setPedido(pedido);
                     itemPedidoDAO.alterar(ip);
                 }
 

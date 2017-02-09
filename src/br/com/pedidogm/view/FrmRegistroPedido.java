@@ -18,10 +18,12 @@ import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -32,7 +34,9 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
@@ -47,7 +51,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private Cliente cliente = new Cliente();
     private Material material = new Material();
-    private Pedido pedido = new Pedido();
+    private Pedido pedido;
     private List<Pedido> listaPedidos = new ArrayList<>();
     private List<ItemPedido> itensPedido = new ArrayList<>();
     private BigDecimal totalPedido = new BigDecimal("0");
@@ -97,8 +101,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         if (index >= 0 && index < listaPedidos.size()) {
             this.indexRegistro = index;
             this.opcao = OPCAO_ALTERAR;
-            this.pedido = lista.get(indexRegistro);
-            System.out.println(indexRegistro + ", " + listaPedidos.size());
+            this.pedido = listaPedidos.get(indexRegistro);
             preencherCampos();
         }
     }
@@ -109,14 +112,22 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }
 
     private void preencherCampos() {
+
         this.tfNomeCliente.setText(pedido.getCliente().getNome());
+        this.lbData.setText(pedido.getDataCarregamento().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
+        this.tfTotalPedido.setText(pedido.getValor().toString().replace(".", ","));
+        this.tfPlaca.setText(pedido.getPlaca());
+        this.tfMotorista.setText(pedido.getMotorista());
         this.taObservacoes.setText(pedido.getObservacoes());
+        this.itensPedido = pedido.getItensPedido();
+        atualizarTabela();
     }
 
     private void initialize() {
 
         itensPedido.clear();
         atualizarTabela();
+        menuContextoTabelaItens();
 
         tfNomeCliente.setText("");
         tfNomeCliente.requestFocus();
@@ -126,7 +137,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfTotalPedido.setText("0,00");
         limparCamposItem();
 
-        lbData.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy, HH:mm")));
+        lbData.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
 
         KeyAdapter somenteNumeros = new KeyAdapter() {
             @Override
@@ -323,6 +334,92 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         this.tfValorDesconto.setText(valorDesconto.toString().replace(".", ","));
         this.tfTotalItem.setText(totalItem.toString().replace(".", ","));
+
+    }
+
+    private void menuContextoTabelaItens() {
+
+        JPopupMenu popUpMenu = new JPopupMenu();
+
+        JMenuItem itemAlterar = new JMenuItem("Alterar");
+
+        itemAlterar.addActionListener(
+                (ActionEvent e) -> {
+                    int index = tbItensPedido.getSelectedRow();
+                    if (index != -1) {
+                        ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
+                        ItemPedido item = obj.get(index);
+                        preencherItem(item);
+                        tfMaterial.requestFocus();
+                        itensPedido.remove(item);
+                        tbItensPedido.setModel(new ItemPedidoTableModel(itensPedido));
+                    }
+                }
+        );
+
+        JMenuItem itemExcluir = new JMenuItem("Excluir");
+
+        itemExcluir.addActionListener(
+                (ActionEvent e) -> {
+                    int index = tbItensPedido.getSelectedRow();
+                    if (index != -1) {
+                        ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
+                        ItemPedido item = obj.get(index);
+                        itensPedido.remove(item);
+                        tbItensPedido.setModel(new ItemPedidoTableModel(itensPedido));
+                    }
+                }
+        );
+
+        popUpMenu.add(itemAlterar);
+        popUpMenu.addSeparator();
+        popUpMenu.add(itemExcluir);
+
+        tbItensPedido.addMouseListener(
+                new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON3) {
+                            popUpMenu.show(tbItensPedido, e.getX(), e.getY());
+                        }
+                    }
+                }
+        );
+
+        tbItensPedido.addKeyListener(
+                new java.awt.event.KeyAdapter() {
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        if (e.getKeyCode() == KeyEvent.VK_CONTEXT_MENU) {
+                            if (!itensPedido.isEmpty()) {
+                                popUpMenu.show(tbItensPedido, 200, 100);
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void preencherItem(ItemPedido ip) {
+        
+        tfQuantidade.setText(ip.getQuantidade().toString());
+        setMaterial(ip.getMaterial());
+        cbTipo.setSelectedItem(ip.getTipoItem());
+        
+        tfComprimentoBr.setText(ip.getComprimentoBr().toString().replace(".", ","));
+        tfAlturaBr.setText(ip.getAlturaBr().toString().replace(".", ","));
+        tfLarguraBr.setText(ip.getLarguraBr().toString().replace(".", ","));
+        
+        tfComprimentoLiq.setText(ip.getComprimentoLiq().toString().replace(".", ","));
+        tfAlturaLiq.setText(ip.getAlturaLiq().toString().replace(".", ","));
+        tfLarguraLiq.setText(ip.getLarguraLiq().toString().replace(".", ","));
+        
+        cbAcabamento.setSelectedItem(ip.getAcabamento());
+        
+        tfMetragem.setText(ip.getMetragem().toString().replace(".", ","));
+        tfValorUnitario.setText(ip.getValorUnitario().toString().replace(".", ","));
+        tfDesconto.setText(ip.getDesconto().toString().replace(".", ","));
+        tfValorDesconto.setText("()()()()");
+        tfTotalItem.setText(ip.getValorTotal().toString().replace(".", ","));
 
     }
 
@@ -870,11 +967,14 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         } else {
 
             PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
-            Pedido p = new Pedido();
+            ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
             switch (opcao) {
 
                 case OPCAO_INSERIR:
+
+                    Pedido p = new Pedido();
+
                     p.setCliente(cliente);
                     p.setValor(new BigDecimal(this.tfTotalPedido.getText().replace(",", ".")));
                     p.setPlaca(this.tfPlaca.getText());
@@ -888,8 +988,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
                     pedidoDAO.inserir(p);
 
-                    ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
-
                     Pedido ultimoPedido = pedidoDAO.buscarUltimoPedido();
 
                     for (int i = 0; i < itensPedido.size(); i++) {
@@ -900,6 +998,25 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     break;
 
                 case OPCAO_ALTERAR:
+
+                    pedido.setCliente(cliente);
+                    pedido.setValor(new BigDecimal(this.tfTotalPedido.getText().replace(",", ".")));
+                    pedido.setPlaca(this.tfPlaca.getText());
+                    pedido.setMotorista(this.tfMotorista.getText());
+                    pedido.setObservacoes(this.taObservacoes.getText());
+                    pedido.setDataCarregamento(LocalDate.now());
+                    pedido.setCriacao(LocalDateTime.now());
+                    pedido.setAlteracao(LocalDateTime.now());
+
+                    pedido.setUsuario(Sessao.getUsuario());
+
+                    pedidoDAO.alterar(pedido);
+
+                    for (int i = 0; i < itensPedido.size(); i++) {
+                        itensPedido.get(i).setPedido(pedido);
+                        itemPedidoDAO.alterar(itensPedido.get(i));
+                    }
+
                     break;
             }
 
