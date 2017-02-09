@@ -4,6 +4,7 @@ import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.domain.Pedido;
+import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.table.model.PedidoTableModel;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -174,10 +175,17 @@ public class FrmPedidos extends javax.swing.JDialog {
         if (indice == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
-            FrmRegistroPedido registroPedido
-                    = new FrmRegistroPedido(this,
-                            ((PedidoTableModel) tbPedidos.getModel()).getColecao(), indice);
-            registroPedido.setVisible(true);
+
+            Pedido p = ((PedidoTableModel) tbPedidos.getModel()).getColecao().get(indice);
+
+            if (Sessao.getUsuario().getNomeUsuario().equals(p.getUsuario().getNomeUsuario())) {
+                FrmRegistroPedido registroPedido
+                        = new FrmRegistroPedido(this,
+                                ((PedidoTableModel) tbPedidos.getModel()).getColecao(), indice);
+                registroPedido.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Desculpe. Você pode apenas alterar pedidos emitidos por você mesmo.");
+            }
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
@@ -188,16 +196,21 @@ public class FrmPedidos extends javax.swing.JDialog {
         } else {
             Pedido p = ((PedidoTableModel) tbPedidos.getModel()).getColecao().get(indice);
 
-            int i = JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir este pedido?\n"
-                    + p.getId() + " - " + p.getCliente().getNome(),
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (i == JOptionPane.YES_OPTION) {
-                PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
-                pedidoDAO.excluir(p);
-                atualizarTabela();
+            if (Sessao.getUsuario().getNomeUsuario().equals(p.getUsuario().getNomeUsuario())) {
+                int i = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente excluir este pedido?\n"
+                        + p.getId() + " - " + p.getCliente().getNome(),
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (i == JOptionPane.YES_OPTION) {
+                    PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
+                    pedidoDAO.excluir(p);
+                    atualizarTabela();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Desculpe. Você pode apenas excluir pedidos emitidos por você mesmo.");
             }
+
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
