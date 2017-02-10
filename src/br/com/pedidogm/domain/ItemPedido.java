@@ -153,4 +153,9 @@ public class ItemPedido {
         this.valorTotal = valorTotal;
     }
 
+    @Override
+    public String toString() {
+        return this.getId() + " - " + this.getMaterial().getNome();
+    }
+
 }

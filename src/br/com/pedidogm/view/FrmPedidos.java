@@ -60,6 +60,13 @@ public class FrmPedidos extends javax.swing.JDialog {
         tbPedidos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -236,6 +243,10 @@ public class FrmPedidos extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btImprimirActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        atualizarTabela();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;

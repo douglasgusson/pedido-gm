@@ -54,8 +54,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private Pedido pedido;
     private List<Pedido> listaPedidos = new ArrayList<>();
     private List<ItemPedido> itensPedido = new ArrayList<>();
+    private List<ItemPedido> itensPedidoExclusao = new ArrayList<>();
     private BigDecimal totalPedido = new BigDecimal("0");
     private BigDecimal metragem = new BigDecimal("0.00");
+    private Long idItem;
 
     private Vector<TipoItem> tipos;
     private DefaultComboBoxModel<TipoItem> modeloComboBoxTipoItem;
@@ -84,6 +86,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     public FrmRegistroPedido(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
+        this.idItem = (long) -1;
         initComponents();
         INSTANCIA = this;
         initialize();
@@ -113,6 +116,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void preencherCampos() {
 
+        this.totalPedido = pedido.getValor();
+        
         this.tfNomeCliente.setText(pedido.getCliente().getNome());
         this.lbData.setText(pedido.getDataCarregamento().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
         this.tfTotalPedido.setText(pedido.getValor().toString().replace(".", ","));
@@ -223,6 +228,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }
 
     private void limparCamposItem() {
+        this.idItem = (long) -1;
         tfMaterial.setText("");
         tfMaterial.setBorder(borderDefault);
         tfQuantidade.setText("");
@@ -349,8 +355,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     if (index != -1) {
                         ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
                         ItemPedido item = obj.get(index);
+                        this.totalPedido = this.totalPedido.subtract(item.getValorTotal());
+                        this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
+                        idItem = item.getId();
                         preencherItem(item);
-                        tfMaterial.requestFocus();
+                        tfQuantidade.requestFocus();
                         itensPedido.remove(item);
                         tbItensPedido.setModel(new ItemPedidoTableModel(itensPedido));
                     }
@@ -365,6 +374,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     if (index != -1) {
                         ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
                         ItemPedido item = obj.get(index);
+                        this.totalPedido = this.totalPedido.subtract(item.getValorTotal());
+                        this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
+                        this.itensPedidoExclusao.add(item);
                         itensPedido.remove(item);
                         tbItensPedido.setModel(new ItemPedidoTableModel(itensPedido));
                     }
@@ -400,21 +412,21 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }
 
     private void preencherItem(ItemPedido ip) {
-        
+
         tfQuantidade.setText(ip.getQuantidade().toString());
         setMaterial(ip.getMaterial());
         cbTipo.setSelectedItem(ip.getTipoItem());
-        
+
         tfComprimentoBr.setText(ip.getComprimentoBr().toString().replace(".", ","));
         tfAlturaBr.setText(ip.getAlturaBr().toString().replace(".", ","));
         tfLarguraBr.setText(ip.getLarguraBr().toString().replace(".", ","));
-        
+
         tfComprimentoLiq.setText(ip.getComprimentoLiq().toString().replace(".", ","));
         tfAlturaLiq.setText(ip.getAlturaLiq().toString().replace(".", ","));
         tfLarguraLiq.setText(ip.getLarguraLiq().toString().replace(".", ","));
-        
+
         cbAcabamento.setSelectedItem(ip.getAcabamento());
-        
+
         tfMetragem.setText(ip.getMetragem().toString().replace(".", ","));
         tfValorUnitario.setText(ip.getValorUnitario().toString().replace(".", ","));
         tfDesconto.setText(ip.getDesconto().toString().replace(".", ","));
@@ -1013,8 +1025,19 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     pedidoDAO.alterar(pedido);
 
                     for (int i = 0; i < itensPedido.size(); i++) {
+
                         itensPedido.get(i).setPedido(pedido);
-                        itemPedidoDAO.alterar(itensPedido.get(i));
+
+                        if (itensPedido.get(i).getId().equals((long) -1)) {
+                            itemPedidoDAO.inserir(itensPedido.get(i));
+                        } else {
+                            itemPedidoDAO.alterar(itensPedido.get(i));
+                        }
+                    }
+
+                    for (int i = 0; i < itensPedidoExclusao.size(); i++) {
+                        itensPedidoExclusao.get(i).setPedido(pedido);
+                        itemPedidoDAO.excluir(itensPedidoExclusao.get(i));
                     }
 
                     break;
@@ -1139,6 +1162,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             try {
 
                 ItemPedido itemPedido = new ItemPedido();
+
+                itemPedido.setId(idItem);
 
                 itemPedido.setMaterial(this.material);
                 TipoItem ti = (TipoItem) this.cbTipo.getItemAt(this.cbTipo.getSelectedIndex());
