@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.text.DateFormatter;
 
 /**
  *
@@ -18,9 +17,10 @@ public class PedidoTableModel extends AbstractTableModel {
     private static final int COL_CODIGO = 0;
     private static final int COL_DATA = 1;
     private static final int COL_CLIENTE = 2;
-    private static final int COL_VALOR = 3;
+    private static final int COl_USUARIO = 3;
+    private static final int COL_VALOR = 4;
 
-    private static final int COLUMN_COUNT = 4;
+    private static final int COLUMN_COUNT = 5;
 
     private List<Pedido> dados;
 
@@ -55,6 +55,8 @@ public class PedidoTableModel extends AbstractTableModel {
                     DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else if (columnIndex == COL_CLIENTE) {
             return obj.getCliente().getNome();
+        } else if (columnIndex == COl_USUARIO) {
+            return obj.getUsuario().getNomeCompleto();
         } else if (columnIndex == COL_VALOR) {
             return obj.getValor().toString();
         }
@@ -73,6 +75,9 @@ public class PedidoTableModel extends AbstractTableModel {
                 break;
             case COL_CLIENTE:
                 columnName = "Cliente";
+                break;
+            case COl_USUARIO:
+                columnName = "Emitido por";
                 break;
             case COL_VALOR:
                 columnName = "Valor";

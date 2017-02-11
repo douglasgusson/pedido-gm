@@ -14,6 +14,7 @@ import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.domain.TipoItem;
+import br.com.pedidogm.table.cellrenderer.ItemPedidoCellRenderer;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
@@ -111,13 +112,14 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     public void atualizarTabela() {
         tbItensPedido.setModel(new ItemPedidoTableModel(this.itensPedido));
+        tbItensPedido.setDefaultRenderer(Object.class, new ItemPedidoCellRenderer());
         ((AbstractTableModel) tbItensPedido.getModel()).fireTableDataChanged();
     }
 
     private void preencherCampos() {
 
         this.totalPedido = pedido.getValor();
-        
+
         this.tfNomeCliente.setText(pedido.getCliente().getNome());
         this.lbData.setText(pedido.getDataCarregamento().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
         this.tfTotalPedido.setText(pedido.getValor().toString().replace(".", ","));
@@ -918,7 +920,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -933,8 +934,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel20))
-                                .addGap(6, 6, 6)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                                .addGap(6, 6, 6))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

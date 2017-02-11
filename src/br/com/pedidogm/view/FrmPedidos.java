@@ -5,6 +5,7 @@ import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.table.cellrenderer.PedidoCellRenderer;
 import br.com.pedidogm.table.model.PedidoTableModel;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ public class FrmPedidos extends javax.swing.JDialog {
 
     public void atualizarTabela() {
         tbPedidos.setModel(new PedidoTableModel());
-        //tbClientes.setDefaultRenderer(Object.class, new PedidoCellRenderer());
+        tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
         ((PedidoTableModel) tbPedidos.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbPedidos.getModel()).fireTableDataChanged();
     }
@@ -154,11 +155,11 @@ public class FrmPedidos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

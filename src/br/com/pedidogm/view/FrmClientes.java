@@ -1,9 +1,9 @@
-
 package br.com.pedidogm.view;
 
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.domain.Cliente;
+import br.com.pedidogm.table.cellrenderer.ClienteCellRenderer;
 import br.com.pedidogm.table.model.ClienteTableModel;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -30,10 +30,10 @@ public class FrmClientes extends javax.swing.JDialog {
         INSTANCIA = this;
         initialize();
     }
-    
+
     public void atualizarTabela() {
         tbClientes.setModel(new ClienteTableModel());
-        //tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
+        tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
         ((ClienteTableModel) tbClientes.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
     }
@@ -134,11 +134,11 @@ public class FrmClientes extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +164,7 @@ public class FrmClientes extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             FrmRegistroCliente registroCliente
-            = new FrmRegistroCliente(this, ((ClienteTableModel) tbClientes.getModel()).getColecao(), indice);
+                    = new FrmRegistroCliente(this, ((ClienteTableModel) tbClientes.getModel()).getColecao(), indice);
             registroCliente.setVisible(true);
         }
     }//GEN-LAST:event_btAlterarActionPerformed
@@ -177,10 +177,10 @@ public class FrmClientes extends javax.swing.JDialog {
             Cliente c = ((ClienteTableModel) tbClientes.getModel()).getColecao().get(indice);
 
             int i = JOptionPane.showConfirmDialog(null,
-                "Deseja realmente excluir este cliente?\n"
-                + c.getId() + " - " + c.getNome(),
-                "Confirmação",
-                JOptionPane.YES_NO_OPTION);
+                    "Deseja realmente excluir este cliente?\n"
+                    + c.getId() + " - " + c.getNome(),
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
             if (i == JOptionPane.YES_OPTION) {
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 clienteDAO.excluir(c);
