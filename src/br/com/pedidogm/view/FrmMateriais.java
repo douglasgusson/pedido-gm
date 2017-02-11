@@ -43,6 +43,13 @@ public class FrmMateriais extends javax.swing.JDialog {
         ((AbstractTableModel) tbMateriais.getModel()).fireTableDataChanged();
     }
 
+    public void atualizarTabelaDoBD() {
+        tbMateriais.setModel(new MaterialTableModel());
+        tbMateriais.setDefaultRenderer(Object.class, new MaterialCellRenderer());
+        ((MaterialTableModel) tbMateriais.getModel()).atualizarDoBD();
+        ((AbstractTableModel) tbMateriais.getModel()).fireTableDataChanged();
+    }
+
     private void initialize() {
         MaterialDAO mdao = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
         this.listaMateriais = mdao.listarTodos();

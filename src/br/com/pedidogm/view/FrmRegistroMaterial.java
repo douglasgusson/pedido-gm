@@ -167,7 +167,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
             }
 
             FrmMateriais frmMateriais = FrmMateriais.getInstancia();
-            frmMateriais.atualizarTabela();
+            frmMateriais.atualizarTabelaDoBD();
 
             if (OPCAO_ALTERAR == opcao) {
                 this.dispose();

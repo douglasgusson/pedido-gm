@@ -40,6 +40,13 @@ public class FrmClientes extends javax.swing.JDialog {
         ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
     }
 
+    public void atualizarTabelaDoBD() {
+        tbClientes.setModel(new ClienteTableModel(this.listaClientes));
+        tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
+        ((ClienteTableModel) tbClientes.getModel()).atualizarDoBD();
+        ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
+    }
+
     private void initialize() {
         ClienteDAO cdao = DAOFactory.getDefaultDAOFactory().getClienteDAO();
         this.listaClientes = cdao.listarTodos();
