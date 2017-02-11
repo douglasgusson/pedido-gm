@@ -56,6 +56,14 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         this.ckNovaSenha.setSelected(this.usuario.isNovaSenha());
         this.ckAtivo.setSelected(this.usuario.isAtivo());
         this.ckAdministrador.setSelected(this.usuario.isAdmin());
+
+        if (this.usuario.getNomeUsuario().equals("admin")) {
+            this.tfNomeUsuario.setEnabled(false);
+            this.tfNomeCompleto.setEnabled(false);
+            this.ckAtivo.setEnabled(false);
+            this.ckAdministrador.setEnabled(false);
+        }
+
     }
 
     private void initialize() {
