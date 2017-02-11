@@ -28,7 +28,6 @@ public class FrmPedidos extends javax.swing.JDialog {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
         INSTANCIA = this;
-        initialize();
     }
 
     public void atualizarTabela() {
@@ -36,10 +35,6 @@ public class FrmPedidos extends javax.swing.JDialog {
         tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
         ((PedidoTableModel) tbPedidos.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbPedidos.getModel()).fireTableDataChanged();
-    }
-
-    private void initialize() {
-        atualizarTabela();
     }
 
     /**
