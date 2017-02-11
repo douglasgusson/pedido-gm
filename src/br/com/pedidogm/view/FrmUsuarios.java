@@ -172,16 +172,19 @@ public class FrmUsuarios extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             Usuario u = ((UsuarioTableModel) tbUsuarios.getModel()).getColecao().get(indice);
-
-            int i = JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir este pedido?\n"
-                    + u.getId() + " - " + u.getNomeUsuario() + " (" + u.getNomeCompleto() + ")",
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (i == JOptionPane.YES_OPTION) {
-                UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
-                usuarioDAO.excluir(u);
-                atualizarTabela();
+            if (u.getNomeUsuario().equals("admin")) {
+                JOptionPane.showMessageDialog(null, "Desculpe. Não é possível excluir o usuário \"admin\".");
+            } else {
+                int i = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente excluir este pedido?\n"
+                        + u.getId() + " - " + u.getNomeUsuario() + " (" + u.getNomeCompleto() + ")",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (i == JOptionPane.YES_OPTION) {
+                    UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+                    usuarioDAO.excluir(u);
+                    atualizarTabela();
+                }
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
