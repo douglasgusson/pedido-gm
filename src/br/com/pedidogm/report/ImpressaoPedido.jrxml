@@ -81,40 +81,33 @@ WHERE
 				<reportElement x="0" y="0" width="551" height="20" uuid="0bfdcfdd-484a-496c-b531-07f46adbc3a3"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="371" y="1" width="71" height="20" uuid="65589fc2-63cc-4f71-bde6-44c21237ff0a"/>
+				<reportElement x="389" y="1" width="71" height="20" uuid="65589fc2-63cc-4f71-bde6-44c21237ff0a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pedido:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="442" y="1" width="100" height="20" uuid="6a11e5a1-24be-440b-bbde-c2459cf36996"/>
+				<reportElement x="460" y="1" width="82" height="20" uuid="6a11e5a1-24be-440b-bbde-c2459cf36996"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("%08d",$F{pedido_id_pedido})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="11" y="0" width="160" height="20" uuid="bedd261b-d9f3-4842-aa26-8cb1d55c2f12"/>
+				<reportElement x="11" y="0" width="100" height="20" uuid="bedd261b-d9f3-4842-aa26-8cb1d55c2f12"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{pedido_data_carregamento})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="60" y="43" width="268" height="20" uuid="8c840d23-651e-4251-9248-0bb31fdf7177"/>
+				<reportElement x="79" y="43" width="268" height="20" uuid="8c840d23-651e-4251-9248-0bb31fdf7177"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cliente_nome_cliente}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="11" y="43" width="49" height="20" uuid="ca9e245d-d92d-4a7c-aed0-e154642dfde3"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cliente:]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="359" y="43" width="183" height="20" uuid="f1c460ee-f8b0-469c-bbd1-d63937b7d06c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -122,6 +115,13 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA["Usuário: " + $F{usuario_nome_usuario} + " (" + $F{usuario_nome_completo} + ")"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="11" y="43" width="68" height="20" uuid="e7361f2e-95d1-41be-b37a-20e084f90f9c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -210,7 +210,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="40" y="0" width="111" height="20" uuid="f332f2c2-cbce-434e-9682-c6216e472cd5"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo_item_descricao} +" - "+ $F{material_nome_material}]]></textFieldExpression>
@@ -338,8 +338,8 @@ WHERE
 	</lastPageFooter>
 	<summary>
 		<band height="114">
-			<textField>
-				<reportElement x="481" y="23" width="61" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="470" y="23" width="72" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -349,7 +349,7 @@ WHERE
 				<reportElement x="0" y="7" width="551" height="1" uuid="69618d53-d750-4544-82cc-15fa92b8b85b"/>
 			</line>
 			<staticText>
-				<reportElement x="359" y="23" width="122" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
+				<reportElement x="348" y="23" width="122" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
