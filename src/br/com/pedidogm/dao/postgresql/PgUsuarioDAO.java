@@ -117,7 +117,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
                     + "      ativo = ?,\n"
                     + "      administrador = ?\n"
                     + "  WHERE id_usuario = ?;";
-            
+
             try (PreparedStatement ps = connection.prepareStatement(SQL)) {
 
                 ps.setString(1, u.getNomeUsuario());
@@ -165,7 +165,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
 
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next() && rs.getBoolean(8)) {
                 u.setId(rs.getLong(1));
                 u.setNomeUsuario(rs.getString(2));
                 u.setSenha(rs.getString(3));
@@ -240,7 +240,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
 
     @Override
     public void excluir(Usuario usuario) {
-        
+
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
 
         try {
