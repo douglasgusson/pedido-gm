@@ -27,7 +27,7 @@ public class PgAcabamentoDAO implements AcabamentoDAO {
         try {
             String query
                     = "SELECT id_acabamento, descricao, data_criacao, data_atualizacao\n"
-                    + "  FROM acabamento;";
+                    + "  FROM acabamento ORDER BY id_acabamento;";
 
             PreparedStatement ps = con.prepareStatement(query);
 

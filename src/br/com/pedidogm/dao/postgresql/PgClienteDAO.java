@@ -39,7 +39,8 @@ public class PgClienteDAO implements ClienteDAO {
                     + "    observacoes,\n"
                     + "    data_criacao,\n"
                     + "    data_atualizacao\n"
-                    + "  FROM cliente;";
+                    + "  FROM cliente \n"
+                    + "ORDER BY nome_cliente;";
 
             PreparedStatement ps = con.prepareStatement(query);
 
@@ -170,7 +171,7 @@ public class PgClienteDAO implements ClienteDAO {
 
     @Override
     public Cliente buscar(Long id) {
-        
+
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
         Cliente cliente = null;
 
@@ -218,8 +219,7 @@ public class PgClienteDAO implements ClienteDAO {
         }
 
         return cliente;
-        
-        
+
     }
 
     @Override

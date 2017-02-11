@@ -149,7 +149,8 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                     + "       largura_liq, id_acabamento, metragem, valor_unitario, desconto, \n"
                     + "       valor_total\n"
                     + "  FROM item_pedido \n"
-                    + "  WHERE id_pedido = ?;";
+                    + "  WHERE id_pedido = ? \n"
+                    + "ORDER BY id_item_pedido;";
 
             PreparedStatement ps = con.prepareStatement(query);
             ps.setLong(1, pedido.getId());

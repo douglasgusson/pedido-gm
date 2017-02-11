@@ -33,7 +33,8 @@ public class PgMaterialDAO implements MaterialDAO {
                     + "    nome_material, \n"
                     + "    data_criacao, \n"
                     + "    data_atualizacao \n"
-                    + "  FROM material;";
+                    + "  FROM material \n"
+                    + "ORDER BY nome_material;";
 
             PreparedStatement ps = con.prepareStatement(query);
 

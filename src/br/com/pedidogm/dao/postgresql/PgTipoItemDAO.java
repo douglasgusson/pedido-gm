@@ -27,7 +27,7 @@ public class PgTipoItemDAO implements TipoItemDAO {
         try {
             String query
                     = "SELECT id_tipo_item, descricao, referencia_calculo, data_criacao, data_atualizacao\n"
-                    + "  FROM tipo_item;";
+                    + "  FROM tipo_item ORDER BY id_tipo_item;";
 
             PreparedStatement ps = con.prepareStatement(query);
 

@@ -40,7 +40,8 @@ public class PgUsuarioDAO implements UsuarioDAO {
                     + "    nova_senha,\n"
                     + "    ativo,\n"
                     + "    administrador\n"
-                    + "  FROM usuario;";
+                    + "  FROM usuario \n"
+                    + "ORDER BY nome_usuario;";
 
             PreparedStatement ps = con.prepareStatement(query);
 
