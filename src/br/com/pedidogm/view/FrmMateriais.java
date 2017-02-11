@@ -6,6 +6,7 @@ import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.table.cellrenderer.MaterialCellRenderer;
 import br.com.pedidogm.table.model.MaterialTableModel;
 import java.awt.Window;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,6 +15,8 @@ import javax.swing.table.AbstractTableModel;
  * @author douglas
  */
 public class FrmMateriais extends javax.swing.JDialog {
+
+    private List<Material> listaMateriais;
 
     private static FrmMateriais INSTANCIA;
 
@@ -31,16 +34,18 @@ public class FrmMateriais extends javax.swing.JDialog {
         initComponents();
         INSTANCIA = this;
         initialize();
+
     }
 
     public void atualizarTabela() {
-        tbMateriais.setModel(new MaterialTableModel());
+        tbMateriais.setModel(new MaterialTableModel(this.listaMateriais));
         tbMateriais.setDefaultRenderer(Object.class, new MaterialCellRenderer());
-        ((MaterialTableModel) tbMateriais.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbMateriais.getModel()).fireTableDataChanged();
     }
 
     private void initialize() {
+        MaterialDAO mdao = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+        this.listaMateriais = mdao.listarTodos();
         atualizarTabela();
     }
 
@@ -60,6 +65,8 @@ public class FrmMateriais extends javax.swing.JDialog {
         btSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMateriais = new javax.swing.JTable();
+        tfPesquisa = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Materiais");
@@ -132,6 +139,14 @@ public class FrmMateriais extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tbMateriais);
 
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Pesquisar:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,14 +154,23 @@ public class FrmMateriais extends javax.swing.JDialog {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPesquisa)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -195,13 +219,21 @@ public class FrmMateriais extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        MaterialDAO mdao = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
+        listaMateriais = mdao.bucarPorNome(tfPesquisa.getText());
+        atualizarTabela();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tbMateriais;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }

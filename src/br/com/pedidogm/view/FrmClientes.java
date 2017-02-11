@@ -6,6 +6,7 @@ import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.table.cellrenderer.ClienteCellRenderer;
 import br.com.pedidogm.table.model.ClienteTableModel;
 import java.awt.Window;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,6 +15,8 @@ import javax.swing.table.AbstractTableModel;
  * @author douglas
  */
 public class FrmClientes extends javax.swing.JDialog {
+
+    private List<Cliente> listaClientes;
 
     private static FrmClientes INSTANCIA;
 
@@ -32,13 +35,14 @@ public class FrmClientes extends javax.swing.JDialog {
     }
 
     public void atualizarTabela() {
-        tbClientes.setModel(new ClienteTableModel());
+        tbClientes.setModel(new ClienteTableModel(this.listaClientes));
         tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
-        ((ClienteTableModel) tbClientes.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
     }
 
     private void initialize() {
+        ClienteDAO cdao = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+        this.listaClientes = cdao.listarTodos();
         atualizarTabela();
     }
 
@@ -58,6 +62,8 @@ public class FrmClientes extends javax.swing.JDialog {
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tfPesquisa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Clientes");
@@ -130,6 +136,14 @@ public class FrmClientes extends javax.swing.JDialog {
         });
         jToolBar1.add(btSair);
 
+        jLabel1.setText("Pesquisar:");
+
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,14 +151,25 @@ public class FrmClientes extends javax.swing.JDialog {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPesquisa)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -193,13 +218,21 @@ public class FrmClientes extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        ClienteDAO cdao = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+        this.listaClientes = cdao.bucarPorNome(this.tfPesquisa.getText());
+        atualizarTabela();
+    }//GEN-LAST:event_tfPesquisaKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tbClientes;
+    private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
 }
