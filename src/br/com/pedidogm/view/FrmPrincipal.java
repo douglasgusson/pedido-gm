@@ -46,10 +46,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemTipos = new javax.swing.JMenuItem();
         itemAcabamentos = new javax.swing.JMenuItem();
-        menuUtiltarios = new javax.swing.JMenu();
-        itemMudarSenha = new javax.swing.JMenuItem();
-        itemConfiguracoes = new javax.swing.JMenuItem();
         menuSistema = new javax.swing.JMenu();
+        itemConfiguracoes = new javax.swing.JMenuItem();
+        itemMudarSenha = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
@@ -155,6 +154,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        barraMenu.setOpaque(false);
+
+        menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/cadastros.png"))); // NOI18N
         menuCadastros.setMnemonic('C');
         menuCadastros.setText("Cadastros");
 
@@ -190,6 +192,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros.add(itemMateriais);
         menuCadastros.add(jSeparator1);
 
+        itemTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/tabela.png"))); // NOI18N
         itemTipos.setText("Tipos de Item");
         itemTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,6 +201,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemTipos);
 
+        itemAcabamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/tabela.png"))); // NOI18N
         itemAcabamentos.setText("Acabamentos");
         itemAcabamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,18 +212,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         barraMenu.add(menuCadastros);
 
-        menuUtiltarios.setMnemonic('U');
-        menuUtiltarios.setText("Utilitários");
-
-        itemMudarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/usuario_16x16.png"))); // NOI18N
-        itemMudarSenha.setMnemonic('M');
-        itemMudarSenha.setText("Mudar minha senha");
-        itemMudarSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMudarSenhaActionPerformed(evt);
-            }
-        });
-        menuUtiltarios.add(itemMudarSenha);
+        menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sistema.png"))); // NOI18N
+        menuSistema.setMnemonic('S');
+        menuSistema.setText("Sistema");
 
         itemConfiguracoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/engrenagem_16x16.png"))); // NOI18N
         itemConfiguracoes.setMnemonic('C');
@@ -229,12 +224,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 itemConfiguracoesActionPerformed(evt);
             }
         });
-        menuUtiltarios.add(itemConfiguracoes);
+        menuSistema.add(itemConfiguracoes);
 
-        barraMenu.add(menuUtiltarios);
-
-        menuSistema.setMnemonic('S');
-        menuSistema.setText("Sistema");
+        itemMudarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/usuario_16x16.png"))); // NOI18N
+        itemMudarSenha.setMnemonic('M');
+        itemMudarSenha.setText("Mudar minha senha");
+        itemMudarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMudarSenhaActionPerformed(evt);
+            }
+        });
+        menuSistema.add(itemMudarSenha);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/logout_16x16.png"))); // NOI18N
@@ -260,6 +260,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         barraMenu.add(menuSistema);
 
+        menuAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/ajuda.png"))); // NOI18N
         menuAjuda.setMnemonic('A');
         menuAjuda.setText("Ajuda");
 
@@ -289,7 +290,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(439, Short.MAX_VALUE)
+                .addContainerGap(433, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -412,6 +413,5 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuSistema;
-    private javax.swing.JMenu menuUtiltarios;
     // End of variables declaration//GEN-END:variables
 }
