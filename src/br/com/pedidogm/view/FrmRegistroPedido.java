@@ -355,15 +355,19 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 (ActionEvent e) -> {
                     int index = tbItensPedido.getSelectedRow();
                     if (index != -1) {
-                        ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
-                        ItemPedido item = obj.get(index);
-                        this.totalPedido = this.totalPedido.subtract(item.getValorTotal());
-                        this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
-                        idItem = item.getId();
-                        preencherItem(item);
-                        tfQuantidade.requestFocus();
-                        itensPedido.remove(item);
-                        tbItensPedido.setModel(new ItemPedidoTableModel(itensPedido));
+                        if (idItem.equals((long) -1)) {
+                            ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
+                            ItemPedido item = obj.get(index);
+                            this.totalPedido = this.totalPedido.subtract(item.getValorTotal());
+                            this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
+                            idItem = item.getId();
+                            preencherItem(item);
+                            tfQuantidade.requestFocus();
+                            itensPedido.remove(item);
+                            tbItensPedido.setModel(new ItemPedidoTableModel(itensPedido));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Já há um item no processo de alteração.");
+                        }
                     }
                 }
         );
@@ -432,7 +436,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfMetragem.setText(ip.getMetragem().toString().replace(".", ","));
         tfValorUnitario.setText(ip.getValorUnitario().toString().replace(".", ","));
         tfDesconto.setText(ip.getDesconto().toString().replace(".", ","));
-        tfValorDesconto.setText("()()()()");
+        calcularValores();
         tfTotalItem.setText(ip.getValorTotal().toString().replace(".", ","));
 
     }
