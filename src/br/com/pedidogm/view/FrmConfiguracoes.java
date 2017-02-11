@@ -22,35 +22,45 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btUsuarios = new javax.swing.JButton();
+        btBancoDados = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configurações");
 
-        jLabel1.setDisplayedMnemonic('B');
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/database-128.png"))); // NOI18N
-        jLabel1.setText("Banco de Dados");
-        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+        btUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/users_80x80.png"))); // NOI18N
+        btUsuarios.setMnemonic('U');
+        btUsuarios.setText("Usuários");
+        btUsuarios.setContentAreaFilled(false);
+        btUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUsuariosActionPerformed(evt);
             }
         });
 
-        jLabel2.setDisplayedMnemonic('U');
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/users-128.png"))); // NOI18N
-        jLabel2.setText("Usuários");
-        jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+        btBancoDados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/banco_de_dados_80x80.png"))); // NOI18N
+        btBancoDados.setMnemonic('B');
+        btBancoDados.setText("Banco de Dados");
+        btBancoDados.setContentAreaFilled(false);
+        btBancoDados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btBancoDados.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btBancoDados.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btBancoDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBancoDadosActionPerformed(evt);
+            }
+        });
+
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
+        btSair.setMnemonic('S');
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
             }
         });
 
@@ -59,39 +69,48 @@ public class FrmConfiguracoes extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(528, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btSair)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btBancoDados)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 276, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btBancoDados)
+                    .addComponent(btUsuarios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(btSair)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(this);
-        configuraBanco.setVisible(true);
-
-    }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void btUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUsuariosActionPerformed
         FrmUsuarios usuarios = new FrmUsuarios(this);
         usuarios.setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_btUsuariosActionPerformed
+
+    private void btBancoDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBancoDadosActionPerformed
+        FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(this);
+        configuraBanco.setVisible(true);
+    }//GEN-LAST:event_btBancoDadosActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btBancoDados;
+    private javax.swing.JButton btSair;
+    private javax.swing.JButton btUsuarios;
     // End of variables declaration//GEN-END:variables
 }
