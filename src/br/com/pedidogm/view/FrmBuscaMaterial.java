@@ -91,7 +91,7 @@ public class FrmBuscaMaterial extends javax.swing.JDialog {
         tbMaterias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Busca de Clientes");
+        setTitle("Busca de Materiais");
 
         btOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/entrar_16x16.png"))); // NOI18N
         btOk.setMnemonic('O');

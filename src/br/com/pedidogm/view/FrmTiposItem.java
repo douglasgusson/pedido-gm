@@ -63,6 +63,7 @@ public class FrmTiposItem extends javax.swing.JDialog {
         tbTipos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tipos de Item");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);

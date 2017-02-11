@@ -70,6 +70,7 @@ public class FrmRegistroMaterial extends javax.swing.JDialog {
         btGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Material");
 
         jLabel1.setText("Descrição:");
 

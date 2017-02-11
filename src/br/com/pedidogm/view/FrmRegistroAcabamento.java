@@ -66,6 +66,7 @@ public class FrmRegistroAcabamento extends javax.swing.JDialog {
         btGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Acabamento");
 
         jLabel1.setText("Descrição:");
 

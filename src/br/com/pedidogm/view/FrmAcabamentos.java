@@ -62,6 +62,7 @@ public class FrmAcabamentos extends javax.swing.JDialog {
         tbAcabamentos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Acabamentos");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);

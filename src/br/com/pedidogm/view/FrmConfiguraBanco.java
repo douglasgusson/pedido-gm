@@ -64,6 +64,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         btImportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Configuração do Banco de Dados");
         setResizable(false);
 
         btSair.setMnemonic('S');
@@ -283,7 +284,6 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
     }//GEN-LAST:event_btImportarActionPerformed
 
     private void inicializarFrame() {
-        this.setTitle("Base de Dados");
 //        GUIUtils.considerarEnterComoTab(this);
         btCancelar.setEnabled(false);
         btGravar.setEnabled(false);

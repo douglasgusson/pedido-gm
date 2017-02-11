@@ -62,6 +62,7 @@ public class FrmMateriais extends javax.swing.JDialog {
         tbMateriais = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Materiais");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);

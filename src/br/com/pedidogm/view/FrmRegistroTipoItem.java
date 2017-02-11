@@ -68,6 +68,7 @@ public class FrmRegistroTipoItem extends javax.swing.JDialog {
         cbReferencia = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Tipo de Item");
 
         jLabel1.setText("Descrição:");
 

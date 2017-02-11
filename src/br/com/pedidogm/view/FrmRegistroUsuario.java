@@ -99,6 +99,7 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         lbAlerta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Usuário");
 
         jLabel1.setText("Nome de Usuário:");
 
