@@ -216,7 +216,7 @@ public class FrmClientes extends javax.swing.JDialog {
             if (i == JOptionPane.YES_OPTION) {
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 clienteDAO.excluir(c);
-                atualizarTabela();
+                atualizarTabelaDoBD();
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed

@@ -221,7 +221,7 @@ public class FrmMateriais extends javax.swing.JDialog {
             if (i == JOptionPane.YES_OPTION) {
                 MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
                 materialDAO.excluir(m);
-                atualizarTabela();
+                atualizarTabelaDoBD();
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
