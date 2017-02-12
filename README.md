@@ -9,4 +9,8 @@ Sistema para emissão de pedidos de rochas ornamentais.
 
 ![Print desktop](https://raw.githubusercontent.com/douglasgusson/pedido-gm/master/capturas/principal.png?raw=true "Desktop")
 
+![Print desktop](https://raw.githubusercontent.com/douglasgusson/pedido-gm/master/capturas/registro-pedido.png?raw=true "Desktop")
+
 ![Print desktop](https://raw.githubusercontent.com/douglasgusson/pedido-gm/master/capturas/pedido.png?raw=true "Desktop")
+
+![Print desktop](https://raw.githubusercontent.com/douglasgusson/pedido-gm/master/capturas/config.png?raw=true "Desktop")
