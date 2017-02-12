@@ -1,16 +1,18 @@
 package br.com.pedidogm.domain;
 
+import br.com.pedidogm.util.Seguranca;
+
 /**
  *
  * @author douglas
  */
 public class Database {
 
-    private String host;
-    private String porta;
-    private String nomeBanco;
-    private String usuario;
-    private String senha;
+    private final String host;
+    private final String porta;
+    private final String nomeBanco;
+    private final String usuario;
+    private final String senha;
 
     public Database(String host, String porta, String nomeBanco, String usuario, String senha) {
         this.host = host;
@@ -21,23 +23,23 @@ public class Database {
     }
     
     public String getHost() {
-        return host;
+        return Seguranca.encryptDecrypt(host);
     }
 
     public String getPorta() {
-        return porta;
+        return Seguranca.encryptDecrypt(porta);
     }
 
     public String getNomeBanco() {
-        return nomeBanco;
+        return Seguranca.encryptDecrypt(nomeBanco);
     }
 
     public String getUsuario() {
-        return usuario;
+        return Seguranca.encryptDecrypt(usuario);
     }
 
     public String getSenha() {
-        return senha;
+        return Seguranca.encryptDecrypt(senha);
     }
 
     @Override

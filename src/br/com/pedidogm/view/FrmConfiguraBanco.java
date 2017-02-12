@@ -1,7 +1,7 @@
 package br.com.pedidogm.view;
 
-
 import br.com.pedidogm.domain.Database;
+import br.com.pedidogm.util.Seguranca;
 import br.com.pedidogm.util.XMLFilter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.StreamException;
@@ -200,11 +200,11 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         try {
-            String ip = this.tfHost.getText();
-            String porta = this.tfPorta.getText();
-            String nome = this.tfNome.getText();
-            String usuario = this.tfUsuario.getText();
-            String senha = this.tfSenha.getText();
+            String ip = Seguranca.encryptDecrypt(this.tfHost.getText());
+            String porta = Seguranca.encryptDecrypt(this.tfPorta.getText());
+            String nome = Seguranca.encryptDecrypt(this.tfNome.getText());
+            String usuario = Seguranca.encryptDecrypt(this.tfUsuario.getText());
+            String senha = Seguranca.encryptDecrypt(this.tfSenha.getText());
 
             database = new Database(
                     ip, porta, nome, usuario, senha);
@@ -220,7 +220,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             }
 
             streamOut = new FileOutputStream(xmlMap);
-            XStream xstream = new XStream(new DomDriver());            
+            XStream xstream = new XStream(new DomDriver());
             xstream.toXML(database, streamOut);
 
             JOptionPane.showMessageDialog(null,
@@ -243,17 +243,17 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
 //        if (GUIUtils.construtorLogado || GUIUtils.authConstrutor() ) {
-            btGravar.setEnabled(true);
-            btCancelar.setEnabled(true);
-            btAlterar.setEnabled(false);
-            btSair.setEnabled(false);
-            btImportar.setEnabled(false);
-            tfHost.setEnabled(true);
-            tfPorta.setEnabled(true);
-            tfNome.setEnabled(true);
-            tfUsuario.setEnabled(true);
-            tfSenha.setEnabled(true);
-            tfHost.requestFocus();
+        btGravar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btAlterar.setEnabled(false);
+        btSair.setEnabled(false);
+        btImportar.setEnabled(false);
+        tfHost.setEnabled(true);
+        tfPorta.setEnabled(true);
+        tfNome.setEnabled(true);
+        tfUsuario.setEnabled(true);
+        tfSenha.setEnabled(true);
+        tfHost.requestFocus();
 //        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
@@ -263,23 +263,23 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
 
     private void btImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImportarActionPerformed
 //        if (GUIUtils.construtorLogado || GUIUtils.authConstrutor()) {
-            JFileChooser fc = new JFileChooser();
-            fc.addChoosableFileFilter(new XMLFilter());
-            int returnVal = fc.showOpenDialog(this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                getDatabase(file.getAbsolutePath());
-            }
-            btGravar.setEnabled(true);
-            btCancelar.setEnabled(true);
-            btAlterar.setEnabled(false);
-            btSair.setEnabled(false);
-            btImportar.setEnabled(false);
-            tfHost.setEnabled(true);
-            tfPorta.setEnabled(true);
-            tfNome.setEnabled(true);
-            tfUsuario.setEnabled(true);
-            tfSenha.setEnabled(true);
+        JFileChooser fc = new JFileChooser();
+        fc.addChoosableFileFilter(new XMLFilter());
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            getDatabase(file.getAbsolutePath());
+        }
+        btGravar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btAlterar.setEnabled(false);
+        btSair.setEnabled(false);
+        btImportar.setEnabled(false);
+        tfHost.setEnabled(true);
+        tfPorta.setEnabled(true);
+        tfNome.setEnabled(true);
+        tfUsuario.setEnabled(true);
+        tfSenha.setEnabled(true);
 //        }
     }//GEN-LAST:event_btImportarActionPerformed
 
