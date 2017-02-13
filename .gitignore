@@ -4,6 +4,6 @@ build/
 nbbuild/
 dist/
 nbdist/
-config-banco.xml
+.db_conf_pedidogm.xml
 .nb-gradle/
 src/br/com/pedidogm/report/*.jasper
