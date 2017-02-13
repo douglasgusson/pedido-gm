@@ -209,7 +209,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             database = new Database(
                     ip, porta, nome, usuario, senha);
 
-            File xmlMap = new File("config-banco.xml");
+            File xmlMap = new File(".db_conf_pedidogm.xml");
             OutputStream streamOut = null;
 
             if (!(xmlMap.exists())) {
@@ -309,7 +309,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
     private boolean getDatabase() {
         try {
             StringBuilder xml = new StringBuilder();
-            Scanner scanner = new Scanner(new FileReader("config-banco.xml"));
+            Scanner scanner = new Scanner(new FileReader(".db_conf_pedidogm.xml"));
             while (scanner.hasNext()) {
                 xml.append(scanner.next());
             }

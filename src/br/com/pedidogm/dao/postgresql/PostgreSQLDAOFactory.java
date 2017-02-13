@@ -59,7 +59,7 @@ public class PostgreSQLDAOFactory extends DAOFactory {
     public static Database getDatabase() {
         try {
             StringBuilder xml = new StringBuilder();
-            Scanner scanner = new Scanner(new FileReader("config-banco.xml"));
+            Scanner scanner = new Scanner(new FileReader(".db_conf_pedidogm.xml"));
 
             while (scanner.hasNext()) {
                 xml.append(scanner.next());
@@ -73,7 +73,7 @@ public class PostgreSQLDAOFactory extends DAOFactory {
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null,
                     "Não foi possível estabelecer conexão com o banco.\n\n"
-                    + "ERRO: Arquivo config-banco.xml não encontrado.",
+                    + "ERRO: Arquivo \".db_conf_pedidogm.xml\" não encontrado.",
                     "Erro de conexão",
                     JOptionPane.ERROR_MESSAGE);
             FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(null);
