@@ -59,6 +59,11 @@ CREATE TABLE IF NOT EXISTS cliente (
 CREATE TABLE IF NOT EXISTS pedido (
   id_pedido         SERIAL          NOT NULL,
   id_cliente        INTEGER         NOT NULL,
+  valor_desconto    NUMERIC(12,2)   NOT NULL,
+  valor_ipi         NUMERIC(12,2)   NOT NULL,
+  valor_seguro      NUMERIC(12,2)   NOT NULL,
+  valor_frete       NUMERIC(12,2)   NOT NULL,
+  outros_valores    NUMERIC(12,2)   NOT NULL,
   valor_pedido      NUMERIC(12,2)   NOT NULL,
   placa_veiculo     VARCHAR(8),
   nome_motorista    VARCHAR(80),
