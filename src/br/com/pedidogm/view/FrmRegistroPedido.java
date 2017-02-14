@@ -58,7 +58,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private List<ItemPedido> itensPedido = new ArrayList<>();
     private List<ItemPedido> itensPedidoExclusao;
 
-    private BigDecimal valorTotal = new BigDecimal("0.00");
+    private BigDecimal valorTotalLiquido = new BigDecimal("0.00");
     private BigDecimal metragem = new BigDecimal("0.00");
     private BigDecimal descontoPedido = new BigDecimal("0.00");
     private BigDecimal ipi = new BigDecimal("0.00");
@@ -128,14 +128,26 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void preencherCampos() {
 
-        this.valorTotal = pedido.getValor();
+        this.descontoPedido = pedido.getDesconto();
+        this.ipi = pedido.getIpi();
+        this.seguro = pedido.getSeguro();
+        this.frete = pedido.getFrete();
+        this.outrosValores = pedido.getOutros();
+        this.totalPedido = pedido.getValor();
+        this.valorTotalLiquido = ((totalPedido.add(descontoPedido)).subtract(ipi).subtract(seguro).subtract(frete).subtract(outrosValores));
 
         this.tfNomeCliente.setText(pedido.getCliente().getNome());
         this.lbData.setText(pedido.getDataCarregamento().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
-        this.tfTotalPedido.setText(pedido.getValor().toString().replace(".", ","));
+        this.tfDescontoPedido.setText(descontoPedido.toString().replace(".", ","));
+        this.tfIpi.setText(ipi.toString().replace(".", ","));
+        this.tfSeguro.setText(seguro.toString().replace(".", ","));
+        this.tfFrete.setText(frete.toString().replace(".", ","));
+        this.tfOutrosValores.setText(outrosValores.toString().replace(".", ","));
+        this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
         this.tfPlaca.setText(pedido.getPlaca());
         this.tfMotorista.setText(pedido.getMotorista());
         this.taObservacoes.setText(pedido.getObservacoes());
+
         this.itensPedido = pedido.getItensPedido();
         atualizarTabela();
     }
@@ -327,7 +339,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         adicionais = ipi.add(seguro).add(frete).add(outrosValores);
 
-        totalPedido = (valorTotal.add(adicionais)).subtract(descontoPedido);
+        totalPedido = (valorTotalLiquido.add(adicionais)).subtract(descontoPedido);
 
         this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
 
@@ -410,7 +422,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                             ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
                             ItemPedido item = obj.get(index);
 
-                            this.valorTotal = this.valorTotal.subtract(item.getValorTotal());
+                            this.valorTotalLiquido = this.valorTotalLiquido.subtract(item.getValorTotal());
                             this.totalPedido = this.totalPedido.subtract(item.getValorTotal());
                             this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
 
@@ -435,7 +447,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         ItemPedidoTableModel obj = new ItemPedidoTableModel(itensPedido);
                         ItemPedido item = obj.get(index);
 
-                        this.valorTotal = this.valorTotal.subtract(item.getValorTotal());
+                        this.valorTotalLiquido = this.valorTotalLiquido.subtract(item.getValorTotal());
                         this.totalPedido = this.totalPedido.subtract(item.getValorTotal());
                         this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
 
@@ -749,9 +761,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel19.setText("Desc. (R$):");
 
+        btAdicionar.setBackground(java.awt.Color.white);
         btAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/add_16x16.png"))); // NOI18N
         btAdicionar.setMnemonic('A');
         btAdicionar.setText("Adicionar");
+        btAdicionar.setContentAreaFilled(false);
+        btAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btAdicionar.setOpaque(true);
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAdicionarActionPerformed(evt);
@@ -1331,8 +1347,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 itemPedido.setDesconto(new BigDecimal(this.tfDesconto.getText().replace(",", ".")));
                 itemPedido.setValorTotal(new BigDecimal(this.tfTotalItem.getText().replace(",", ".")));
 
-                this.valorTotal = this.valorTotal.add(itemPedido.getValorTotal());
-                this.totalPedido = totalPedido.add(this.valorTotal);
+                this.valorTotalLiquido = this.valorTotalLiquido.add(itemPedido.getValorTotal());
+                this.totalPedido = totalPedido.add(this.valorTotalLiquido);
                 this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
 
                 itensPedido.add(itemPedido);
