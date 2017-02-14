@@ -89,22 +89,26 @@ public class FrmLogin extends javax.swing.JDialog {
             }
         });
 
+        btEntrar.setBackground(new java.awt.Color(153, 255, 153));
         btEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/entrar_16x16.png"))); // NOI18N
         btEntrar.setMnemonic('E');
         btEntrar.setText("Entrar");
         btEntrar.setContentAreaFilled(false);
         btEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btEntrar.setOpaque(true);
         btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEntrarActionPerformed(evt);
             }
         });
 
+        btSair.setBackground(new java.awt.Color(255, 204, 204));
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
         btSair.setMnemonic('S');
         btSair.setText("Sair");
         btSair.setContentAreaFilled(false);
         btSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btSair.setOpaque(true);
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
