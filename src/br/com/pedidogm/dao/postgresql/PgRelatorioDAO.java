@@ -55,7 +55,12 @@ public class PgRelatorioDAO implements RelatorioDAO {
                     + "     material.\"nome_material\" AS material_nome_material,\n"
                     + "     tipo_item.\"descricao\" AS tipo_item_descricao,\n"
                     + "     item_pedido.\"id_tipo_item\" AS item_pedido_id_tipo_item,\n"
-                    + "     acabamento.\"descricao\" AS acabamento_descricao\n"
+                    + "     acabamento.\"descricao\" AS acabamento_descricao,\n"
+                    + "     pedido.\"valor_desconto\" AS pedido_valor_desconto,\n"
+                    + "     pedido.\"valor_ipi\" AS pedido_valor_ipi,\n"
+                    + "     pedido.\"valor_seguro\" AS pedido_valor_seguro,\n"
+                    + "     pedido.\"valor_frete\" AS pedido_valor_frete,\n"
+                    + "     pedido.\"outros_valores\" AS pedido_outros_valores\n"
                     + "FROM\n"
                     + "     \"public\".\"usuario\" usuario INNER JOIN \"public\".\"pedido\" pedido ON usuario.\"id_usuario\" = pedido.\"id_usuario\"\n"
                     + "     INNER JOIN \"public\".\"cliente\" cliente ON pedido.\"id_cliente\" = cliente.\"id_cliente\"\n"
@@ -64,7 +69,7 @@ public class PgRelatorioDAO implements RelatorioDAO {
                     + "     INNER JOIN \"public\".\"material\" material ON item_pedido.\"id_material\" = material.\"id_material\"\n"
                     + "     INNER JOIN \"public\".\"acabamento\" acabamento ON item_pedido.\"id_acabamento\" = acabamento.\"id_acabamento\"\n"
                     + "WHERE\n"
-                    + "     pedido.\"id_pedido\" = ?";
+                    + "     pedido.\"id_pedido\" = ?;";
 
             PreparedStatement ps = con.prepareStatement(query);
             ps.setLong(1, pedido.getId());

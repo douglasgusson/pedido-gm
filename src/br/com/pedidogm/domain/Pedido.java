@@ -13,6 +13,11 @@ public class Pedido {
 
     private Long id;
     private Cliente cliente;
+    private BigDecimal desconto;
+    private BigDecimal ipi;
+    private BigDecimal seguro;
+    private BigDecimal frete;
+    private BigDecimal outros;
     private BigDecimal valor;
     private String placa;
     private String motorista;
@@ -38,6 +43,46 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public BigDecimal getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(BigDecimal desconto) {
+        this.desconto = desconto;
+    }
+
+    public BigDecimal getIpi() {
+        return ipi;
+    }
+
+    public void setIpi(BigDecimal ipi) {
+        this.ipi = ipi;
+    }
+
+    public BigDecimal getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(BigDecimal seguro) {
+        this.seguro = seguro;
+    }
+
+    public BigDecimal getFrete() {
+        return frete;
+    }
+
+    public void setFrete(BigDecimal frete) {
+        this.frete = frete;
+    }
+
+    public BigDecimal getOutros() {
+        return outros;
+    }
+
+    public void setOutros(BigDecimal outros) {
+        this.outros = outros;
     }
 
     public BigDecimal getValor() {

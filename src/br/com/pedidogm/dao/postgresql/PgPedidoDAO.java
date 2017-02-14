@@ -35,17 +35,10 @@ public class PgPedidoDAO implements PedidoDAO {
 
         try {
             String query
-                    = "SELECT \n"
-                    + "    id_pedido, \n"
-                    + "    id_cliente, \n"
-                    + "    valor_pedido, \n"
-                    + "    placa_veiculo, \n"
-                    + "    nome_motorista, \n"
-                    + "    observacoes, \n"
-                    + "    data_carregamento, \n"
-                    + "    data_criacao, \n"
-                    + "    data_atualizacao, \n"
-                    + "    id_usuario \n"
+                    = "SELECT id_pedido, id_cliente, valor_desconto, valor_ipi, valor_seguro, \n"
+                    + "       valor_frete, outros_valores, valor_pedido, placa_veiculo, nome_motorista, \n"
+                    + "       observacoes, data_carregamento, data_criacao, data_atualizacao, \n"
+                    + "       id_usuario\n"
                     + "  FROM pedido ORDER BY id_pedido DESC;";
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -57,19 +50,26 @@ public class PgPedidoDAO implements PedidoDAO {
                 Pedido p = new Pedido();
 
                 p.setId(rs.getLong(1));
+
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 Cliente c = clienteDAO.buscar(rs.getLong(2));
                 p.setCliente(c);
-                p.setValor(rs.getBigDecimal(3));
-                p.setPlaca(rs.getString(4));
-                p.setMotorista(rs.getString(5));
-                p.setObservacoes(rs.getString(6));
-                p.setDataCarregamento(rs.getDate(7).toLocalDate());
-                p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
-                p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
+
+                p.setDesconto(rs.getBigDecimal(3));
+                p.setIpi(rs.getBigDecimal(4));
+                p.setSeguro(rs.getBigDecimal(5));
+                p.setFrete(rs.getBigDecimal(6));
+                p.setOutros(rs.getBigDecimal(7));
+                p.setValor(rs.getBigDecimal(8));
+                p.setPlaca(rs.getString(9));
+                p.setMotorista(rs.getString(10));
+                p.setObservacoes(rs.getString(11));
+                p.setDataCarregamento(rs.getDate(12).toLocalDate());
+                p.setCriacao(rs.getTimestamp(13).toLocalDateTime());
+                p.setAlteracao(rs.getTimestamp(14).toLocalDateTime());
 
                 UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
-                Usuario u = usuarioDAO.buscar(rs.getLong(10));
+                Usuario u = usuarioDAO.buscar(rs.getLong(15));
                 p.setUsuario(u);
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
@@ -99,21 +99,28 @@ public class PgPedidoDAO implements PedidoDAO {
         try {
             String SQL
                     = "INSERT INTO pedido(\n"
-                    + "            id_cliente, valor_pedido, placa_veiculo, nome_motorista, \n"
-                    + "            observacoes, data_carregamento, data_criacao, data_atualizacao, id_usuario)\n"
-                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    + "            id_cliente, valor_desconto, valor_ipi, valor_seguro, \n"
+                    + "            valor_frete, outros_valores, valor_pedido, placa_veiculo, nome_motorista, \n"
+                    + "            observacoes, data_carregamento, data_criacao, data_atualizacao, \n"
+                    + "            id_usuario)\n"
+                    + "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
                 ps.setLong(1, pedido.getCliente().getId());
-                ps.setBigDecimal(2, pedido.getValor());
-                ps.setString(3, pedido.getPlaca());
-                ps.setString(4, pedido.getMotorista());
-                ps.setString(5, pedido.getObservacoes());
-                ps.setDate(6, Date.valueOf(pedido.getDataCarregamento()));
-                ps.setTimestamp(7, Timestamp.valueOf(pedido.getCriacao()));
-                ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
-                ps.setLong(9, pedido.getUsuario().getId());
+                ps.setBigDecimal(2, pedido.getDesconto());
+                ps.setBigDecimal(3, pedido.getIpi());
+                ps.setBigDecimal(4, pedido.getSeguro());
+                ps.setBigDecimal(5, pedido.getFrete());
+                ps.setBigDecimal(6, pedido.getOutros());
+                ps.setBigDecimal(7, pedido.getValor());
+                ps.setString(8, pedido.getPlaca());
+                ps.setString(9, pedido.getMotorista());
+                ps.setString(10, pedido.getObservacoes());
+                ps.setDate(11, Date.valueOf(pedido.getDataCarregamento()));
+                ps.setTimestamp(12, Timestamp.valueOf(pedido.getCriacao()));
+                ps.setTimestamp(13, Timestamp.valueOf(pedido.getAlteracao()));
+                ps.setLong(14, pedido.getUsuario().getId());
 
                 ps.executeUpdate();
 
@@ -134,30 +141,29 @@ public class PgPedidoDAO implements PedidoDAO {
         try {
             String SQL
                     = "UPDATE pedido\n"
-                    + "   SET id_cliente=?, valor_pedido=?, placa_veiculo=?, nome_motorista=?, \n"
-                    + "       observacoes=?, data_carregamento=?, data_criacao=?, data_atualizacao=?, \n"
-                    + "       id_usuario=?"
+                    + "   SET id_cliente=?, valor_desconto=?, valor_ipi=?, valor_seguro=?, \n"
+                    + "       valor_frete=?, outros_valores=?, valor_pedido=?, placa_veiculo=?, \n"
+                    + "       nome_motorista=?, observacoes=?, data_carregamento=?, data_criacao=?, \n"
+                    + "       data_atualizacao=?, id_usuario=?\n"
                     + " WHERE id_pedido = ?;";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
                 ps.setLong(1, pedido.getCliente().getId());
-                ps.setBigDecimal(2, pedido.getValor());
-                ps.setString(3, pedido.getPlaca());
-                ps.setString(4, pedido.getMotorista());
-                ps.setString(5, pedido.getObservacoes());
-                ps.setDate(6, Date.valueOf(pedido.getDataCarregamento()));
-                ps.setTimestamp(7, Timestamp.valueOf(pedido.getCriacao()));
-                ps.setTimestamp(8, Timestamp.valueOf(pedido.getAlteracao()));
-                ps.setLong(9, pedido.getUsuario().getId());
-                ps.setLong(10, pedido.getId());
-
-                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
-
-                for (ItemPedido ip : pedido.getItensPedido()) {
-                    ip.setPedido(pedido);
-                    itemPedidoDAO.alterar(ip);
-                }
+                ps.setBigDecimal(2, pedido.getDesconto());
+                ps.setBigDecimal(3, pedido.getIpi());
+                ps.setBigDecimal(4, pedido.getSeguro());
+                ps.setBigDecimal(5, pedido.getFrete());
+                ps.setBigDecimal(6, pedido.getOutros());
+                ps.setBigDecimal(7, pedido.getValor());
+                ps.setString(8, pedido.getPlaca());
+                ps.setString(9, pedido.getMotorista());
+                ps.setString(10, pedido.getObservacoes());
+                ps.setDate(11, Date.valueOf(pedido.getDataCarregamento()));
+                ps.setTimestamp(12, Timestamp.valueOf(pedido.getCriacao()));
+                ps.setTimestamp(13, Timestamp.valueOf(pedido.getAlteracao()));
+                ps.setLong(14, pedido.getUsuario().getId());
+                ps.setLong(15, pedido.getId());
 
                 ps.executeUpdate();
             }
@@ -207,17 +213,10 @@ public class PgPedidoDAO implements PedidoDAO {
 
         try {
             String query
-                    = "SELECT \n"
-                    + "    id_pedido, \n"
-                    + "    id_cliente, \n"
-                    + "    valor_pedido, \n"
-                    + "    placa_veiculo, \n"
-                    + "    nome_motorista, \n"
-                    + "    observacoes, \n"
-                    + "    data_carregamento, \n"
-                    + "    data_criacao, \n"
-                    + "    data_atualizacao, \n"
-                    + "    id_usuario \n"
+                    = "SELECT id_pedido, id_cliente, valor_desconto, valor_ipi, valor_seguro, \n"
+                    + "       valor_frete, outros_valores, valor_pedido, placa_veiculo, nome_motorista, \n"
+                    + "       observacoes, data_carregamento, data_criacao, data_atualizacao, \n"
+                    + "       id_usuario\n"
                     + "  FROM pedido WHERE id_pedido = ?;";
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -226,20 +225,28 @@ public class PgPedidoDAO implements PedidoDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+
                 p.setId(rs.getLong(1));
+
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 Cliente c = clienteDAO.buscar(rs.getLong(2));
                 p.setCliente(c);
-                p.setValor(rs.getBigDecimal(3));
-                p.setPlaca(rs.getString(4));
-                p.setMotorista(rs.getString(5));
-                p.setObservacoes(rs.getString(6));
-                p.setDataCarregamento(rs.getDate(7).toLocalDate());
-                p.setCriacao(rs.getTimestamp(8).toLocalDateTime());
-                p.setAlteracao(rs.getTimestamp(9).toLocalDateTime());
+
+                p.setDesconto(rs.getBigDecimal(3));
+                p.setIpi(rs.getBigDecimal(4));
+                p.setSeguro(rs.getBigDecimal(5));
+                p.setFrete(rs.getBigDecimal(6));
+                p.setOutros(rs.getBigDecimal(7));
+                p.setValor(rs.getBigDecimal(8));
+                p.setPlaca(rs.getString(9));
+                p.setMotorista(rs.getString(10));
+                p.setObservacoes(rs.getString(11));
+                p.setDataCarregamento(rs.getDate(12).toLocalDate());
+                p.setCriacao(rs.getTimestamp(13).toLocalDateTime());
+                p.setAlteracao(rs.getTimestamp(14).toLocalDateTime());
 
                 UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
-                Usuario u = usuarioDAO.buscar(rs.getLong(10));
+                Usuario u = usuarioDAO.buscar(rs.getLong(15));
                 p.setUsuario(u);
 
                 ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();

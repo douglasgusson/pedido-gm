@@ -31,7 +31,12 @@
      material."nome_material" AS material_nome_material,
      tipo_item."descricao" AS tipo_item_descricao,
      item_pedido."id_tipo_item" AS item_pedido_id_tipo_item,
-     acabamento."descricao" AS acabamento_descricao
+     acabamento."descricao" AS acabamento_descricao,
+     pedido."valor_desconto" AS pedido_valor_desconto,
+     pedido."valor_ipi" AS pedido_valor_ipi,
+     pedido."valor_seguro" AS pedido_valor_seguro,
+     pedido."valor_frete" AS pedido_valor_frete,
+     pedido."outros_valores" AS pedido_outros_valores
 FROM
      "public"."usuario" usuario INNER JOIN "public"."pedido" pedido ON usuario."id_usuario" = pedido."id_usuario"
      INNER JOIN "public"."cliente" cliente ON pedido."id_cliente" = cliente."id_cliente"
@@ -66,6 +71,11 @@ WHERE
 	<field name="tipo_item_descricao" class="java.lang.String"/>
 	<field name="item_pedido_id_tipo_item" class="java.lang.Integer"/>
 	<field name="acabamento_descricao" class="java.lang.String"/>
+	<field name="pedido_valor_desconto" class="java.math.BigDecimal"/>
+	<field name="pedido_valor_ipi" class="java.math.BigDecimal"/>
+	<field name="pedido_valor_seguro" class="java.math.BigDecimal"/>
+	<field name="pedido_valor_frete" class="java.math.BigDecimal"/>
+	<field name="pedido_outros_valores" class="java.math.BigDecimal"/>
 	<variable name="item_pedido_quantidade_1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{item_pedido_quantidade}]]></variableExpression>
 	</variable>
@@ -236,28 +246,28 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_pedido_comprimento_liq} +" x "+ $F{item_pedido_altura_liq} +" x "+ $F{item_pedido_largura_liq}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.000;#,##0.000-">
 				<reportElement x="371" y="0" width="55" height="20" uuid="5fb467b1-0eef-4748-8af2-36483e1d3ae0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_pedido_metragem}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00;-###0.00">
+			<textField pattern="#,##0.00;#,##0.00-">
 				<reportElement x="460" y="0" width="42" height="20" uuid="c7ce0312-a012-4edb-b0e7-8906031beb1b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{item_pedido_valor_unitario} * $F{item_pedido_metragem}) * ($F{item_pedido_desconto} / 100)]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00;#,##0.00-">
 				<reportElement x="502" y="0" width="40" height="20" uuid="b21c9519-cdcb-4ebb-84a4-ee53496fe66d"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_pedido_valor_total}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00;#,##0.00-">
 				<reportElement x="424" y="0" width="36" height="20" uuid="e74d5542-503b-4579-bc0e-91b35c368631"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
@@ -337,9 +347,9 @@ WHERE
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="114">
+		<band height="110">
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="470" y="23" width="72" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
+				<reportElement x="469" y="89" width="73" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -349,24 +359,24 @@ WHERE
 				<reportElement x="0" y="7" width="551" height="1" uuid="69618d53-d750-4544-82cc-15fa92b8b85b"/>
 			</line>
 			<staticText>
-				<reportElement x="348" y="23" width="122" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
+				<reportElement x="347" y="89" width="122" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VALOR TOTAL (R$):]]></text>
 			</staticText>
 			<rectangle radius="10">
-				<reportElement x="0" y="53" width="551" height="60" uuid="0c52297f-4bc3-480c-994e-7dee21023e66"/>
+				<reportElement x="0" y="36" width="333" height="73" uuid="0c52297f-4bc3-480c-994e-7dee21023e66"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="11" y="43" width="100" height="10" uuid="da0ada9d-d3e6-499a-be2c-eb1ac1695210"/>
+				<reportElement x="11" y="26" width="100" height="10" uuid="da0ada9d-d3e6-499a-be2c-eb1ac1695210"/>
 				<textElement verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Observações:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="11" y="62" width="531" height="44" uuid="2b7ffe50-d599-449f-989a-995694475c8a"/>
+				<reportElement x="11" y="45" width="311" height="54" uuid="2b7ffe50-d599-449f-989a-995694475c8a"/>
 				<textElement verticalAlignment="Top">
 					<font size="7"/>
 				</textElement>
@@ -380,7 +390,7 @@ WHERE
 				<textFieldExpression><![CDATA[String.format("%03d", $V{item_pedido_quantidade_1})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="371" y="7" width="55" height="11" uuid="df6beeda-1993-43c7-ba24-e76bca85644b"/>
+				<reportElement x="371" y="8" width="55" height="11" uuid="df6beeda-1993-43c7-ba24-e76bca85644b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -389,6 +399,76 @@ WHERE
 			<line>
 				<reportElement x="0" y="19" width="551" height="1" uuid="5e6cf4f3-2314-456c-b743-53a3f673cab0"/>
 			</line>
+			<staticText>
+				<reportElement x="347" y="77" width="122" height="12" uuid="78469f6e-9237-41ac-bc39-403ef1a3c310"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OUTROS (R$):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="67" width="122" height="10" uuid="b0e42785-f1df-4f46-a058-0f39c9f95368"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FRETE (R$):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="57" width="122" height="10" uuid="17328eb3-c223-41b1-8f32-f7e1e2347130"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEGURO (R$):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="46" width="122" height="11" uuid="bf6ed1c3-a910-447a-b1c8-4ceeb6f36908"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IPI (R$):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="36" width="122" height="10" uuid="f84e903c-ae11-4d6d-bd11-74821ec9d37e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCONTO (R$):]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="469" y="36" width="73" height="10" uuid="aba37d5b-8823-42d1-b671-8c1ac4f924eb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_desconto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="469" y="45" width="73" height="12" uuid="60227036-0072-4962-a093-2acc859bca20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_ipi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="469" y="57" width="73" height="10" uuid="2378e218-3de1-46aa-a448-000c1dab72c2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_seguro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="469" y="67" width="73" height="10" uuid="e2e7dc3a-89a9-4a67-ba62-4cd28db63311"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_frete}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="469" y="77" width="73" height="12" uuid="320de425-0d96-406e-90df-28765ad1e0cf"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_outros_valores}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
