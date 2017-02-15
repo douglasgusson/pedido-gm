@@ -18,6 +18,7 @@ import br.com.pedidogm.table.cellrenderer.ItemPedidoCellRenderer;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
@@ -180,7 +181,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfPlaca.setText("");
         tfMotorista.setText("");
         taObservacoes.setText("");
-        
+
         limparCamposItem();
 
         lbData.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
@@ -481,26 +482,26 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         tbItensPedido.addMouseListener(
                 new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if (e.getButton() == MouseEvent.BUTTON3) {
-                            popUpMenu.show(tbItensPedido, e.getX(), e.getY());
-                        }
-                    }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    popUpMenu.show(tbItensPedido, e.getX(), e.getY());
                 }
+            }
+        }
         );
 
         tbItensPedido.addKeyListener(
                 new java.awt.event.KeyAdapter() {
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-                        if (e.getKeyCode() == KeyEvent.VK_CONTEXT_MENU) {
-                            if (!itensPedido.isEmpty()) {
-                                popUpMenu.show(tbItensPedido, 200, 100);
-                            }
-                        }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_CONTEXT_MENU) {
+                    if (!itensPedido.isEmpty()) {
+                        popUpMenu.show(tbItensPedido, 200, 100);
                     }
-                });
+                }
+            }
+        });
     }
 
     private void preencherItem(ItemPedido ip) {
@@ -1139,6 +1140,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         if (tfNomeCliente.getText().trim().equals("")) {
             tfNomeCliente.setBorder(borderRed);
             tfNomeCliente.requestFocus();
@@ -1224,6 +1226,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
             FrmPedidos frmPedidos = FrmPedidos.getInstancia();
             frmPedidos.atualizarTabela();
+
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
             if (OPCAO_ALTERAR == opcao) {
                 this.dispose();
@@ -1367,7 +1371,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 this.valorTotalBruto = this.valorTotalBruto.add(itemPedido.getValorTotal());
                 this.totalPedido = totalPedido.add(itemPedido.getValorTotal());
                 this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
-                
+
                 itensPedido.add(itemPedido);
                 atualizarTabela();
                 limparCamposItem();

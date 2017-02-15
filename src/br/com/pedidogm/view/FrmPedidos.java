@@ -7,6 +7,7 @@ import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.table.cellrenderer.PedidoCellRenderer;
 import br.com.pedidogm.table.model.PedidoTableModel;
+import java.awt.Cursor;
 import java.awt.Window;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -170,11 +171,16 @@ public class FrmPedidos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         FrmRegistroPedido registroPedido = new FrmRegistroPedido(this);
         registroPedido.setVisible(true);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
         int indice = tbPedidos.getSelectedRow();
         if (indice == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
@@ -191,9 +197,15 @@ public class FrmPedidos extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Desculpe. Você pode apenas alterar pedidos emitidos por você mesmo.");
             }
         }
+
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
         int indice = tbPedidos.getSelectedRow();
         if (indice == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
@@ -216,6 +228,8 @@ public class FrmPedidos extends javax.swing.JDialog {
             }
 
         }
+
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -223,6 +237,8 @@ public class FrmPedidos extends javax.swing.JDialog {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
         int indice = tbPedidos.getSelectedRow();
 
@@ -238,6 +254,8 @@ public class FrmPedidos extends javax.swing.JDialog {
             FrmReport frmReport = new FrmReport(this, pedido.toString(), jasperViewer);
             frmReport.setVisible(true);
         }
+
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btImprimirActionPerformed
 
