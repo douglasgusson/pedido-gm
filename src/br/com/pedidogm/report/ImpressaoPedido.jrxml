@@ -347,9 +347,9 @@ WHERE
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="110">
+		<band height="117">
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="469" y="89" width="73" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
+				<reportElement x="469" y="96" width="73" height="20" uuid="2d2aea7c-39d3-4495-8b82-850133da7289"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -359,14 +359,14 @@ WHERE
 				<reportElement x="0" y="7" width="551" height="1" uuid="69618d53-d750-4544-82cc-15fa92b8b85b"/>
 			</line>
 			<staticText>
-				<reportElement x="347" y="89" width="122" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
+				<reportElement x="347" y="96" width="122" height="20" uuid="c64c9a02-164c-46e0-a446-9f2c52cf7f81"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VALOR TOTAL (R$):]]></text>
 			</staticText>
 			<rectangle radius="10">
-				<reportElement x="0" y="36" width="333" height="73" uuid="0c52297f-4bc3-480c-994e-7dee21023e66"/>
+				<reportElement x="0" y="36" width="333" height="80" uuid="0c52297f-4bc3-480c-994e-7dee21023e66"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="11" y="26" width="100" height="10" uuid="da0ada9d-d3e6-499a-be2c-eb1ac1695210"/>
@@ -376,7 +376,7 @@ WHERE
 				<text><![CDATA[Observações:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="11" y="45" width="311" height="54" uuid="2b7ffe50-d599-449f-989a-995694475c8a"/>
+				<reportElement x="11" y="44" width="311" height="65" uuid="2b7ffe50-d599-449f-989a-995694475c8a"/>
 				<textElement verticalAlignment="Top">
 					<font size="7"/>
 				</textElement>
@@ -400,70 +400,70 @@ WHERE
 				<reportElement x="0" y="19" width="551" height="1" uuid="5e6cf4f3-2314-456c-b743-53a3f673cab0"/>
 			</line>
 			<staticText>
-				<reportElement x="347" y="77" width="122" height="12" uuid="78469f6e-9237-41ac-bc39-403ef1a3c310"/>
+				<reportElement x="347" y="84" width="122" height="12" uuid="78469f6e-9237-41ac-bc39-403ef1a3c310"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[OUTROS (R$):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="67" width="122" height="10" uuid="b0e42785-f1df-4f46-a058-0f39c9f95368"/>
+				<reportElement x="347" y="72" width="122" height="12" uuid="b0e42785-f1df-4f46-a058-0f39c9f95368"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FRETE (R$):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="57" width="122" height="10" uuid="17328eb3-c223-41b1-8f32-f7e1e2347130"/>
+				<reportElement x="347" y="60" width="122" height="12" uuid="17328eb3-c223-41b1-8f32-f7e1e2347130"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SEGURO (R$):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="46" width="122" height="11" uuid="bf6ed1c3-a910-447a-b1c8-4ceeb6f36908"/>
+				<reportElement x="347" y="48" width="122" height="12" uuid="bf6ed1c3-a910-447a-b1c8-4ceeb6f36908"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[IPI (R$):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="36" width="122" height="10" uuid="f84e903c-ae11-4d6d-bd11-74821ec9d37e"/>
+				<reportElement x="347" y="36" width="122" height="12" uuid="f84e903c-ae11-4d6d-bd11-74821ec9d37e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DESCONTO (R$):]]></text>
 			</staticText>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="469" y="36" width="73" height="10" uuid="aba37d5b-8823-42d1-b671-8c1ac4f924eb"/>
+				<reportElement x="469" y="36" width="73" height="12" uuid="aba37d5b-8823-42d1-b671-8c1ac4f924eb"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido_valor_desconto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="469" y="45" width="73" height="12" uuid="60227036-0072-4962-a093-2acc859bca20"/>
+				<reportElement x="469" y="48" width="73" height="12" uuid="60227036-0072-4962-a093-2acc859bca20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido_valor_ipi}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="469" y="57" width="73" height="10" uuid="2378e218-3de1-46aa-a448-000c1dab72c2"/>
+				<reportElement x="469" y="60" width="73" height="12" uuid="2378e218-3de1-46aa-a448-000c1dab72c2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido_valor_seguro}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="469" y="67" width="73" height="10" uuid="e2e7dc3a-89a9-4a67-ba62-4cd28db63311"/>
+				<reportElement x="469" y="72" width="73" height="12" uuid="e2e7dc3a-89a9-4a67-ba62-4cd28db63311"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido_valor_frete}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="469" y="77" width="73" height="12" uuid="320de425-0d96-406e-90df-28765ad1e0cf"/>
+				<reportElement x="469" y="84" width="73" height="12" uuid="320de425-0d96-406e-90df-28765ad1e0cf"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
