@@ -1365,9 +1365,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 itemPedido.setValorTotal(new BigDecimal(this.tfTotalItem.getText().replace(",", ".")));
 
                 this.valorTotalBruto = this.valorTotalBruto.add(itemPedido.getValorTotal());
-                this.totalPedido = totalPedido.add(this.valorTotalBruto);
+                this.totalPedido = totalPedido.add(itemPedido.getValorTotal());
                 this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
-
+                
                 itensPedido.add(itemPedido);
                 atualizarTabela();
                 limparCamposItem();
