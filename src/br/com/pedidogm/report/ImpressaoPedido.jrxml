@@ -82,6 +82,9 @@ WHERE
 	<variable name="item_pedido_metragem_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{item_pedido_metragem}]]></variableExpression>
 	</variable>
+	<variable name="item_pedido_valor_total_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{item_pedido_valor_total}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -468,6 +471,13 @@ WHERE
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido_outros_valores}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="481" y="8" width="61" height="11" uuid="e9da2552-f108-4f1a-be42-6381bc8abf3e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{item_pedido_valor_total_1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
