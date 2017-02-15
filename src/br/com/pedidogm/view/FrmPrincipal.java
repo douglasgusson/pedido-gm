@@ -2,7 +2,10 @@ package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.util.GUIUtils;
+import java.awt.Desktop;
 import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -53,6 +56,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
+        itemManualUso = new javax.swing.JMenuItem();
         itemSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -288,6 +292,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuAjuda.setMnemonic('A');
         menuAjuda.setText("Ajuda");
 
+        itemManualUso.setText("Manual de Uso");
+        itemManualUso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemManualUsoActionPerformed(evt);
+            }
+        });
+        menuAjuda.add(itemManualUso);
+
         itemSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/info_16x16.png"))); // NOI18N
         itemSobre.setMnemonic('S');
         itemSobre.setText("Sobre");
@@ -379,6 +391,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         tiposItem.setVisible(true);
     }//GEN-LAST:event_itemTiposActionPerformed
 
+    private void itemManualUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemManualUsoActionPerformed
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.browse(new File("manual/index.html").toURI());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_itemManualUsoActionPerformed
+
     private void initialize() {
         setPermissoes();
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
@@ -412,6 +433,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JMenuItem itemAcabamentos;
     private javax.swing.JMenuItem itemConfiguracoes;
+    private javax.swing.JMenuItem itemManualUso;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JMenuItem itemMudarSenha;
     private javax.swing.JMenuItem itemPedidos;
