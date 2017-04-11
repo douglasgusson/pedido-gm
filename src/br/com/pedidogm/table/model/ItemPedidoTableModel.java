@@ -12,18 +12,19 @@ public class ItemPedidoTableModel extends AbstractTableModel {
 
     private static final int COL_QUANT = 0;
     private static final int COL_MATERIAL = 1;
-    private static final int COL_METRAGEM = 2;
-    private static final int COL_VALOR_UNIT = 3;
-    private static final int COL_VALOR_TOTAL = 4;
+    private static final int COL_DIMESSOES = 2;
+    private static final int COL_METRAGEM = 3;
+    private static final int COL_VALOR_UNIT = 4;
+    private static final int COL_VALOR_TOTAL = 5;
 
-    private static final int COLUMN_COUNT = 5;
+    private static final int COLUMN_COUNT = 6;
 
     private List<ItemPedido> dados;
 
     public ItemPedidoTableModel(List<ItemPedido> dados) {
         this.dados = dados;
     }
-    
+
     @Override
     public int getRowCount() {
         return dados.size();
@@ -43,6 +44,10 @@ public class ItemPedidoTableModel extends AbstractTableModel {
             return obj.getQuantidade();
         } else if (columnIndex == COL_MATERIAL) {
             return obj.getMaterial().getNome();
+        } else if (columnIndex == COL_DIMESSOES) {
+            return obj.getComprimentoLiq()
+                    + " x " + obj.getAlturaLiq()
+                    + " x " + obj.getLarguraLiq();
         } else if (columnIndex == COL_METRAGEM) {
             return obj.getMetragem().toString();
         } else if (columnIndex == COL_VALOR_UNIT) {
@@ -60,6 +65,9 @@ public class ItemPedidoTableModel extends AbstractTableModel {
             case COL_QUANT:
                 columnName = "Quant.";
                 break;
+            case COL_DIMESSOES:
+                columnName = "Med. Líquidas";
+                break;
             case COL_MATERIAL:
                 columnName = "Material";
                 break;
@@ -69,7 +77,7 @@ public class ItemPedidoTableModel extends AbstractTableModel {
             case COL_VALOR_UNIT:
                 columnName = "Valor Unit.";
                 break;
-            case COL_VALOR_TOTAL: 
+            case COL_VALOR_TOTAL:
                 columnName = "Valor Total";
                 break;
             default:
