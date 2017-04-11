@@ -31,6 +31,11 @@ public class PgPedidoDAO implements PedidoDAO {
     public List<Pedido> listarTodos() {
 
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+        UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+        ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
         List<Pedido> pedidos = new ArrayList<>();
 
         try {
@@ -41,7 +46,9 @@ public class PgPedidoDAO implements PedidoDAO {
                     + "       id_usuario\n"
                     + "  FROM pedido ORDER BY id_pedido DESC;";
 
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(
+                    query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
 
             ResultSet rs = ps.executeQuery();
 
@@ -51,7 +58,6 @@ public class PgPedidoDAO implements PedidoDAO {
 
                 p.setId(rs.getLong(1));
 
-                ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 Cliente c = clienteDAO.buscar(rs.getLong(2));
                 p.setCliente(c);
 
@@ -68,11 +74,9 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setCriacao(rs.getTimestamp(13).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(14).toLocalDateTime());
 
-                UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
                 Usuario u = usuarioDAO.buscar(rs.getLong(15));
                 p.setUsuario(u);
 
-                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
                 List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
 
                 p.setItensPedido(itens);
@@ -209,6 +213,11 @@ public class PgPedidoDAO implements PedidoDAO {
     public Pedido buscar(Long id) {
 
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+        UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+        ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
         Pedido p = new Pedido();
 
         try {
@@ -219,7 +228,9 @@ public class PgPedidoDAO implements PedidoDAO {
                     + "       id_usuario\n"
                     + "  FROM pedido WHERE id_pedido = ?;";
 
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(
+                    query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ps.setLong(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -228,7 +239,6 @@ public class PgPedidoDAO implements PedidoDAO {
 
                 p.setId(rs.getLong(1));
 
-                ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 Cliente c = clienteDAO.buscar(rs.getLong(2));
                 p.setCliente(c);
 
@@ -245,11 +255,9 @@ public class PgPedidoDAO implements PedidoDAO {
                 p.setCriacao(rs.getTimestamp(13).toLocalDateTime());
                 p.setAlteracao(rs.getTimestamp(14).toLocalDateTime());
 
-                UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
                 Usuario u = usuarioDAO.buscar(rs.getLong(15));
                 p.setUsuario(u);
 
-                ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
                 List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
 
                 p.setItensPedido(itens);
