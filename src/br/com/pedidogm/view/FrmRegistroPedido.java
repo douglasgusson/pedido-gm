@@ -1140,7 +1140,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         if (tfNomeCliente.getText().trim().equals("")) {
             tfNomeCliente.setBorder(borderRed);
             tfNomeCliente.requestFocus();
@@ -1148,6 +1147,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             tfQuantidade.setBorder(borderRed);
             tfQuantidade.requestFocus();
         } else {
+
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
             PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
             ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
