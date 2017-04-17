@@ -232,11 +232,12 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             xstream.toXML(database, streamOut);
 
             JOptionPane.showMessageDialog(null,
-                    "Para que as alterações surtam efeito, o sistema será reiniciado!",
+                    "Para que as alterações surtam efeito, o sistema será fechado!\n\n"
+                    + "*Após esse processo, abra o sistema e utilize normalmente.",
                     "Configurações registradas", JOptionPane.INFORMATION_MESSAGE);
 
             System.exit(0);
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FrmConfiguraBanco.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -248,7 +249,6 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-//        if (GUIUtils.construtorLogado || GUIUtils.authConstrutor() ) {
         btGravar.setEnabled(true);
         btCancelar.setEnabled(true);
         btAlterar.setEnabled(false);
@@ -260,7 +260,6 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         tfUsuario.setEnabled(true);
         tfSenha.setEnabled(true);
         tfHost.requestFocus();
-//        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -268,7 +267,6 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImportarActionPerformed
-//        if (GUIUtils.construtorLogado || GUIUtils.authConstrutor()) {
         JFileChooser fc = new JFileChooser();
         fc.addChoosableFileFilter(new XMLFilter());
         int returnVal = fc.showOpenDialog(this);
@@ -286,11 +284,9 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         tfNome.setEnabled(true);
         tfUsuario.setEnabled(true);
         tfSenha.setEnabled(true);
-//        }
     }//GEN-LAST:event_btImportarActionPerformed
 
     private void inicializarFrame() {
-//        GUIUtils.considerarEnterComoTab(this);
         btCancelar.setEnabled(false);
         btGravar.setEnabled(false);
         btAlterar.setEnabled(true);
