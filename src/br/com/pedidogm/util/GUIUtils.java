@@ -1,7 +1,6 @@
 package br.com.pedidogm.util;
 
 import java.awt.Window;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,6 +8,21 @@ import javax.swing.JOptionPane;
  * @author douglas
  */
 public class GUIUtils {
+
+    private static final String NAME_SYSTEM = "PedidoGM";
+    private static final String VERSION = "v0.8";
+
+    public static String getVersion() {
+        return VERSION;
+    }
+
+    public static String getNameSystem() {
+        return NAME_SYSTEM;
+    }
+
+    public static String getNameMoreVersion() {
+        return NAME_SYSTEM + " " + VERSION;
+    }
 
     public static void confirmarSaida(Window w) {
         int i = JOptionPane.showConfirmDialog(null,
@@ -21,5 +35,4 @@ public class GUIUtils {
             System.exit(0);
         }
     }
-
 }

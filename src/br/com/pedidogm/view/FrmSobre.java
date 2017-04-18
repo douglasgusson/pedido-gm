@@ -1,6 +1,6 @@
-
 package br.com.pedidogm.view;
 
+import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 
 /**
@@ -22,6 +22,7 @@ public class FrmSobre extends javax.swing.JDialog {
 
     private void inicializarFrame() {
         this.taInfo.setText(getSystemProperty());
+        this.lbNomeSistema.setText(GUIUtils.getNameMoreVersion());
         this.setTitle("PedidoGM - Sobre");
     }
 
@@ -61,7 +62,7 @@ public class FrmSobre extends javax.swing.JDialog {
 
         btFechar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbNomeSistema = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -83,9 +84,9 @@ public class FrmSobre extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/icon-sobre.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.gray);
-        jLabel2.setText("PedidoGM");
+        lbNomeSistema.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbNomeSistema.setForeground(java.awt.Color.gray);
+        lbNomeSistema.setText("PedidoGM");
 
         jLabel3.setForeground(java.awt.Color.gray);
         jLabel3.setText("Desenvolvido por:");
@@ -113,14 +114,15 @@ public class FrmSobre extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lbNomeSistema)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btFechar)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +131,7 @@ public class FrmSobre extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(lbNomeSistema)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,11 +157,11 @@ public class FrmSobre extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFechar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbNomeSistema;
     private javax.swing.JTextArea taInfo;
     // End of variables declaration//GEN-END:variables
 }

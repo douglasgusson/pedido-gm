@@ -402,9 +402,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void initialize() {
         setPermissoes();
+        
+        this.setTitle(GUIUtils.getNameMoreVersion());
+        
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
         lbNome.setText(Sessao.getUsuario().getNomeCompleto());
+        
         setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
         setIcon(this);
 
