@@ -169,6 +169,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfNomeCliente.setText("");
         tfNomeCliente.requestFocus();
 
+        tfQuantTotal.setText(quantTotal.toString());
         valorTotalBruto = new BigDecimal("0.00");
         metragem = new BigDecimal("0.00");
         descontoPedido = new BigDecimal("0.00");

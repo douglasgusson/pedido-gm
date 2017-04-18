@@ -28,14 +28,17 @@ public class FrmPedidos extends javax.swing.JDialog {
     public FrmPedidos(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
         initComponents();
+        atualizarTabela();
         INSTANCIA = this;
     }
 
     public void atualizarTabela() {
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         tbPedidos.setModel(new PedidoTableModel());
         tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
         ((PedidoTableModel) tbPedidos.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbPedidos.getModel()).fireTableDataChanged();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     /**
@@ -52,19 +55,13 @@ public class FrmPedidos extends javax.swing.JDialog {
         btAlterar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btImprimir = new javax.swing.JButton();
+        btAtualizar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPedidos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedidos");
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
-        });
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -120,6 +117,20 @@ public class FrmPedidos extends javax.swing.JDialog {
             }
         });
         jToolBar1.add(btImprimir);
+
+        btAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/atualizar_16x16.png"))); // NOI18N
+        btAtualizar.setMnemonic('t');
+        btAtualizar.setText("Atualizar");
+        btAtualizar.setToolTipText("");
+        btAtualizar.setFocusable(false);
+        btAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btAtualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtualizarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btAtualizar);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
         btSair.setMnemonic('S');
@@ -259,12 +270,13 @@ public class FrmPedidos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btImprimirActionPerformed
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
         atualizarTabela();
-    }//GEN-LAST:event_formWindowGainedFocus
+    }//GEN-LAST:event_btAtualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btImprimir;
     private javax.swing.JButton btNovo;

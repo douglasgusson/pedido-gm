@@ -2,6 +2,7 @@ package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.util.GUIUtils;
+import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Window;
 import java.io.File;
@@ -359,8 +360,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemMateriaisActionPerformed
 
     private void itemPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPedidosActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         FrmPedidos pedidos = new FrmPedidos(this);
         pedidos.setVisible(true);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_itemPedidosActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -402,13 +405,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void initialize() {
         setPermissoes();
-        
+
         this.setTitle(GUIUtils.getNameMoreVersion());
-        
+
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());
         lbNome.setText(Sessao.getUsuario().getNomeCompleto());
-        
+
         setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
         setIcon(this);
 
