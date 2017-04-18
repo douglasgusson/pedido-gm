@@ -9,8 +9,8 @@ import br.com.pedidogm.table.cellrenderer.PedidoCellRenderer;
 import br.com.pedidogm.table.model.PedidoTableModel;
 import java.awt.Cursor;
 import java.awt.Window;
+import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -34,11 +34,20 @@ public class FrmPedidos extends javax.swing.JDialog {
 
     public void atualizarTabela() {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        tbPedidos.setModel(new PedidoTableModel());
-        tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
-        ((PedidoTableModel) tbPedidos.getModel()).atualizarDoBD();
-        ((AbstractTableModel) tbPedidos.getModel()).fireTableDataChanged();
+        
+//        tbPedidos.setModel(new PedidoTableModel());
+//        tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
+//        ((PedidoTableModel) tbPedidos.getModel()).atualizarDoBD();
+//        ((AbstractTableModel) tbPedidos.getModel()).fireTableDataChanged();
+
+        PedidoDAO pdao = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
+        List<Pedido> pedidos = pdao.listarTodos();
+        if (!pedidos.isEmpty()) {
+            this.tbPedidos.setModel(new PedidoTableModel(pedidos));
+            this.tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
+        }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
     }
 
     /**
