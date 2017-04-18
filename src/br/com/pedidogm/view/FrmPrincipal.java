@@ -46,7 +46,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         barraMenu = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
         itemPedidos = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        itemClientes = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemTipos = new javax.swing.JMenuItem();
@@ -54,8 +54,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuSistema = new javax.swing.JMenu();
         itemConfiguracoes = new javax.swing.JMenuItem();
         itemMudarSenha = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        itemLogout = new javax.swing.JMenuItem();
+        itemSair = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         itemManualUso = new javax.swing.JMenuItem();
         itemSobre = new javax.swing.JMenuItem();
@@ -200,15 +200,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemPedidos);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/cliente_16x16.png"))); // NOI18N
-        jMenuItem2.setMnemonic('C');
-        jMenuItem2.setText("Clientes");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        itemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/cliente_16x16.png"))); // NOI18N
+        itemClientes.setMnemonic('C');
+        itemClientes.setText("Clientes");
+        itemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                itemClientesActionPerformed(evt);
             }
         });
-        menuCadastros.add(jMenuItem2);
+        menuCadastros.add(itemClientes);
 
         itemMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/produto_16x16.png"))); // NOI18N
         itemMateriais.setMnemonic('M');
@@ -222,6 +222,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros.add(jSeparator1);
 
         itemTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/tabela.png"))); // NOI18N
+        itemTipos.setMnemonic('T');
         itemTipos.setText("Tipos de Item");
         itemTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +232,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros.add(itemTipos);
 
         itemAcabamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/tabela.png"))); // NOI18N
+        itemAcabamentos.setMnemonic('A');
         itemAcabamentos.setText("Acabamentos");
         itemAcabamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,27 +267,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuSistema.add(itemMudarSenha);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/logout_16x16.png"))); // NOI18N
-        jMenuItem1.setMnemonic('L');
-        jMenuItem1.setText("Logout");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itemLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        itemLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/logout_16x16.png"))); // NOI18N
+        itemLogout.setMnemonic('L');
+        itemLogout.setText("Logout");
+        itemLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itemLogoutActionPerformed(evt);
             }
         });
-        menuSistema.add(jMenuItem1);
+        menuSistema.add(itemLogout);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
-        jMenuItem3.setMnemonic('S');
-        jMenuItem3.setText("Sair");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        itemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        itemSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/sair_16x16.png"))); // NOI18N
+        itemSair.setMnemonic('S');
+        itemSair.setText("Sair");
+        itemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                itemSairActionPerformed(evt);
             }
         });
-        menuSistema.add(jMenuItem3);
+        menuSistema.add(itemSair);
 
         barraMenu.add(menuSistema);
 
@@ -293,6 +295,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuAjuda.setMnemonic('A');
         menuAjuda.setText("Ajuda");
 
+        itemManualUso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/manual_16x16.png"))); // NOI18N
+        itemManualUso.setMnemonic('M');
         itemManualUso.setText("Manual de Uso");
         itemManualUso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,27 +366,27 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void itemPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPedidosActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         FrmPedidos pedidos = new FrmPedidos(this);
-        pedidos.setVisible(true);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        pedidos.setVisible(true);
     }//GEN-LAST:event_itemPedidosActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
         FrmClientes clientes = new FrmClientes(this);
         clientes.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_itemClientesActionPerformed
 
     private void itemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSobreActionPerformed
         FrmSobre sobre = new FrmSobre(this);
         sobre.setVisible(true);
     }//GEN-LAST:event_itemSobreActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void itemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSairActionPerformed
         btSairActionPerformed(evt);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_itemSairActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void itemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogoutActionPerformed
         btLogoutActionPerformed(evt);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_itemLogoutActionPerformed
 
     private void itemAcabamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAcabamentosActionPerformed
         FrmAcabamentos acabamentos = new FrmAcabamentos(this);
@@ -439,19 +443,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btLogout;
     private javax.swing.JButton btSair;
     private javax.swing.JMenuItem itemAcabamentos;
+    private javax.swing.JMenuItem itemClientes;
     private javax.swing.JMenuItem itemConfiguracoes;
+    private javax.swing.JMenuItem itemLogout;
     private javax.swing.JMenuItem itemManualUso;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JMenuItem itemMudarSenha;
     private javax.swing.JMenuItem itemPedidos;
+    private javax.swing.JMenuItem itemSair;
     private javax.swing.JMenuItem itemSobre;
     private javax.swing.JMenuItem itemTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
