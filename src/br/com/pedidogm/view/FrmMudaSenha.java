@@ -129,8 +129,8 @@ public class FrmMudaSenha extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(1, 1, 1))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -203,6 +203,7 @@ public class FrmMudaSenha extends javax.swing.JDialog {
             tfNovaSenha.requestFocus();
             lbAlerta.setText("Informe a nova senha!");
             lbAlerta.setForeground(Color.BLUE);
+            btGravar.setEnabled(true);
         } else {
             lbAlerta.setText("Senha inválida.");
             lbAlerta.setForeground(Color.RED);
@@ -239,6 +240,7 @@ public class FrmMudaSenha extends javax.swing.JDialog {
         tfSenhaAtual.setText("");
         tfNovaSenha.setText("");
         tfConfirmacao.setText("");
+        btGravar.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
