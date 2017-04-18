@@ -40,7 +40,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Registro de Pedido"/>
   </Properties>
   <SyntheticProperties>
@@ -48,6 +48,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -379,11 +382,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tfMetragem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfDesconto" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="tfTotalItem" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tfValorDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tfValorUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -579,7 +582,6 @@
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbEspessuraItemStateChanged"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cbEspessuraFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfValorDesconto">
@@ -626,12 +628,7 @@
         <Component class="javax.swing.JComboBox" name="cbTipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>

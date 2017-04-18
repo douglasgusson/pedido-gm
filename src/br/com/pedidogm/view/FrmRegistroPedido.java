@@ -16,6 +16,7 @@ import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.domain.TipoItem;
 import br.com.pedidogm.table.cellrenderer.ItemPedidoCellRenderer;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
+import br.com.pedidogm.util.GUIUtils;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -214,6 +215,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfLarguraBr.addKeyListener(new MascaraNumerica(tfLarguraBr, 3, 2));
         tfLarguraLiq.addKeyListener(new MascaraNumerica(tfLarguraLiq, 3, 2));
 
+        cbEspessura.removeAllItems();
         for (String espessura : espessuras) {
             this.cbEspessura.addItem(espessura);
         }
@@ -286,6 +288,18 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         modeloComboBoxAcabamento = new DefaultComboBoxModel<>(acabamentos);
         cbAcabamento.setModel(modeloComboBoxAcabamento);
 
+    }
+
+    private void confirmarSaida(Window w) {
+        int i = JOptionPane.showConfirmDialog(null,
+                "Deseja realmente  abandonar este pedido?\n",
+                "Confirmação de saída",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.NO_OPTION) {
+            w.repaint();
+        } else {
+            w.dispose();
+        }
     }
 
     private void limparCamposItem() {
@@ -616,8 +630,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         itemClientes = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Registro de Pedido");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         btGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/gravar_16x16.png"))); // NOI18N
         btGravar.setMnemonic('G');
@@ -778,11 +797,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 cbEspessuraItemStateChanged(evt);
             }
         });
-        cbEspessura.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cbEspessuraFocusLost(evt);
-            }
-        });
 
         tfValorDesconto.setEditable(false);
         tfValorDesconto.setBackground(java.awt.Color.white);
@@ -806,7 +820,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         });
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbTipoItemStateChanged(evt);
@@ -947,11 +960,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfMetragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTotalItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfValorDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAdicionar)
-                    .addComponent(tfValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1255,7 +1268,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void brSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brSairActionPerformed
-        this.dispose();
+        if (itensPedido.size() > 0) {
+            confirmarSaida(this);
+        } else {
+            this.dispose();
+        }
     }//GEN-LAST:event_brSairActionPerformed
 
     private void tfMaterialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMaterialFocusLost
@@ -1301,22 +1318,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_tfNomeClienteFocusLost
-
-    private void cbEspessuraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbEspessuraFocusLost
-        if (this.cbEspessura.getSelectedIndex() == 0) {
-            this.tfLarguraBr.setText("0,015");
-            this.tfLarguraLiq.setText("0,015");
-        } else if (this.cbEspessura.getSelectedIndex() == 1) {
-            this.tfLarguraBr.setText("0,02");
-            this.tfLarguraLiq.setText("0,02");
-        } else if (this.cbEspessura.getSelectedIndex() == 2) {
-            this.tfLarguraBr.setText("0,03");
-            this.tfLarguraLiq.setText("0,03");
-        } else {
-            this.tfLarguraBr.setText("0,04");
-            this.tfLarguraLiq.setText("0,04");
-        }
-    }//GEN-LAST:event_cbEspessuraFocusLost
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
 
@@ -1493,18 +1494,23 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_cbTipoItemStateChanged
 
     private void cbEspessuraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEspessuraItemStateChanged
-        if (this.cbEspessura.getSelectedIndex() == 0) {
-            this.tfLarguraBr.setText("0,015");
-            this.tfLarguraLiq.setText("0,015");
-        } else if (this.cbEspessura.getSelectedIndex() == 1) {
-            this.tfLarguraBr.setText("0,02");
-            this.tfLarguraLiq.setText("0,02");
-        } else if (this.cbEspessura.getSelectedIndex() == 2) {
-            this.tfLarguraBr.setText("0,03");
-            this.tfLarguraLiq.setText("0,03");
-        } else {
-            this.tfLarguraBr.setText("0,04");
-            this.tfLarguraLiq.setText("0,04");
+        switch (this.cbEspessura.getSelectedIndex()) {
+            case 0:
+                this.tfLarguraBr.setText("0,015");
+                this.tfLarguraLiq.setText("0,015");
+                break;
+            case 1:
+                this.tfLarguraBr.setText("0,02");
+                this.tfLarguraLiq.setText("0,02");
+                break;
+            case 2:
+                this.tfLarguraBr.setText("0,03");
+                this.tfLarguraLiq.setText("0,03");
+                break;
+            case 3:
+                this.tfLarguraBr.setText("0,04");
+                this.tfLarguraLiq.setText("0,04");
+                break;
         }
     }//GEN-LAST:event_cbEspessuraItemStateChanged
 
@@ -1517,6 +1523,14 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         FrmMateriais materiais = new FrmMateriais(this);
         materiais.setVisible(true);
     }//GEN-LAST:event_itemMateriaisActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (itensPedido.size() > 0) {
+            confirmarSaida(this);
+        } else {
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
