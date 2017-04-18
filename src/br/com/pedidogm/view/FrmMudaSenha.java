@@ -222,13 +222,16 @@ public class FrmMudaSenha extends javax.swing.JDialog {
     }//GEN-LAST:event_tfConfirmacaoKeyReleased
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
-        Usuario u = Sessao.getUsuario();
-        u.setSenha(Seguranca.criptografarSHA256(tfNovaSenha.getText()));
-        u.setNovaSenha(false);
-        UsuarioDAO udao = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
-        udao.alterar(u);
-        initialize();
-        JOptionPane.showMessageDialog(null, "Alteração realizada!");
+        if (tfNovaSenha.getText().equals(tfConfirmacao.getText())) {
+            Usuario u = Sessao.getUsuario();
+            u.setSenha(Seguranca.criptografarSHA256(tfNovaSenha.getText()));
+            u.setNovaSenha(false);
+            UsuarioDAO udao = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+            udao.alterar(u);
+            initialize();
+        } else {
+            JOptionPane.showMessageDialog(null, "Verifique as senhas digitadas!");
+        }
     }//GEN-LAST:event_btGravarActionPerformed
 
     private void initialize() {
