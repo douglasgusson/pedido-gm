@@ -797,6 +797,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 cbEspessuraItemStateChanged(evt);
             }
         });
+        cbEspessura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbEspessuraFocusLost(evt);
+            }
+        });
 
         tfValorDesconto.setEditable(false);
         tfValorDesconto.setBackground(java.awt.Color.white);
@@ -1253,6 +1258,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     break;
             }
 
+            setQuantidade(-this.quantTotal);
+
             FrmPedidos frmPedidos = FrmPedidos.getInstancia();
             frmPedidos.atualizarTabela();
 
@@ -1493,6 +1500,45 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         mudarEstadoFrm(ti.getReferenciaCalculo());
     }//GEN-LAST:event_cbTipoItemStateChanged
 
+    private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
+        FrmClientes clientes = new FrmClientes(this);
+        clientes.setVisible(true);
+    }//GEN-LAST:event_itemClientesActionPerformed
+
+    private void itemMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMateriaisActionPerformed
+        FrmMateriais materiais = new FrmMateriais(this);
+        materiais.setVisible(true);
+    }//GEN-LAST:event_itemMateriaisActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (itensPedido.size() > 0) {
+            confirmarSaida(this);
+        } else {
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void cbEspessuraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbEspessuraFocusLost
+        switch (this.cbEspessura.getSelectedIndex()) {
+            case 0:
+                this.tfLarguraBr.setText("0,015");
+                this.tfLarguraLiq.setText("0,015");
+                break;
+            case 1:
+                this.tfLarguraBr.setText("0,02");
+                this.tfLarguraLiq.setText("0,02");
+                break;
+            case 2:
+                this.tfLarguraBr.setText("0,03");
+                this.tfLarguraLiq.setText("0,03");
+                break;
+            case 3:
+                this.tfLarguraBr.setText("0,04");
+                this.tfLarguraLiq.setText("0,04");
+                break;
+        }
+    }//GEN-LAST:event_cbEspessuraFocusLost
+
     private void cbEspessuraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEspessuraItemStateChanged
         switch (this.cbEspessura.getSelectedIndex()) {
             case 0:
@@ -1513,24 +1559,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 break;
         }
     }//GEN-LAST:event_cbEspessuraItemStateChanged
-
-    private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
-        FrmClientes clientes = new FrmClientes(this);
-        clientes.setVisible(true);
-    }//GEN-LAST:event_itemClientesActionPerformed
-
-    private void itemMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMateriaisActionPerformed
-        FrmMateriais materiais = new FrmMateriais(this);
-        materiais.setVisible(true);
-    }//GEN-LAST:event_itemMateriaisActionPerformed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (itensPedido.size() > 0) {
-            confirmarSaida(this);
-        } else {
-            this.dispose();
-        }
-    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
