@@ -38,6 +38,7 @@ public class PgRelatorioDAO implements RelatorioDAO {
                     + "     pedido.\"nome_motorista\" AS pedido_nome_motorista,\n"
                     + "     pedido.\"observacoes\" AS pedido_observacoes,\n"
                     + "     pedido.\"data_carregamento\" AS pedido_data_carregamento,\n"
+                    + "     pedido.\"data_criacao\" AS pedido_data_criacao,\n"
                     + "     usuario.\"nome_usuario\" AS usuario_nome_usuario,\n"
                     + "     usuario.\"nome_completo\" AS usuario_nome_completo,\n"
                     + "     cliente.\"nome_cliente\" AS cliente_nome_cliente,\n"

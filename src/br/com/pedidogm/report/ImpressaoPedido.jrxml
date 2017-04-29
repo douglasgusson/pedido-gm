@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpressaoPedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="551" leftMargin="22" rightMargin="22" topMargin="28" bottomMargin="22" uuid="1b13fdf5-8909-4f42-ac5f-5bdd8c02eb73">
-	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.zoom" value="1.331000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
 	</parameter>
@@ -14,6 +14,7 @@
      pedido."nome_motorista" AS pedido_nome_motorista,
      pedido."observacoes" AS pedido_observacoes,
      pedido."data_carregamento" AS pedido_data_carregamento,
+     pedido."data_criacao" AS pedido_data_criacao,
      usuario."nome_usuario" AS usuario_nome_usuario,
      usuario."nome_completo" AS usuario_nome_completo,
      cliente."nome_cliente" AS cliente_nome_cliente,
@@ -53,6 +54,7 @@ WHERE
 	<field name="pedido_nome_motorista" class="java.lang.String"/>
 	<field name="pedido_observacoes" class="java.lang.String"/>
 	<field name="pedido_data_carregamento" class="java.sql.Date"/>
+	<field name="pedido_data_criacao" class="java.sql.Timestamp"/>
 	<field name="usuario_nome_usuario" class="java.lang.String"/>
 	<field name="usuario_nome_completo" class="java.lang.String"/>
 	<field name="cliente_nome_cliente" class="java.lang.String"/>
@@ -89,52 +91,59 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="63" splitType="Stretch">
+		<band height="68" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="0" width="551" height="20" uuid="0bfdcfdd-484a-496c-b531-07f46adbc3a3"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="389" y="1" width="71" height="20" uuid="65589fc2-63cc-4f71-bde6-44c21237ff0a"/>
+				<reportElement x="389" y="0" width="71" height="20" uuid="65589fc2-63cc-4f71-bde6-44c21237ff0a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Pedido:]]></text>
+				<text><![CDATA[PEDIDO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="460" y="1" width="82" height="20" uuid="6a11e5a1-24be-440b-bbde-c2459cf36996"/>
+				<reportElement x="460" y="0" width="82" height="20" uuid="6a11e5a1-24be-440b-bbde-c2459cf36996"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("%08d",$F{pedido_id_pedido})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="11" y="0" width="100" height="20" uuid="bedd261b-d9f3-4842-aa26-8cb1d55c2f12"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{pedido_data_carregamento})]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="79" y="43" width="268" height="20" uuid="8c840d23-651e-4251-9248-0bb31fdf7177"/>
+				<reportElement x="79" y="0" width="310" height="20" uuid="8c840d23-651e-4251-9248-0bb31fdf7177"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cliente_nome_cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="359" y="43" width="183" height="20" uuid="f1c460ee-f8b0-469c-bbd1-d63937b7d06c"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement x="359" y="23" width="183" height="20" uuid="f1c460ee-f8b0-469c-bbd1-d63937b7d06c"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Usuário: " + $F{usuario_nome_usuario} + " (" + $F{usuario_nome_completo} + ")"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="11" y="43" width="68" height="20" uuid="e7361f2e-95d1-41be-b37a-20e084f90f9c"/>
+				<reportElement x="11" y="0" width="68" height="20" uuid="e7361f2e-95d1-41be-b37a-20e084f90f9c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CLIENTE:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="363" y="43" width="179" height="17" uuid="676fadcf-4aa9-466d-9c21-515410551ca2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Emissão: " + new SimpleDateFormat("dd/MM/yyyy - HH:mm").format($F{pedido_data_criacao})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="43" width="191" height="17" uuid="4c43f8c5-b814-4159-976e-dfbb7e57d27a"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Carregamento: " + new SimpleDateFormat("dd/MM/yyyy").format($F{pedido_data_carregamento})]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
