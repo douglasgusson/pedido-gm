@@ -28,10 +28,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
@@ -139,7 +142,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.valorTotalBruto = ((totalPedido.add(descontoPedido)).subtract(ipi).subtract(seguro).subtract(frete).subtract(outrosValores));
 
         this.tfNomeCliente.setText(pedido.getCliente().getNome());
-        this.lbData.setText(pedido.getDataCarregamento().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
+
+        LocalDateTime dateTime = pedido.getDataCarregamento().atStartOfDay();
+        ZonedDateTime zonedDateTime = dateTime.atZone(ZoneId.systemDefault());
+        this.dcDataCarregamento.setCalendar(GregorianCalendar.from(zonedDateTime));
+
         this.tfDescontoPedido.setText(descontoPedido.toString().replace(".", ","));
         this.tfIpi.setText(ipi.toString().replace(".", ","));
         this.tfSeguro.setText(seguro.toString().replace(".", ","));
@@ -167,6 +174,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         tfNomeCliente.setText("");
         tfNomeCliente.requestFocus();
+        dcDataCarregamento.setDate(new java.util.Date());
 
         tfQuantTotal.setText(quantTotal.toString());
         valorTotalBruto = new BigDecimal("0.00");
@@ -190,8 +198,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         taObservacoes.setText("");
 
         limparCamposItem();
-
-        lbData.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy")));
 
         KeyAdapter somenteNumeros = new KeyAdapter() {
             @Override
@@ -566,8 +572,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         btGravar = new javax.swing.JButton();
         brSair = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        tfNomeCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbItensPedido = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -604,7 +608,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         btAdicionar = new javax.swing.JButton();
         cbTipo = new javax.swing.JComboBox();
         cbAcabamento = new javax.swing.JComboBox();
-        lbData = new javax.swing.JLabel();
         tfTotalPedido = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -625,6 +628,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         jLabel25 = new javax.swing.JLabel();
         tfOutrosValores = new javax.swing.JTextField();
         tfQuantTotal = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        dcDataCarregamento = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        tfNomeCliente = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
         itemClientes = new javax.swing.JMenuItem();
@@ -653,14 +661,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         brSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 brSairActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Cliente:");
-
-        tfNomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfNomeClienteFocusLost(evt);
             }
         });
 
@@ -971,9 +971,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lbData.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbData.setText("data...");
-
         tfTotalPedido.setEditable(false);
         tfTotalPedido.setBackground(new java.awt.Color(255, 255, 255));
         tfTotalPedido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -1061,6 +1058,55 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfQuantTotal.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         tfQuantTotal.setToolTipText("Quantidade total");
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel26.setText("Data do carregamento:");
+
+        dcDataCarregamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcDataCarregamentoFocusLost(evt);
+            }
+        });
+
+        jLabel1.setText("Cliente:");
+
+        tfNomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNomeClienteFocusLost(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dcDataCarregamento, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dcDataCarregamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         menuCadastros.setMnemonic('C');
         menuCadastros.setText("Cadastros");
 
@@ -1095,21 +1141,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNomeCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbData, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btGravar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(brSair))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(tfQuantTotal)
+                        .addComponent(tfQuantTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1132,19 +1168,19 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addComponent(tfOutrosValores, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfTotalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btGravar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(brSair))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbData))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1181,6 +1217,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         if (tfNomeCliente.getText().trim().equals("")) {
             tfNomeCliente.setBorder(borderRed);
             tfNomeCliente.requestFocus();
+        } else if (((JTextField) dcDataCarregamento.getDateEditor().getUiComponent()).getText().isEmpty()
+                || dcDataCarregamento.getDate() == null) {
+            dcDataCarregamento.setBorder(borderRed);
+            dcDataCarregamento.requestFocus();
         } else if (itensPedido.size() <= 0) {
             tfQuantidade.setBorder(borderRed);
             tfQuantidade.requestFocus();
@@ -1190,6 +1230,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
             PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
             ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+
+            Instant instant = this.dcDataCarregamento.getCalendar().toInstant();
+            LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+            LocalDate dataCarregamento = dateTime.toLocalDate();
 
             switch (opcao) {
 
@@ -1210,7 +1254,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                             ? null : this.tfMotorista.getText());
                     p.setObservacoes(this.taObservacoes.getText().trim().equals("")
                             ? null : this.taObservacoes.getText());
-                    p.setDataCarregamento(LocalDate.now());
+                    p.setDataCarregamento(dataCarregamento);
+
                     p.setCriacao(LocalDateTime.now());
                     p.setAlteracao(LocalDateTime.now());
 
@@ -1242,7 +1287,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                             ? null : this.tfMotorista.getText());
                     pedido.setObservacoes(this.taObservacoes.getText().trim().equals("")
                             ? null : this.taObservacoes.getText());
-                    pedido.setDataCarregamento(LocalDate.now());
+                    pedido.setDataCarregamento(dataCarregamento);
                     pedido.setAlteracao(LocalDateTime.now());
 
                     pedido.setUsuario(Sessao.getUsuario());
@@ -1573,6 +1618,10 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbEspessuraItemStateChanged
 
+    private void dcDataCarregamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcDataCarregamentoFocusLost
+        dcDataCarregamento.setBorder(borderDefault);
+    }//GEN-LAST:event_dcDataCarregamentoFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
     private javax.swing.JButton btAdicionar;
@@ -1580,6 +1629,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JComboBox cbAcabamento;
     private javax.swing.JComboBox cbEspessura;
     private javax.swing.JComboBox cbTipo;
+    private com.toedter.calendar.JDateChooser dcDataCarregamento;
     private javax.swing.JMenuItem itemClientes;
     private javax.swing.JMenuItem itemMateriais;
     private javax.swing.JLabel jLabel1;
@@ -1600,6 +1650,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1610,9 +1661,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lbData;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JTextArea taObservacoes;
     private javax.swing.JTable tbItensPedido;
