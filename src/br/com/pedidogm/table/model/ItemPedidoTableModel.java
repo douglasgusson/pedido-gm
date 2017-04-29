@@ -74,7 +74,7 @@ public class ItemPedidoTableModel extends AbstractTableModel {
                 columnName = "Med. Líquidas";
                 break;
             case COL_MATERIAL:
-                columnName = "Material";
+                columnName = "Descrição";
                 break;
             case COL_METRAGEM:
                 columnName = "Metragem";
