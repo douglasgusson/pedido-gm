@@ -16,7 +16,6 @@ import br.com.pedidogm.domain.Sessao;
 import br.com.pedidogm.domain.TipoItem;
 import br.com.pedidogm.table.cellrenderer.ItemPedidoCellRenderer;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
-import br.com.pedidogm.util.GUIUtils;
 import br.com.pedidogm.util.MascaraNumerica;
 import java.awt.Color;
 import java.awt.Cursor;
