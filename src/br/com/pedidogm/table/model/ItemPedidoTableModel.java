@@ -40,20 +40,23 @@ public class ItemPedidoTableModel extends AbstractTableModel {
 
         ItemPedido obj = dados.get(rowIndex);
 
-        if (columnIndex == COL_QUANT) {
-            return obj.getQuantidade();
-        } else if (columnIndex == COL_MATERIAL) {
-            return obj.getMaterial().getNome();
-        } else if (columnIndex == COL_DIMESSOES) {
-            return obj.getComprimentoLiq()
-                    + " x " + obj.getAlturaLiq()
-                    + " x " + obj.getLarguraLiq();
-        } else if (columnIndex == COL_METRAGEM) {
-            return obj.getMetragem().toString();
-        } else if (columnIndex == COL_VALOR_UNIT) {
-            return obj.getValorUnitario();
-        } else if (columnIndex == COL_VALOR_TOTAL) {
-            return obj.getValorTotal();
+        switch (columnIndex) {
+            case COL_QUANT:
+                return obj.getQuantidade();
+            case COL_MATERIAL:
+                return obj.getMaterial().getNome();
+            case COL_DIMESSOES:
+                return obj.getComprimentoLiq().setScale(3)
+                        + " x " + obj.getAlturaLiq().setScale(3)
+                        + " x " + obj.getLarguraLiq().setScale(3);
+            case COL_METRAGEM:
+                return obj.getMetragem().setScale(3);
+            case COL_VALOR_UNIT:
+                return obj.getValorUnitario().setScale(2);
+            case COL_VALOR_TOTAL:
+                return obj.getValorTotal().setScale(2);
+            default:
+                break;
         }
         return null;
     }
