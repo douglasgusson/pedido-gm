@@ -44,7 +44,9 @@ public class ItemPedidoTableModel extends AbstractTableModel {
             case COL_QUANT:
                 return obj.getQuantidade();
             case COL_MATERIAL:
-                return obj.getMaterial().getNome();
+                return obj.getTipoItem().getDescricao() 
+                        + " - " + obj.getMaterial().getNome()
+                        + " (" + obj.getAcabamento() + ")";
             case COL_DIMESSOES:
                 return obj.getComprimentoLiq().setScale(3)
                         + " x " + obj.getAlturaLiq().setScale(3)
