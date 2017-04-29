@@ -189,6 +189,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros.setMnemonic('C');
         menuCadastros.setText("Cadastros");
 
+        itemPedidos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         itemPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/pedido_16x16.png"))); // NOI18N
         itemPedidos.setMnemonic('P');
         itemPedidos.setText("Pedidos");
