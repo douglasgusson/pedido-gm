@@ -20,6 +20,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class FrmPedidos extends javax.swing.JDialog {
 
     private static FrmPedidos INSTANCIA;
+    private int limitPedidos = 5;
 
     public static FrmPedidos getInstancia() {
         return INSTANCIA;
@@ -33,15 +34,13 @@ public class FrmPedidos extends javax.swing.JDialog {
     }
 
     public void atualizarTabela() {
+        
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         
-//        tbPedidos.setModel(new PedidoTableModel());
-//        tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
-//        ((PedidoTableModel) tbPedidos.getModel()).atualizarDoBD();
-//        ((AbstractTableModel) tbPedidos.getModel()).fireTableDataChanged();
-
+        limitPedidos = (int) spNumPedidos.getValue();
+        
         PedidoDAO pdao = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
-        List<Pedido> pedidos = pdao.listarTodos();
+        List<Pedido> pedidos = pdao.listar(limitPedidos);
         if (!pedidos.isEmpty()) {
             this.tbPedidos.setModel(new PedidoTableModel(pedidos));
             this.tbPedidos.setDefaultRenderer(Object.class, new PedidoCellRenderer());
@@ -68,6 +67,8 @@ public class FrmPedidos extends javax.swing.JDialog {
         btSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPedidos = new javax.swing.JTable();
+        spNumPedidos = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedidos");
@@ -167,6 +168,16 @@ public class FrmPedidos extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tbPedidos);
 
+        spNumPedidos.setModel(new javax.swing.SpinnerNumberModel(5, 1, null, 1));
+        spNumPedidos.setToolTipText("Número de pedidos a serem exibidos");
+        spNumPedidos.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spNumPedidosStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Número de pedidos a serem exibidos:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,11 +187,21 @@ public class FrmPedidos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spNumPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spNumPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -283,6 +304,10 @@ public class FrmPedidos extends javax.swing.JDialog {
         atualizarTabela();
     }//GEN-LAST:event_btAtualizarActionPerformed
 
+    private void spNumPedidosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spNumPedidosStateChanged
+        atualizarTabela();
+    }//GEN-LAST:event_spNumPedidosStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btAtualizar;
@@ -290,8 +315,10 @@ public class FrmPedidos extends javax.swing.JDialog {
     private javax.swing.JButton btImprimir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JSpinner spNumPedidos;
     private javax.swing.JTable tbPedidos;
     // End of variables declaration//GEN-END:variables
 }

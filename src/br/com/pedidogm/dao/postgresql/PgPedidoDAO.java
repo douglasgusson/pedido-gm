@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 public class PgPedidoDAO implements PedidoDAO {
 
     @Override
-    public List<Pedido> listarTodos() {
+    public List<Pedido> listar(int limit) {
 
         Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
 
@@ -44,11 +44,12 @@ public class PgPedidoDAO implements PedidoDAO {
                     + "       valor_frete, outros_valores, valor_pedido, placa_veiculo, nome_motorista, \n"
                     + "       observacoes, data_carregamento, data_criacao, data_atualizacao, \n"
                     + "       id_usuario\n"
-                    + "  FROM pedido ORDER BY id_pedido DESC;";
+                    + "  FROM pedido ORDER BY id_pedido DESC LIMIT ?;";
 
             PreparedStatement ps = con.prepareStatement(
                     query, ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
+            ps.setInt(1, limit);
 
             ResultSet rs = ps.executeQuery();
 

@@ -1,10 +1,7 @@
 package br.com.pedidogm.table.model;
 
-import br.com.pedidogm.dao.DAOFactory;
-import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.domain.Pedido;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -26,11 +23,6 @@ public class PedidoTableModel extends AbstractTableModel {
 
     public PedidoTableModel(List<Pedido> dados) {
         this.dados = dados;
-    }
-
-    public PedidoTableModel() {
-        dados = new ArrayList<>();
-        carregarDoBD();
     }
 
     @Override
@@ -91,16 +83,6 @@ public class PedidoTableModel extends AbstractTableModel {
 
     public Pedido get(int row) {
         return dados.get(row);
-    }
-
-    public void atualizarDoBD() {
-        dados.clear();
-        carregarDoBD();
-    }
-
-    private void carregarDoBD() {
-        PedidoDAO cd = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
-        dados = cd.listarTodos();
     }
 
     public List<Pedido> getColecao() {

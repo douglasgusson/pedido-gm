@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface PedidoDAO {
 
-    public List<Pedido> listarTodos();
+    public List<Pedido> listar(int limit);
     public void inserir(Pedido pedido);
     public void alterar(Pedido pedido);    
     public void excluir(Pedido pedido);
