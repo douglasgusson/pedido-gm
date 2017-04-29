@@ -1200,12 +1200,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     p.setFrete(frete);
                     p.setOutros(outrosValores);
                     p.setValor(totalPedido);
-                    p.setPlaca(this.tfPlaca.getText().trim().equals("") ? 
-                                    null : this.tfPlaca.getText());                    
-                    p.setMotorista(this.tfMotorista.getText().trim().equals("") ? 
-                                    null : this.tfMotorista.getText());                    
-                    p.setObservacoes(this.taObservacoes.getText().trim().equals("") ? 
-                                    null : this.taObservacoes.getText());
+                    p.setPlaca(this.tfPlaca.getText().trim().equals("")
+                            ? null : this.tfPlaca.getText());
+                    p.setMotorista(this.tfMotorista.getText().trim().equals("")
+                            ? null : this.tfMotorista.getText());
+                    p.setObservacoes(this.taObservacoes.getText().trim().equals("")
+                            ? null : this.taObservacoes.getText());
                     p.setDataCarregamento(LocalDate.now());
                     p.setCriacao(LocalDateTime.now());
                     p.setAlteracao(LocalDateTime.now());
@@ -1232,11 +1232,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     pedido.setFrete(frete);
                     pedido.setOutros(outrosValores);
                     pedido.setValor(totalPedido);
-                    pedido.setPlaca(this.tfPlaca.getText());
-                    pedido.setMotorista(this.tfMotorista.getText());
-                    pedido.setObservacoes(this.taObservacoes.getText());
+                    pedido.setPlaca(this.tfPlaca.getText().trim().equals("")
+                            ? null : this.tfPlaca.getText());
+                    pedido.setMotorista(this.tfMotorista.getText().trim().equals("")
+                            ? null : this.tfMotorista.getText());
+                    pedido.setObservacoes(this.taObservacoes.getText().trim().equals("")
+                            ? null : this.taObservacoes.getText());
                     pedido.setDataCarregamento(LocalDate.now());
-                    pedido.setCriacao(LocalDateTime.now());
                     pedido.setAlteracao(LocalDateTime.now());
 
                     pedido.setUsuario(Sessao.getUsuario());
