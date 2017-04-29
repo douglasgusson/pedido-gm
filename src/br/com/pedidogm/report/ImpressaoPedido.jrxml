@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpressaoPedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="551" leftMargin="22" rightMargin="22" topMargin="28" bottomMargin="22" uuid="1b13fdf5-8909-4f42-ac5f-5bdd8c02eb73">
-	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.zoom" value="1.9487171000000019"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="193"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
 	</parameter>
@@ -222,13 +222,6 @@ WHERE
 				<textFieldExpression><![CDATA[String.format("%03d", $F{item_pedido_quantidade})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="0" width="111" height="20" uuid="f332f2c2-cbce-434e-9682-c6216e472cd5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo_item_descricao} +" - "+ $F{material_nome_material}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="202" y="0" width="80" height="20" uuid="c1615e39-2385-43a9-9056-2f367ecc6d4d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
@@ -276,6 +269,13 @@ WHERE
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_pedido_valor_unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="0" width="114" height="20" uuid="f332f2c2-cbce-434e-9682-c6216e472cd5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_item_descricao} +" - "+ $F{material_nome_material}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
