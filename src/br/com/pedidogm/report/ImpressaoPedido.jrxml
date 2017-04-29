@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpressaoPedido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="551" leftMargin="22" rightMargin="22" topMargin="28" bottomMargin="22" uuid="1b13fdf5-8909-4f42-ac5f-5bdd8c02eb73">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.143588810000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="193"/>
 	<parameter name="ID_PEDIDO" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
 	</parameter>
@@ -369,7 +369,7 @@ WHERE
 				<text><![CDATA[VALOR TOTAL (R$):]]></text>
 			</staticText>
 			<rectangle radius="10">
-				<reportElement x="0" y="36" width="333" height="80" uuid="0c52297f-4bc3-480c-994e-7dee21023e66"/>
+				<reportElement x="0" y="36" width="333" height="69" uuid="0c52297f-4bc3-480c-994e-7dee21023e66"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="11" y="26" width="100" height="10" uuid="da0ada9d-d3e6-499a-be2c-eb1ac1695210"/>
@@ -378,8 +378,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[Observações:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="11" y="44" width="311" height="65" uuid="2b7ffe50-d599-449f-989a-995694475c8a"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="11" y="44" width="311" height="61" uuid="2b7ffe50-d599-449f-989a-995694475c8a"/>
 				<textElement verticalAlignment="Top">
 					<font size="7"/>
 				</textElement>
@@ -479,6 +479,20 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$V{item_pedido_valor_total_1}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="79" y="105" width="243" height="11" uuid="90b4b9d0-864f-4305-b999-57d9c67c06eb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_nome_motorista}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="105" width="68" height="11" uuid="7f58d13f-b487-4910-982d-27c64fba0a74"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transportador:]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
