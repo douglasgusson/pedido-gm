@@ -975,8 +975,11 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         lbData.setText("data...");
 
         tfTotalPedido.setEditable(false);
+        tfTotalPedido.setBackground(new java.awt.Color(255, 255, 255));
         tfTotalPedido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tfTotalPedido.setForeground(java.awt.Color.black);
+        tfTotalPedido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfTotalPedido.setToolTipText("Valor total do pedido");
         tfTotalPedido.setFocusable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1054,7 +1057,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfOutrosValores.setText("0,00");
 
         tfQuantTotal.setEditable(false);
+        tfQuantTotal.setBackground(java.awt.Color.white);
         tfQuantTotal.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        tfQuantTotal.setToolTipText("Quantidade total");
 
         menuCadastros.setMnemonic('C');
         menuCadastros.setText("Cadastros");
