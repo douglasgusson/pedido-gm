@@ -60,7 +60,7 @@ public class PedidoTableModel extends AbstractTableModel {
         String columnName = "";
         switch (colunm) {
             case COL_CODIGO:
-                columnName = "Código";
+                columnName = "Número";
                 break;
             case COL_DATA:
                 columnName = "Data";

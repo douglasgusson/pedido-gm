@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class GUIUtils {
 
     private static final String NAME_SYSTEM = "PedidoGM";
-    private static final String VERSION = "v0.8.8";
+    private static final String VERSION = "v0.8.9";
 
     public static String getVersion() {
         return VERSION;
