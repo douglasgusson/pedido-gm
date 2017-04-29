@@ -201,6 +201,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemPedidos);
 
+        itemClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         itemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/cliente_16x16.png"))); // NOI18N
         itemClientes.setMnemonic('C');
         itemClientes.setText("Clientes");
@@ -211,6 +212,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(itemClientes);
 
+        itemMateriais.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         itemMateriais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/produto_16x16.png"))); // NOI18N
         itemMateriais.setMnemonic('M');
         itemMateriais.setText("Materiais");
