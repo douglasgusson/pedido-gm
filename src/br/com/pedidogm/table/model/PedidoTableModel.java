@@ -12,12 +12,13 @@ import javax.swing.table.AbstractTableModel;
 public class PedidoTableModel extends AbstractTableModel {
 
     private static final int COL_CODIGO = 0;
-    private static final int COL_DATA = 1;
-    private static final int COL_CLIENTE = 2;
-    private static final int COL_USUARIO = 3;
-    private static final int COL_VALOR = 4;
+    private static final int COL_DATA_EMISSAO = 1;
+    private static final int COL_DATA_CARREGAMENTO = 2;
+    private static final int COL_CLIENTE = 3;
+    private static final int COL_USUARIO = 4;
+    private static final int COL_VALOR = 5;
 
-    private static final int COLUMN_COUNT = 5;
+    private static final int COLUMN_COUNT = 6;
 
     private List<Pedido> dados;
 
@@ -40,17 +41,23 @@ public class PedidoTableModel extends AbstractTableModel {
 
         Pedido obj = dados.get(rowIndex);
 
-        if (columnIndex == COL_CODIGO) {
-            return String.format("%05d", obj.getId());
-        } else if (columnIndex == COL_DATA) {
-            return obj.getDataCarregamento().format(
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        } else if (columnIndex == COL_CLIENTE) {
-            return obj.getCliente().getNome();
-        } else if (columnIndex == COL_USUARIO) {
-            return obj.getUsuario().getNomeCompleto();
-        } else if (columnIndex == COL_VALOR) {
-            return obj.getValor().toString();
+        switch (columnIndex) {
+            case COL_CODIGO:
+                return String.format("%05d", obj.getId());
+            case COL_DATA_EMISSAO:
+                return obj.getCriacao().format(
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm"));
+            case COL_DATA_CARREGAMENTO:
+                return obj.getDataCarregamento().format(
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            case COL_CLIENTE:
+                return obj.getCliente().getNome();
+            case COL_USUARIO:
+                return obj.getUsuario().getNomeCompleto();
+            case COL_VALOR:
+                return obj.getValor().toString();
+            default:
+                break;
         }
         return null;
     }
@@ -62,8 +69,11 @@ public class PedidoTableModel extends AbstractTableModel {
             case COL_CODIGO:
                 columnName = "Número";
                 break;
-            case COL_DATA:
-                columnName = "Data";
+            case COL_DATA_EMISSAO:
+                columnName = "Emissão";
+                break;
+            case COL_DATA_CARREGAMENTO:
+                columnName = "Carregamento";
                 break;
             case COL_CLIENTE:
                 columnName = "Cliente";
