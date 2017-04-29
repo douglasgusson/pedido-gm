@@ -817,9 +817,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         btAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/add_16x16.png"))); // NOI18N
         btAdicionar.setMnemonic('A');
         btAdicionar.setText("Adicionar");
-        btAdicionar.setContentAreaFilled(false);
         btAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btAdicionar.setOpaque(true);
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAdicionarActionPerformed(evt);
@@ -1349,13 +1347,16 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         } else if ((this.tfLarguraBr.getText().trim()).equals("")) {
             this.tfLarguraBr.setBorder(borderRed);
             this.tfLarguraBr.requestFocus();
-        } else if ((this.tfComprimentoLiq.getText().trim()).equals("")) {
+        } else if ((this.tfComprimentoLiq.getText().trim()).equals("")
+                || Float.parseFloat(tfComprimentoLiq.getText().replace(",", ".")) < 0) {
             this.tfComprimentoLiq.setBorder(borderRed);
             this.tfComprimentoLiq.requestFocus();
-        } else if ((this.tfAlturaLiq.getText().trim()).equals("")) {
+        } else if ((this.tfAlturaLiq.getText().trim()).equals("")
+                || Float.parseFloat(tfAlturaLiq.getText().replace(",", ".")) < 0) {
             this.tfAlturaLiq.setBorder(borderRed);
             this.tfAlturaLiq.requestFocus();
-        } else if ((this.tfLarguraLiq.getText().trim()).equals("")) {
+        } else if ((this.tfLarguraLiq.getText().trim()).equals("")
+                || Float.parseFloat(tfLarguraLiq.getText().replace(",", ".")) < 0) {
             this.tfLarguraLiq.setBorder(borderRed);
             this.tfLarguraLiq.requestFocus();
         } else if ((this.tfMetragem.getText().trim()).equals("")) {
