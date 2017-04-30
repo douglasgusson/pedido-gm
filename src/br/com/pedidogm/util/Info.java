@@ -7,7 +7,7 @@ package br.com.pedidogm.util;
 public class Info {
 
     private static final String NAME_SYSTEM = "PedidoGM";
-    private static final String VERSION = "v0.9.3";
+    private static final String VERSION = "v0.9.5";
     private static StringBuffer buffer;
 
     public static String getVersion() {

@@ -290,7 +290,7 @@ public class FrmLogin extends javax.swing.JDialog {
                 return true;
             }
         } else {
-            lbStatus.setText("* Usuário não encontrado");
+            lbStatus.setText("* Usuário não encontrado.");
         }
 
         return false;
