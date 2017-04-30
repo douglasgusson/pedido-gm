@@ -1,6 +1,6 @@
 package br.com.pedidogm.view;
 
-import br.com.pedidogm.domain.Database;
+import br.com.pedidogm.util.Database;
 import br.com.pedidogm.util.Seguranca;
 import br.com.pedidogm.util.XMLFilter;
 import com.thoughtworks.xstream.XStream;

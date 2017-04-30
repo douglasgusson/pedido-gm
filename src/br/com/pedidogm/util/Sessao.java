@@ -1,6 +1,7 @@
 
-package br.com.pedidogm.domain;
+package br.com.pedidogm.util;
 
+import br.com.pedidogm.domain.Usuario;
 import java.time.format.DateTimeFormatter;
 
 /**

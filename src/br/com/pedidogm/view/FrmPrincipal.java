@@ -1,7 +1,7 @@
 package br.com.pedidogm.view;
 
-import br.com.pedidogm.domain.Sessao;
-import br.com.pedidogm.domain.Info;
+import br.com.pedidogm.util.Sessao;
+import br.com.pedidogm.util.Info;
 import br.com.pedidogm.util.GUIUtils;
 import java.awt.Cursor;
 import java.awt.Desktop;

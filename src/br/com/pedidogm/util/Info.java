@@ -1,4 +1,4 @@
-package br.com.pedidogm.domain;
+package br.com.pedidogm.util;
 
 /**
  *

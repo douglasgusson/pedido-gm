@@ -4,7 +4,7 @@ import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.domain.Pedido;
-import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.table.cellrenderer.PedidoCellRenderer;
 import br.com.pedidogm.table.model.PedidoTableModel;
 import java.awt.Cursor;

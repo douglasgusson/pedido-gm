@@ -3,7 +3,7 @@ package br.com.pedidogm.dao.postgresql;
 import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
-import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.domain.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

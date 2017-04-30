@@ -12,7 +12,7 @@ import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.ItemPedido;
 import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
-import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.domain.TipoItem;
 import br.com.pedidogm.table.cellrenderer.ItemPedidoCellRenderer;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;

@@ -2,7 +2,7 @@ package br.com.pedidogm.view;
 
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
-import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.domain.Usuario;
 import br.com.pedidogm.util.Seguranca;
 import java.awt.Color;

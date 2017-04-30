@@ -1,6 +1,6 @@
 package br.com.pedidogm.view;
 
-import br.com.pedidogm.domain.Info;
+import br.com.pedidogm.util.Info;
 import java.awt.Window;
 
 /**

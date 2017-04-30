@@ -1,7 +1,7 @@
 package br.com.pedidogm.main;
 
 import br.com.pedidogm.dao.DAOFactory;
-import br.com.pedidogm.domain.Info;
+import br.com.pedidogm.util.Info;
 import br.com.pedidogm.view.FrmLogin;
 import java.awt.BorderLayout;
 import java.awt.Color;

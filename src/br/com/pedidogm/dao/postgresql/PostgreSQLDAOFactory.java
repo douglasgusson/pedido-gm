@@ -10,7 +10,7 @@ import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.dao.model.TipoItemDAO;
 import br.com.pedidogm.dao.model.UsuarioDAO;
-import br.com.pedidogm.domain.Database;
+import br.com.pedidogm.util.Database;
 import br.com.pedidogm.view.FrmConfiguraBanco;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
