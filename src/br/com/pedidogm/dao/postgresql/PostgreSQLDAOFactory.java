@@ -10,16 +10,10 @@ import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.RelatorioDAO;
 import br.com.pedidogm.dao.model.TipoItemDAO;
 import br.com.pedidogm.dao.model.UsuarioDAO;
-import br.com.pedidogm.util.Database;
-import br.com.pedidogm.view.FrmConfiguraBanco;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import br.com.pedidogm.domain.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class PostgreSQLDAOFactory extends DAOFactory {
 
-    private static final Database DATABASE = getDatabase();
+    private static final Database DATABASE = Database.getDatabase();
     private static final String URL_BANCO = "jdbc:postgresql://" + DATABASE.toString();
     private static final String DRIVER = "org.postgresql.Driver";
     private static final String USUARIO = DATABASE.getUsuario();
@@ -49,35 +43,6 @@ public class PostgreSQLDAOFactory extends DAOFactory {
                     JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             throw new DAOException("Não foi possível estabelecer conexão com o banco de dados.", ex);
-        }
-        return null;
-    }
-
-    /**
-     * @return O objeto Database.
-     */
-    public static Database getDatabase() {
-        try {
-            StringBuilder xml = new StringBuilder();
-            Scanner scanner = new Scanner(new FileReader(".db_conf_pedidogm.xml"));
-
-            while (scanner.hasNext()) {
-                xml.append(scanner.next());
-            }
-
-            XStream xStream = new XStream(new DomDriver());
-            Database banco = (Database) xStream.fromXML(xml.toString());
-
-            return banco;
-
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Não foi possível estabelecer conexão com o banco.\n\n"
-                    + "ERRO: Arquivo \".db_conf_pedidogm.xml\" não encontrado.",
-                    "Erro de conexão",
-                    JOptionPane.ERROR_MESSAGE);
-            FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(null);
-            configuraBanco.setVisible(true);
         }
         return null;
     }

@@ -1,6 +1,6 @@
 package br.com.pedidogm.view;
 
-import br.com.pedidogm.util.Database;
+import br.com.pedidogm.domain.Database;
 import br.com.pedidogm.util.Seguranca;
 import br.com.pedidogm.util.XMLFilter;
 import com.thoughtworks.xstream.XStream;
@@ -10,10 +10,8 @@ import java.awt.Window;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -272,7 +270,8 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            getDatabase(file.getAbsolutePath());
+            database = Database.getDatabase(file.getAbsolutePath());
+            carregaDadosForm();
         }
         btGravar.setEnabled(true);
         btCancelar.setEnabled(true);
@@ -297,7 +296,8 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         tfNome.setEnabled(false);
         tfUsuario.setEnabled(false);
         tfSenha.setEnabled(false);
-        getDatabase();
+        database = Database.getDatabase();
+        carregaDadosForm();
     }
 
     private void carregaDadosForm() {
@@ -308,42 +308,6 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         tfSenha.setText(database.getSenha());
     }
 
-    private boolean getDatabase() {
-        try {
-            StringBuilder xml = new StringBuilder();
-            Scanner scanner = new Scanner(new FileReader(".db_conf_pedidogm.xml"));
-            while (scanner.hasNext()) {
-                xml.append(scanner.next());
-            }
-            XStream xStream = new XStream(new DomDriver());
-            database = (Database) xStream.fromXML(xml.toString());
-            carregaDadosForm();
-
-            return true;
-        } catch (FileNotFoundException ex) {
-        }
-        return false;
-    }
-
-    private boolean getDatabase(String arq) {
-        try {
-            StringBuilder xml = new StringBuilder();
-            Scanner scanner = new Scanner(new FileReader(arq));
-            while (scanner.hasNext()) {
-                xml.append(scanner.next());
-            }
-            XStream xStream = new XStream(new DomDriver());
-            database = (Database) xStream.fromXML(xml.toString());
-            carregaDadosForm();
-
-            return true;
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        } catch (ClassCastException ex) {
-            JOptionPane.showMessageDialog(null, "O arquivo não pôde ser importado. \nERRO: " + ex);
-        }
-        return false;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
