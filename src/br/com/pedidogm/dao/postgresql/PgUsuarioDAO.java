@@ -3,7 +3,6 @@ package br.com.pedidogm.dao.postgresql;
 import br.com.pedidogm.dao.DAOException;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
-import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.domain.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,7 +77,8 @@ public class PgUsuarioDAO implements UsuarioDAO {
 
         try {
             String SQL
-                    = "INSERT INTO usuario (nome_usuario, senha, nome_completo, email, ultimo_acesso, nova_senha, ativo, administrador)\n"
+                    = "INSERT INTO usuario (nome_usuario, senha, nome_completo, "
+                    + "email, ultimo_acesso, nova_senha, ativo, administrador)\n"
                     + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
@@ -141,58 +141,6 @@ public class PgUsuarioDAO implements UsuarioDAO {
     }
 
     @Override
-    public boolean logar(Usuario usuario) {
-
-        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
-        Usuario u = new Usuario();
-
-        try {
-            String query
-                    = "SELECT \n"
-                    + "    id_usuario,\n"
-                    + "    nome_usuario,\n"
-                    + "    senha,\n"
-                    + "    nome_completo,\n"
-                    + "    email,\n"
-                    + "    ultimo_acesso,\n"
-                    + "    nova_senha,\n"
-                    + "    ativo,\n"
-                    + "    administrador\n"
-                    + "  FROM usuario WHERE nome_usuario = ? AND senha = ?;";
-
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, usuario.getNomeUsuario());
-            ps.setString(2, usuario.getSenha());
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next() && rs.getBoolean(8)) {
-                u.setId(rs.getLong(1));
-                u.setNomeUsuario(rs.getString(2));
-                u.setSenha(rs.getString(3));
-                u.setNomeCompleto(rs.getString(4));
-                u.setEmail(rs.getString(5));
-                u.setUltimoAcesso(rs.getTimestamp(6).toLocalDateTime());
-                u.setNovaSenha(rs.getBoolean(7));
-                u.setAtivo(rs.getBoolean(8));
-                u.setAdmin(rs.getBoolean(9));
-                u.setUltimoAcesso(LocalDateTime.now());
-                Sessao.setUsuario(u);
-                alterar(u);
-                return true;
-            }
-
-            con.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            throw new DAOException("Falha ao logar em PgUsuarioDAO", ex);
-        }
-
-        return false;
-    }
-
-    @Override
     public Usuario buscar(Long id) {
 
         Connection connection = DAOFactory.getDefaultDAOFactory().getConnection();
@@ -227,7 +175,7 @@ public class PgUsuarioDAO implements UsuarioDAO {
                     Boolean ativo = rs.getBoolean(8);
                     Boolean admin = rs.getBoolean(9);
 
-                    usuario = new Usuario(nomeUsuario, senha, nomeCompleto, email, ultimoAcesso, novaSenha, ativo, admin);
+                    usuario = new Usuario(id, nomeUsuario, senha, nomeCompleto, email, ultimoAcesso, novaSenha, ativo, admin);
                 }
             }
             connection.close();
@@ -258,6 +206,56 @@ public class PgUsuarioDAO implements UsuarioDAO {
 
         } catch (SQLException ex) {
             throw new DAOException("Falha ao excluir usuario em PgUsuarioDAO", ex);
+        }
+    }
+
+    @Override
+    public Usuario buscarPorNome(String username) {
+
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+        Usuario usuario = new Usuario();
+
+        try {
+            String query
+                    = "SELECT \n"
+                    + "    id_usuario,\n"
+                    + "    nome_usuario,\n"
+                    + "    senha,\n"
+                    + "    nome_completo,\n"
+                    + "    email,\n"
+                    + "    ultimo_acesso,\n"
+                    + "    nova_senha,\n"
+                    + "    ativo,\n"
+                    + "    administrador\n"
+                    + "  FROM usuario \n"
+                    + "WHERE nome_usuario = ? LIMIT 1;";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Long id = rs.getLong(1);
+                String nomeUsuario = rs.getString(2);
+                String senha = rs.getString(3);
+                String nomeCompleto = rs.getString(4);
+                String email = rs.getString(5);
+                LocalDateTime ultimoAcesso = rs.getTimestamp(6).toLocalDateTime();
+                Boolean novaSenha = rs.getBoolean(7);
+                Boolean ativo = rs.getBoolean(8);
+                Boolean admin = rs.getBoolean(9);
+
+                usuario = new Usuario(id, nomeUsuario, senha, nomeCompleto,
+                        email, ultimoAcesso, novaSenha, ativo, admin);
+            }
+
+            con.close();
+
+            return usuario;
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao encontrar usuario por nome em PgUsuarioDAO", ex);
         }
     }
 

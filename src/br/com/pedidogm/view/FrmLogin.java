@@ -5,6 +5,7 @@ import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Usuario;
 import br.com.pedidogm.util.GUIUtils;
 import br.com.pedidogm.util.Seguranca;
+import br.com.pedidogm.util.Sessao;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -127,7 +128,9 @@ public class FrmLogin extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbStatus.setBackground(java.awt.Color.gray);
-        lbStatus.setText("jLabel4");
+        lbStatus.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lbStatus.setForeground(java.awt.Color.red);
+        lbStatus.setText("Status da autenticação...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,22 +213,15 @@ public class FrmLogin extends javax.swing.JDialog {
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
 
-        this.lbStatus.setText("Checando dados...");
-
         String senha = Seguranca.criptografarSHA256(this.tfSenha.getText());
 
         Usuario usuario = new Usuario();
-        usuario.setNomeUsuario(this.tfUsuario.getText());
+        usuario.setNomeUsuario(this.tfUsuario.getText().trim());
         usuario.setSenha(senha);
         usuario.setUltimoAcesso(LocalDateTime.now());
         usuario.setAtivo(true);
 
-        if (!autenticar(usuario)) {
-            JOptionPane.showMessageDialog(null,
-                    "Dados inválidos para autenticação.\n"
-                    + "- Tente novamente!");
-            this.lbStatus.setText("");
-        } else {
+        if (autenticar(usuario)) {
             this.dispose();
             FrmPrincipal frmPrincipal = new FrmPrincipal();
             frmPrincipal.setVisible(true);
@@ -276,9 +272,28 @@ public class FrmLogin extends javax.swing.JDialog {
         setIcon(this);
     }
 
-    public boolean autenticar(Usuario usuario) {
+    private boolean autenticar(Usuario usuario) {
+
         UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
-        return (usuarioDAO.logar(usuario));
+        Usuario u = usuarioDAO.buscarPorNome(usuario.getNomeUsuario());
+
+        if (u.getId() != null) {
+            if (!usuario.getSenha().equals(u.getSenha())) {
+                lbStatus.setText("* Senha inválida.");
+            } else if (!u.isAtivo()) {
+                lbStatus.setText("* Usuário inativo.");
+            } else {
+                lbStatus.setText("");
+                u.setUltimoAcesso(LocalDateTime.now());
+                Sessao.setUsuario(u);
+                usuarioDAO.alterar(u);
+                return true;
+            }
+        } else {
+            lbStatus.setText("* Usuário não encontrado");
+        }
+
+        return false;
     }
 
     private void setIcon(Window w) {

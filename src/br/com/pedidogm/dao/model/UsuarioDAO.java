@@ -11,10 +11,10 @@ import java.util.List;
 public interface UsuarioDAO {
 
     public List<Usuario> listarTodos();
-    public boolean logar(Usuario usuario);
     public void inserir(Usuario usuario);
     public void alterar(Usuario usuario);
     public void excluir(Usuario usuario);
     public Usuario buscar(Long id);
+    public Usuario buscarPorNome(String username);
     
 }
