@@ -177,7 +177,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Material]]></text>
+				<text><![CDATA[Descrição]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="11" y="0" width="29" height="21" uuid="0235524b-f600-445a-95ca-1ed70aa6ed62"/>
