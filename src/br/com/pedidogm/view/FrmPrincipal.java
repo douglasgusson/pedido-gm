@@ -1,6 +1,7 @@
 package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Sessao;
+import br.com.pedidogm.domain.Info;
 import br.com.pedidogm.util.GUIUtils;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -413,7 +414,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initialize() {
         setPermissoes();
 
-        this.setTitle(GUIUtils.getNameMoreVersion());
+        this.setTitle(Info.getNameMoreVersion());
 
         lbUsuario.setText(Sessao.getUsuario().getNomeUsuario());
         lbAcesso.setText(Sessao.acessoToString());

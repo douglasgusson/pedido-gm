@@ -9,21 +9,6 @@ import javax.swing.JOptionPane;
  */
 public class GUIUtils {
 
-    private static final String NAME_SYSTEM = "PedidoGM";
-    private static final String VERSION = "v0.9.3";
-
-    public static String getVersion() {
-        return VERSION;
-    }
-
-    public static String getNameSystem() {
-        return NAME_SYSTEM;
-    }
-
-    public static String getNameMoreVersion() {
-        return NAME_SYSTEM + " " + VERSION;
-    }
-
     public static void confirmarSaida(Window w) {
         int i = JOptionPane.showConfirmDialog(null,
                 "Deseja realmente sair deste sistema?\n",

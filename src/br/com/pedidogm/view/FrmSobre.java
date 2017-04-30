@@ -1,6 +1,6 @@
 package br.com.pedidogm.view;
 
-import br.com.pedidogm.util.GUIUtils;
+import br.com.pedidogm.domain.Info;
 import java.awt.Window;
 
 /**
@@ -21,34 +21,9 @@ public class FrmSobre extends javax.swing.JDialog {
     }
 
     private void inicializarFrame() {
-        this.taInfo.setText(getSystemProperty());
-        this.lbNomeSistema.setText(GUIUtils.getNameMoreVersion());
+        this.taInfo.setText(Info.getSystemProperty());
+        this.lbNomeSistema.setText(Info.getNameMoreVersion());
         this.setTitle("PedidoGM - Sobre");
-    }
-
-    private static StringBuffer buffer;
-
-    public static String getSystemProperty() {
-        buffer = new StringBuffer();
-        initProperty("Fornecedor Java", "java.vendor");
-        initProperty("URL Fornecedor Java", "java.vendor.url");
-        initProperty("Versão Java", "java.version");
-        initProperty("Nome Sistema Operacional", "os.name");
-        initProperty("Versão Sistema Operacional", "os.version");
-        initProperty("Arquitetura Sistema Operacional", "os.arch");
-        initProperty("Diretório Programa", "user.dir");
-        initProperty("Nome Usuário", "user.name");
-        initProperty("Fuso Horário", "user.timezone");
-        return buffer.toString();
-    }
-
-    private static String initProperty(String description, String propertyStr) {
-        if (buffer == null) {
-            buffer = new StringBuffer();
-        }
-        buffer.append(description).append(": ");
-        buffer.append(System.getProperty(propertyStr)).append("\n");
-        return buffer.toString();
     }
 
     /**

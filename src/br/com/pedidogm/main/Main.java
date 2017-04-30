@@ -1,7 +1,7 @@
 package br.com.pedidogm.main;
 
 import br.com.pedidogm.dao.DAOFactory;
-import br.com.pedidogm.util.GUIUtils;
+import br.com.pedidogm.domain.Info;
 import br.com.pedidogm.view.FrmLogin;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -69,7 +69,7 @@ public class Main extends JWindow {
                 Main.this.getClass().getResource("/br/com/pedidogm/img/ripple.gif"));
         JLabel lbGif = new JLabel(imageIcon);
 
-        JLabel lbTitulo = new JLabel(GUIUtils.getNameMoreVersion(), JLabel.CENTER);
+        JLabel lbTitulo = new JLabel(Info.getNameMoreVersion(), JLabel.CENTER);
         lbTitulo.setFont(new Font("Calibri", Font.BOLD, 16));
 
         JLabel load = new JLabel("Carregando módulos do sistema...", JLabel.CENTER);
