@@ -1,9 +1,6 @@
 package br.com.pedidogm.table.model;
 
-import br.com.pedidogm.dao.DAOFactory;
-import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.domain.Cliente;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -27,11 +24,6 @@ public class ClienteTableModel extends AbstractTableModel {
         this.dados = dados;
     }
 
-    public ClienteTableModel() {
-        dados = new ArrayList<>();
-        carregarDoBD();
-    }
-
     @Override
     public int getRowCount() {
         return dados.size();
@@ -47,16 +39,19 @@ public class ClienteTableModel extends AbstractTableModel {
 
         Cliente obj = dados.get(rowIndex);
 
-        if (columnIndex == COL_CODIGO) {
-            return String.format("%05d", obj.getId());
-        } else if (columnIndex == COL_NOME) {
-            return obj.getNome();
-        } else if (columnIndex == COL_APELIDO) {
-            return obj.getApelido();
-        } else if (columnIndex == COL_TELEFONE) {
-            return obj.getTelefone();
-        } else if (columnIndex == COL_CELULAR) {
-            return obj.getCelular();
+        switch (columnIndex) {
+            case COL_CODIGO:
+                return String.format("%05d", obj.getId());
+            case COL_NOME:
+                return obj.getNome();
+            case COL_APELIDO:
+                return obj.getApelido();
+            case COL_TELEFONE:
+                return obj.getTelefone();
+            case COL_CELULAR:
+                return obj.getCelular();
+            default:
+                break;
         }
         return null;
     }
@@ -89,16 +84,6 @@ public class ClienteTableModel extends AbstractTableModel {
 
     public Cliente get(int row) {
         return dados.get(row);
-    }
-
-    public void atualizarDoBD() {
-        dados.clear();
-        carregarDoBD();
-    }
-
-    private void carregarDoBD() {
-        ClienteDAO cd = DAOFactory.getDefaultDAOFactory().getClienteDAO();
-        dados = cd.listarTodos();
     }
 
     public List<Cliente> getColecao() {

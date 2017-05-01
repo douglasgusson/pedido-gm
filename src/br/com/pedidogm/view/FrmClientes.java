@@ -27,6 +27,7 @@ public class FrmClientes extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmClientes
+     * @param parent
      */
     public FrmClientes(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
@@ -35,23 +36,22 @@ public class FrmClientes extends javax.swing.JDialog {
         initialize();
     }
 
-    public void atualizarTabela() {
+    public void atualizarTabelaTodos() {
+        ClienteDAO cdao = DAOFactory.getDefaultDAOFactory().getClienteDAO();
+        this.listaClientes = cdao.listarTodos();
         tbClientes.setModel(new ClienteTableModel(this.listaClientes));
         tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
         ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
     }
 
-    public void atualizarTabelaDoBD() {
+    public void atualizarTabelaBusca() {
         tbClientes.setModel(new ClienteTableModel(this.listaClientes));
         tbClientes.setDefaultRenderer(Object.class, new ClienteCellRenderer());
-        ((ClienteTableModel) tbClientes.getModel()).atualizarDoBD();
         ((AbstractTableModel) tbClientes.getModel()).fireTableDataChanged();
     }
 
     private void initialize() {
-        ClienteDAO cdao = DAOFactory.getDefaultDAOFactory().getClienteDAO();
-        this.listaClientes = cdao.listarTodos();
-        atualizarTabela();
+        atualizarTabelaTodos();
     }
 
     /**
@@ -211,7 +211,7 @@ public class FrmClientes extends javax.swing.JDialog {
             if (GUIUtils.confirmarExclusao(c) == JOptionPane.YES_OPTION) {
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 clienteDAO.excluir(c);
-                atualizarTabelaDoBD();
+                atualizarTabelaTodos();
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
@@ -223,7 +223,7 @@ public class FrmClientes extends javax.swing.JDialog {
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
         ClienteDAO cdao = DAOFactory.getDefaultDAOFactory().getClienteDAO();
         this.listaClientes = cdao.bucarPorNome(this.tfPesquisa.getText());
-        atualizarTabela();
+        atualizarTabelaBusca();
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

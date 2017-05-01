@@ -288,7 +288,7 @@ public class FrmRegistroCliente extends javax.swing.JDialog {
             }
 
             FrmClientes frmClientes = FrmClientes.getInstancia();
-            frmClientes.atualizarTabelaDoBD();
+            frmClientes.atualizarTabelaTodos();
 
             if (OPCAO_ALTERAR == opcao) {
                 this.dispose();
