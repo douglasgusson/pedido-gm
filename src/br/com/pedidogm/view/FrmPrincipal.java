@@ -49,6 +49,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         itemPedidos = new javax.swing.JMenuItem();
         itemClientes = new javax.swing.JMenuItem();
         itemMateriais = new javax.swing.JMenuItem();
+        itemTransportadores = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemTipos = new javax.swing.JMenuItem();
         itemAcabamentos = new javax.swing.JMenuItem();
@@ -189,6 +190,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/cadastros.png"))); // NOI18N
         menuCadastros.setMnemonic('C');
         menuCadastros.setText("Cadastros");
+        menuCadastros.setToolTipText("T");
 
         itemPedidos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         itemPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/pedido_16x16.png"))); // NOI18N
@@ -223,10 +225,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuCadastros.add(itemMateriais);
+
+        itemTransportadores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
+        itemTransportadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/transportador_16x16.png"))); // NOI18N
+        itemTransportadores.setMnemonic('T');
+        itemTransportadores.setText("Transportadores");
+        itemTransportadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTransportadoresActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemTransportadores);
         menuCadastros.add(jSeparator1);
 
         itemTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/pedidogm/img/tabela.png"))); // NOI18N
-        itemTipos.setMnemonic('T');
+        itemTipos.setMnemonic('I');
         itemTipos.setText("Tipos de Item");
         itemTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,6 +424,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemManualUsoActionPerformed
 
+    private void itemTransportadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTransportadoresActionPerformed
+        FrmTransportadores frmTransportadores = new FrmTransportadores(this);
+        frmTransportadores.setVisible(true);
+    }//GEN-LAST:event_itemTransportadoresActionPerformed
+
     private void initialize() {
         setPermissoes();
 
@@ -457,6 +475,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSair;
     private javax.swing.JMenuItem itemSobre;
     private javax.swing.JMenuItem itemTipos;
+    private javax.swing.JMenuItem itemTransportadores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
