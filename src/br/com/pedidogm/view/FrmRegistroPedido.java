@@ -7,6 +7,7 @@ import br.com.pedidogm.dao.model.ItemPedidoDAO;
 import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.dao.model.PedidoDAO;
 import br.com.pedidogm.dao.model.TipoItemDAO;
+import br.com.pedidogm.dao.model.TransportadorDAO;
 import br.com.pedidogm.domain.Acabamento;
 import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.domain.ItemPedido;
@@ -14,6 +15,7 @@ import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.domain.TipoItem;
+import br.com.pedidogm.domain.Transportador;
 import br.com.pedidogm.table.cellrenderer.ItemPedidoCellRenderer;
 import br.com.pedidogm.table.model.ItemPedidoTableModel;
 import br.com.pedidogm.util.MascaraNumerica;
@@ -55,6 +57,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private static FrmRegistroPedido INSTANCIA;
 
     private Cliente cliente = new Cliente();
+    private Transportador transportador = new Transportador();
     private Material material = new Material();
     private Pedido pedido;
 
@@ -154,7 +157,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.tfOutrosValores.setText(outrosValores.toString().replace(".", ","));
         this.tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
         this.tfPlaca.setText(pedido.getPlaca());
-        this.tfMotorista.setText(pedido.getMotorista());
+        this.tfTransportador.setText(pedido.getMotorista());
         this.taObservacoes.setText(pedido.getObservacoes());
 
         this.itensPedido = pedido.getItensPedido();
@@ -194,7 +197,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         tfTotalPedido.setText(totalPedido.toString().replace(".", ","));
 
         tfPlaca.setText("");
-        tfMotorista.setText("");
+        tfTransportador.setText("");
         taObservacoes.setText("");
 
         limparCamposItem();
@@ -340,6 +343,12 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
         this.tfNomeCliente.setText(cliente.getNome());
+    }
+
+    public void setTransportador(Transportador t) {
+        this.transportador = t;
+        this.tfPlaca.setText(transportador.getPlaca());
+        this.tfTransportador.setText(transportador.getNome());
     }
 
     public void setMaterial(Material material) {
@@ -615,7 +624,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         taObservacoes = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         tfPlaca = new javax.swing.JTextField();
-        tfMotorista = new javax.swing.JTextField();
+        tfTransportador = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         tfDescontoPedido = new javax.swing.JTextField();
@@ -989,7 +998,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
 
         jLabel2.setText("Placa:");
 
-        jLabel3.setText("Motorista:");
+        tfTransportador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfTransportadorFocusLost(evt);
+            }
+        });
+
+        jLabel3.setText("Transportador:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1003,15 +1018,13 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(tfMotorista))
+                        .addGap(0, 318, Short.MAX_VALUE))
+                    .addComponent(tfTransportador))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1028,7 +1041,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(tfMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfTransportador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1252,8 +1265,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     p.setValor(totalPedido);
                     p.setPlaca(this.tfPlaca.getText().trim().equals("")
                             ? null : this.tfPlaca.getText());
-                    p.setMotorista(this.tfMotorista.getText().trim().equals("")
-                            ? null : this.tfMotorista.getText());
+                    p.setMotorista(this.tfTransportador.getText().trim().equals("")
+                            ? null : this.tfTransportador.getText());
                     p.setObservacoes(this.taObservacoes.getText().trim().equals("")
                             ? null : this.taObservacoes.getText());
                     p.setDataCarregamento(dataCarregamento);
@@ -1285,8 +1298,8 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     pedido.setValor(totalPedido);
                     pedido.setPlaca(this.tfPlaca.getText().trim().equals("")
                             ? null : this.tfPlaca.getText());
-                    pedido.setMotorista(this.tfMotorista.getText().trim().equals("")
-                            ? null : this.tfMotorista.getText());
+                    pedido.setMotorista(this.tfTransportador.getText().trim().equals("")
+                            ? null : this.tfTransportador.getText());
                     pedido.setObservacoes(this.taObservacoes.getText().trim().equals("")
                             ? null : this.taObservacoes.getText());
                     pedido.setDataCarregamento(dataCarregamento);
@@ -1624,6 +1637,22 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         dcDataCarregamento.setBorder(borderDefault);
     }//GEN-LAST:event_dcDataCarregamentoFocusLost
 
+    private void tfTransportadorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTransportadorFocusLost
+
+        String query = this.tfTransportador.getText().trim();
+
+        if (!query.equals("")) {
+
+            TransportadorDAO tdao = DAOFactory.getDefaultDAOFactory().getTransportadorDAO();
+
+            List<Transportador> transportadores = tdao.bucarPorNome(query);
+
+            if (transportadores.size() == 1) {
+                setTransportador(transportadores.get(0));
+            } 
+        }
+    }//GEN-LAST:event_tfTransportadorFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brSair;
     private javax.swing.JButton btAdicionar;
@@ -1681,7 +1710,6 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JTextField tfLarguraLiq;
     private javax.swing.JTextField tfMaterial;
     private javax.swing.JTextField tfMetragem;
-    private javax.swing.JTextField tfMotorista;
     private javax.swing.JTextField tfNomeCliente;
     private javax.swing.JTextField tfOutrosValores;
     private javax.swing.JTextField tfPlaca;
@@ -1690,6 +1718,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
     private javax.swing.JTextField tfSeguro;
     private javax.swing.JTextField tfTotalItem;
     private javax.swing.JTextField tfTotalPedido;
+    private javax.swing.JTextField tfTransportador;
     private javax.swing.JTextField tfValorDesconto;
     private javax.swing.JTextField tfValorUnitario;
     // End of variables declaration//GEN-END:variables
