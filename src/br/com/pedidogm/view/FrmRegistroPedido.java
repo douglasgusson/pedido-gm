@@ -1263,7 +1263,7 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
                     p.setFrete(frete);
                     p.setOutros(outrosValores);
                     p.setValor(totalPedido);
-                    p.setPlaca(this.tfPlaca.getText().trim().equals("")
+                     p.setPlaca(this.tfPlaca.getText().trim().equals("")
                             ? null : this.tfPlaca.getText());
                     p.setMotorista(this.tfTransportador.getText().trim().equals("")
                             ? null : this.tfTransportador.getText());
