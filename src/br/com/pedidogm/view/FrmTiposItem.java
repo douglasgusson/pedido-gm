@@ -6,6 +6,7 @@ import br.com.pedidogm.domain.TipoItem;
 import br.com.pedidogm.table.cellrenderer.TipoItemCellRenderer;
 import br.com.pedidogm.table.model.AcabamentoTableModel;
 import br.com.pedidogm.table.model.TipoItemTableModel;
+import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -182,13 +183,7 @@ public class FrmTiposItem extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             TipoItem ti = ((TipoItemTableModel) tbTipos.getModel()).getColecao().get(indice);
-
-            int i = JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir este tipo?\n"
-                    + ti.getId() + " - " + ti.getDescricao(),
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (i == JOptionPane.YES_OPTION) {
+            if (GUIUtils.confirmarExclusao(ti) == JOptionPane.YES_OPTION) {
                 TipoItemDAO tipoItemDAO = DAOFactory.getDefaultDAOFactory().getTipoItemDAO();
                 tipoItemDAO.excluir(ti);
                 atualizarTabela();

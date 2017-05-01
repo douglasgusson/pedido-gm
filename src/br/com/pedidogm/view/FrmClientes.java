@@ -5,6 +5,7 @@ import br.com.pedidogm.dao.model.ClienteDAO;
 import br.com.pedidogm.domain.Cliente;
 import br.com.pedidogm.table.cellrenderer.ClienteCellRenderer;
 import br.com.pedidogm.table.model.ClienteTableModel;
+import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -207,13 +208,7 @@ public class FrmClientes extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             Cliente c = ((ClienteTableModel) tbClientes.getModel()).getColecao().get(indice);
-
-            int i = JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir este cliente?\n"
-                    + c.getId() + " - " + c.getNome(),
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (i == JOptionPane.YES_OPTION) {
+            if (GUIUtils.confirmarExclusao(c) == JOptionPane.YES_OPTION) {
                 ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
                 clienteDAO.excluir(c);
                 atualizarTabelaDoBD();

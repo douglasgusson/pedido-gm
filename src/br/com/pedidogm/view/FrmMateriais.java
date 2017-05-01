@@ -5,6 +5,7 @@ import br.com.pedidogm.dao.model.MaterialDAO;
 import br.com.pedidogm.domain.Material;
 import br.com.pedidogm.table.cellrenderer.MaterialCellRenderer;
 import br.com.pedidogm.table.model.MaterialTableModel;
+import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -212,13 +213,7 @@ public class FrmMateriais extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             Material m = ((MaterialTableModel) tbMateriais.getModel()).getColecao().get(indice);
-
-            int i = JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir este material?\n"
-                    + m.getId() + " - " + m.getNome(),
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (i == JOptionPane.YES_OPTION) {
+            if (GUIUtils.confirmarExclusao(m) == JOptionPane.YES_OPTION) {
                 MaterialDAO materialDAO = DAOFactory.getDefaultDAOFactory().getMaterialDAO();
                 materialDAO.excluir(m);
                 atualizarTabelaDoBD();

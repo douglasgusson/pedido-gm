@@ -5,6 +5,7 @@ import br.com.pedidogm.dao.model.AcabamentoDAO;
 import br.com.pedidogm.domain.Acabamento;
 import br.com.pedidogm.table.cellrenderer.AcabamentoCellRenderer;
 import br.com.pedidogm.table.model.AcabamentoTableModel;
+import br.com.pedidogm.util.GUIUtils;
 import java.awt.Window;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -181,13 +182,7 @@ public class FrmAcabamentos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         } else {
             Acabamento a = ((AcabamentoTableModel) tbAcabamentos.getModel()).getColecao().get(indice);
-
-            int i = JOptionPane.showConfirmDialog(null,
-                    "Deseja realmente excluir este acabamento?\n"
-                    + a.getId() + " - " + a.getDescricao(),
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (i == JOptionPane.YES_OPTION) {
+            if (GUIUtils.confirmarExclusao(a) == JOptionPane.YES_OPTION) {
                 AcabamentoDAO acabamentoDAO = DAOFactory.getDefaultDAOFactory().getAcabamentoDAO();
                 acabamentoDAO.excluir(a);
                 atualizarTabela();

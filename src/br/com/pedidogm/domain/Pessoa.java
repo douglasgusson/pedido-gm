@@ -1,4 +1,3 @@
-
 package br.com.pedidogm.domain;
 
 import java.time.LocalDateTime;
@@ -8,7 +7,7 @@ import java.time.LocalDateTime;
  * @author douglas
  */
 public class Pessoa {
-    
+
     private Long id;
     private String nome;
     private String apelido;
@@ -129,7 +128,11 @@ public class Pessoa {
     public void setAlteracao(LocalDateTime alteracao) {
         this.alteracao = alteracao;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return new StringBuilder(getId().toString())
+                .append(" - ").append(getNome()).toString();
+    }
+
 }

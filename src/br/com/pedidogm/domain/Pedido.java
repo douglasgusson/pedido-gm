@@ -159,7 +159,9 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return this.getId() + " - " + this.getCliente().getNome();
+        return new StringBuilder(getId().toString()).append(" - ")
+                .append(getCliente().getNome()).append(" (R$")
+                .append(getValor()).append(")").toString();
     }
 
 }

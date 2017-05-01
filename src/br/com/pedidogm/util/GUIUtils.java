@@ -20,4 +20,13 @@ public class GUIUtils {
             System.exit(0);
         }
     }
+
+    public static int confirmarExclusao(Object o) {
+        int i = JOptionPane.showConfirmDialog(null,
+                "Deseja realmente excluir este registro?\n\n"
+                        + o.toString() + "\n",
+                "Confirmação de exclusão",
+                JOptionPane.YES_NO_OPTION);
+        return i;
+    }
 }

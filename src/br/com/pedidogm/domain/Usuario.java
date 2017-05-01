@@ -97,13 +97,19 @@ public class Usuario {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
-    
-     public Boolean isAdmin() {
+
+    public Boolean isAdmin() {
         return admin;
     }
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder(getId().toString())
+                .append(" - ").append(getNomeUsuario()).toString();
     }
 
 }

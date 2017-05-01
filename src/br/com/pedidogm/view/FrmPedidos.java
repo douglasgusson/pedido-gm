@@ -7,6 +7,7 @@ import br.com.pedidogm.domain.Pedido;
 import br.com.pedidogm.util.Sessao;
 import br.com.pedidogm.table.cellrenderer.PedidoCellRenderer;
 import br.com.pedidogm.table.model.PedidoTableModel;
+import br.com.pedidogm.util.GUIUtils;
 import java.awt.Cursor;
 import java.awt.Window;
 import java.util.List;
@@ -257,12 +258,7 @@ public class FrmPedidos extends javax.swing.JDialog {
 
             if (Sessao.getUsuario().getNomeUsuario().equals(p.getUsuario().getNomeUsuario())) {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                int i = JOptionPane.showConfirmDialog(null,
-                        "Deseja realmente excluir este pedido?\n"
-                        + p.getId() + " - " + p.getCliente().getNome(),
-                        "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (i == JOptionPane.YES_OPTION) {
+                if (GUIUtils.confirmarExclusao(p) == JOptionPane.YES_OPTION) {
                     PedidoDAO pedidoDAO = DAOFactory.getDefaultDAOFactory().getPedidoDAO();
                     pedidoDAO.excluir(p);
                     atualizarTabela();
