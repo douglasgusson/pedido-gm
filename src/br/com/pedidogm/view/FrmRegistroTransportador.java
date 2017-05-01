@@ -69,14 +69,14 @@ public class FrmRegistroTransportador extends javax.swing.JDialog {
     }
 
     private void initialize() {
-        this.tfNome.setText("");
+        this.tfNome.setText(null);
         this.tfNome.setBorder(borderDefault);
-        this.tfApelido.setText("");
-        this.tfTelefone.setText("");
-        this.tfCelular.setText("");
-        this.tfPlaca.setText("");
+        this.tfApelido.setText(null);
+        this.tfTelefone.setText(null);
+        this.tfCelular.setText(null);
+        this.tfPlaca.setText(null);
         this.tfPlaca.setBorder(borderDefault);
-        this.taObservacoes.setText("");
+        this.taObservacoes.setText(null);
         this.tfNome.requestFocus();
         getRootPane().setDefaultButton(btGravar);
 
@@ -84,13 +84,14 @@ public class FrmRegistroTransportador extends javax.swing.JDialog {
             @Override
             public void focusLost(FocusEvent evt) {
                 JTextField field = (JTextField) evt.getSource();
-                if (!field.getText().trim().equals("")) {
+                if (!field.getText().trim().isEmpty()) {
                     field.setBorder(borderDefault);
                 }
             }
         };
 
         tfNome.addFocusListener(setBorderDefault);
+        tfPlaca.addFocusListener(setBorderDefault);
 
     }
 
@@ -233,10 +234,10 @@ public class FrmRegistroTransportador extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
 
-        if ((this.tfNome.getText().trim()).equals("")) {
+        if (this.tfNome.getText().trim().isEmpty()) {
             this.tfNome.setBorder(borderRed);
             this.tfNome.requestFocus();
-        } else if ((this.tfPlaca.getText().trim()).equals("")) {
+        } else if (this.tfPlaca.getText().trim().isEmpty()) {
             this.tfPlaca.setBorder(borderRed);
             this.tfPlaca.requestFocus();
         } else {
@@ -248,18 +249,12 @@ public class FrmRegistroTransportador extends javax.swing.JDialog {
 
                 case OPCAO_INSERIR:
 
-                    t.setNome(this.tfNome.getText().trim().equals("")
-                            ? null : this.tfNome.getText());
-                    t.setApelido(this.tfApelido.getText().trim().equals("")
-                            ? null : this.tfApelido.getText());
-                    t.setPlaca(this.tfPlaca.getText().trim().equals("")
-                            ? null : this.tfPlaca.getText());
-                    t.setTelefone(this.tfTelefone.getText().trim().equals("")
-                            ? null : this.tfTelefone.getText());
-                    t.setCelular(this.tfCelular.getText().trim().equals("")
-                            ? null : this.tfCelular.getText());
-                    t.setObservacoes(this.taObservacoes.getText().trim().equals("")
-                            ? null : this.taObservacoes.getText());
+                    t.setNome(this.tfNome.getText());
+                    t.setApelido(this.tfApelido.getText());
+                    t.setPlaca(this.tfPlaca.getText());
+                    t.setTelefone(this.tfTelefone.getText());
+                    t.setCelular(this.tfCelular.getText());
+                    t.setObservacoes(this.taObservacoes.getText());
                     t.setCriacao(LocalDateTime.now());
                     t.setAlteracao(LocalDateTime.now());
 
@@ -270,18 +265,12 @@ public class FrmRegistroTransportador extends javax.swing.JDialog {
                 case OPCAO_ALTERAR:
 
                     t.setId(this.transportador.getId());
-                    t.setNome(this.tfNome.getText().trim().equals("")
-                            ? null : this.tfNome.getText());
-                    t.setApelido(this.tfApelido.getText().trim().equals("")
-                            ? null : this.tfApelido.getText());
-                    t.setPlaca(this.tfPlaca.getText().trim().equals("")
-                            ? null : this.tfPlaca.getText());
-                    t.setTelefone(this.tfTelefone.getText().trim().equals("")
-                            ? null : this.tfTelefone.getText());
-                    t.setCelular(this.tfCelular.getText().trim().equals("")
-                            ? null : this.tfCelular.getText());
-                    t.setObservacoes(this.taObservacoes.getText().trim().equals("")
-                            ? null : this.taObservacoes.getText());
+                    t.setNome(this.tfNome.getText());
+                    t.setApelido(this.tfApelido.getText());
+                    t.setPlaca(this.tfPlaca.getText());
+                    t.setTelefone(this.tfTelefone.getText());
+                    t.setCelular(this.tfCelular.getText());
+                    t.setObservacoes(this.taObservacoes.getText());
                     t.setCriacao(this.transportador.getCriacao());
                     t.setAlteracao(LocalDateTime.now());
 

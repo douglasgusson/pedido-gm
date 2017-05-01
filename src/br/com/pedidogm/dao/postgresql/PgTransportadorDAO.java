@@ -138,7 +138,7 @@ public class PgTransportadorDAO implements TransportadorDAO {
 
         try {
 
-            String sql = "DELETE FROM transportador WHERE id_cliente = ?;";
+            String sql = "DELETE FROM transportador WHERE id_transportador = ?;";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
