@@ -53,9 +53,9 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
         this.tfNomeUsuario.setText(this.usuario.getNomeUsuario());
         this.tfNomeCompleto.setText(this.usuario.getNomeCompleto());
         this.tfEmail.setText(this.usuario.getEmail());
-        this.ckNovaSenha.setSelected(this.usuario.isNovaSenha());
-        this.ckAtivo.setSelected(this.usuario.isAtivo());
-        this.ckAdministrador.setSelected(this.usuario.isAdmin());
+        this.ckNovaSenha.setSelected(this.usuario.getNovaSenha());
+        this.ckAtivo.setSelected(this.usuario.getAtivo());
+        this.ckAdministrador.setSelected(this.usuario.getAdmin());
 
         if (this.usuario.getNomeUsuario().equals("admin")) {
             this.tfNomeUsuario.setEnabled(false);

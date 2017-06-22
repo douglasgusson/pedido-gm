@@ -1,11 +1,17 @@
 package br.com.pedidogm.domain;
 
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author douglas
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemPedido {
 
     private Long id;
@@ -24,134 +30,6 @@ public class ItemPedido {
     private BigDecimal valorUnitario;
     private BigDecimal desconto;
     private BigDecimal valorTotal;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public TipoItem getTipoItem() {
-        return tipoItem;
-    }
-
-    public void setTipoItem(TipoItem tipoItem) {
-        this.tipoItem = tipoItem;
-    }
-
-    public Long getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Long quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public BigDecimal getComprimentoBr() {
-        return comprimentoBr;
-    }
-
-    public void setComprimentoBr(BigDecimal comprimentoBr) {
-        this.comprimentoBr = comprimentoBr;
-    }
-
-    public BigDecimal getAlturaBr() {
-        return alturaBr;
-    }
-
-    public void setAlturaBr(BigDecimal alturaBr) {
-        this.alturaBr = alturaBr;
-    }
-
-    public BigDecimal getLarguraBr() {
-        return larguraBr;
-    }
-
-    public void setLarguraBr(BigDecimal larguraBr) {
-        this.larguraBr = larguraBr;
-    }
-
-    public BigDecimal getComprimentoLiq() {
-        return comprimentoLiq;
-    }
-
-    public void setComprimentoLiq(BigDecimal comprimentoLiq) {
-        this.comprimentoLiq = comprimentoLiq;
-    }
-
-    public BigDecimal getAlturaLiq() {
-        return alturaLiq;
-    }
-
-    public void setAlturaLiq(BigDecimal alturaLiq) {
-        this.alturaLiq = alturaLiq;
-    }
-
-    public BigDecimal getLarguraLiq() {
-        return larguraLiq;
-    }
-
-    public void setLarguraLiq(BigDecimal larguraLiq) {
-        this.larguraLiq = larguraLiq;
-    }
-
-    public Acabamento getAcabamento() {
-        return acabamento;
-    }
-
-    public void setAcabamento(Acabamento acabamento) {
-        this.acabamento = acabamento;
-    }
-
-    public BigDecimal getMetragem() {
-        return metragem;
-    }
-
-    public void setMetragem(BigDecimal metragem) {
-        this.metragem = metragem;
-    }
-
-    public BigDecimal getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(BigDecimal valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     @Override
     public String toString() {

@@ -276,11 +276,11 @@ public class FrmLogin extends javax.swing.JDialog {
 
         UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
         Usuario u = usuarioDAO.buscarPorNome(usuario.getNomeUsuario());
-
+        
         if (u.getId() != null) {
             if (!usuario.getSenha().equals(u.getSenha())) {
                 lbStatus.setText("* Senha inválida.");
-            } else if (!u.isAtivo()) {
+            } else if (!u.getAtivo()) {
                 lbStatus.setText("* Usuário inativo.");
             } else {
                 lbStatus.setText("");

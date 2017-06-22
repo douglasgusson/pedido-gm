@@ -441,7 +441,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(FrmPrincipal.DO_NOTHING_ON_CLOSE);
         setIcon(this);
 
-        if (Sessao.getUsuario().isNovaSenha()) {
+        if (Sessao.getUsuario().getNovaSenha()) {
             JOptionPane.showMessageDialog(null, "Por motivos de segurança, será necessário mudar sua senha.");
             FrmMudaSenha mudaSenha = new FrmMudaSenha(this);
             mudaSenha.setVisible(true);
@@ -455,7 +455,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     private void setPermissoes() {
-        if (!Sessao.getUsuario().isAdmin()) {
+        if (!Sessao.getUsuario().getAdmin()) {
             itemConfiguracoes.setEnabled(false);
         }
     }

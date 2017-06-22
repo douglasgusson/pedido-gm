@@ -88,9 +88,9 @@ public class PgUsuarioDAO implements UsuarioDAO {
                 ps.setString(3, u.getNomeCompleto());
                 ps.setString(4, u.getEmail());
                 ps.setTimestamp(5, Timestamp.valueOf(u.getUltimoAcesso()));
-                ps.setBoolean(6, u.isNovaSenha());
-                ps.setBoolean(7, u.isAtivo());
-                ps.setBoolean(8, u.isAdmin());
+                ps.setBoolean(6, u.getNovaSenha());
+                ps.setBoolean(7, u.getAtivo());
+                ps.setBoolean(8, u.getAdmin());
 
                 ps.executeUpdate();
             }
@@ -126,9 +126,9 @@ public class PgUsuarioDAO implements UsuarioDAO {
                 ps.setString(3, u.getNomeCompleto());
                 ps.setString(4, u.getEmail());
                 ps.setTimestamp(5, Timestamp.valueOf(u.getUltimoAcesso()));
-                ps.setBoolean(6, u.isNovaSenha());
-                ps.setBoolean(7, u.isAtivo());
-                ps.setBoolean(8, u.isAdmin());
+                ps.setBoolean(6, u.getNovaSenha());
+                ps.setBoolean(7, u.getAtivo());
+                ps.setBoolean(8, u.getAdmin());
                 ps.setLong(9, u.getId());
 
                 ps.executeUpdate();
