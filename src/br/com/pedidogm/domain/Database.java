@@ -1,6 +1,5 @@
 package br.com.pedidogm.domain;
 
-import br.com.pedidogm.util.Seguranca;
 import br.com.pedidogm.view.FrmConfiguraBanco;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -30,23 +29,23 @@ public class Database {
     }
 
     public String getHost() {
-        return Seguranca.encryptDecrypt(host);
+        return host;
     }
 
     public String getPorta() {
-        return Seguranca.encryptDecrypt(porta);
+        return porta;
     }
 
     public String getNomeBanco() {
-        return Seguranca.encryptDecrypt(nomeBanco);
+        return nomeBanco;
     }
 
     public String getUsuario() {
-        return Seguranca.encryptDecrypt(usuario);
+        return usuario;
     }
 
     public String getSenha() {
-        return Seguranca.encryptDecrypt(senha);
+        return senha;
     }
 
     /**

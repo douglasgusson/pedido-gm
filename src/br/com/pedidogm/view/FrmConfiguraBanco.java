@@ -1,7 +1,6 @@
 package br.com.pedidogm.view;
 
 import br.com.pedidogm.domain.Database;
-import br.com.pedidogm.util.Seguranca;
 import br.com.pedidogm.util.XMLFilter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.StreamException;
@@ -206,11 +205,11 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         try {
-            String ip = Seguranca.encryptDecrypt(this.tfHost.getText());
-            String porta = Seguranca.encryptDecrypt(this.tfPorta.getText());
-            String nome = Seguranca.encryptDecrypt(this.tfNome.getText());
-            String usuario = Seguranca.encryptDecrypt(this.tfUsuario.getText());
-            String senha = Seguranca.encryptDecrypt(this.tfSenha.getText());
+            String ip = this.tfHost.getText();
+            String porta = this.tfPorta.getText();
+            String nome = this.tfNome.getText();
+            String usuario = this.tfUsuario.getText();
+            String senha = this.tfSenha.getText();
 
             database = new Database(
                     ip, porta, nome, usuario, senha);
