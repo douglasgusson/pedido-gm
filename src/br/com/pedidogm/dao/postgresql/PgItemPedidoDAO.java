@@ -180,11 +180,11 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
                 itemPedido.setComprimentoLiq(rs.getBigDecimal(9));
                 itemPedido.setAlturaLiq(rs.getBigDecimal(10));
                 itemPedido.setLarguraLiq(rs.getBigDecimal(11));
-                
+
                 AcabamentoDAO acabamentoDAO = DAOFactory.getDefaultDAOFactory().getAcabamentoDAO();
-                Acabamento acabamento = acabamentoDAO.buscar(rs.getLong(12));                
-                itemPedido.setAcabamento(acabamento);                
-                
+                Acabamento acabamento = acabamentoDAO.buscar(rs.getLong(12));
+                itemPedido.setAcabamento(acabamento);
+
                 itemPedido.setMetragem(rs.getBigDecimal(13));
                 itemPedido.setValorUnitario(rs.getBigDecimal(14));
                 itemPedido.setDesconto(rs.getBigDecimal(15));
@@ -201,6 +201,27 @@ public class PgItemPedidoDAO implements ItemPedidoDAO {
         }
 
         return itensPedido;
+    }
+
+    @Override
+    public void excluir(Pedido pedido) {
+        Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+
+        try {
+
+            String SQL = "DELETE FROM item_pedido\n"
+                    + "  WHERE id_pedido=?;";
+
+            try (PreparedStatement ps = con.prepareStatement(SQL)) {
+
+                ps.setLong(1, pedido.getId());
+                ps.executeUpdate();
+            }
+            con.close();
+
+        } catch (SQLException ex) {
+            throw new DAOException("Falha ao excluir item_pedido em PgItemPedidoDAO", ex);
+        }
     }
 
 }

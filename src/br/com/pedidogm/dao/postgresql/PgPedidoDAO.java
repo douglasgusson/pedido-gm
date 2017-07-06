@@ -186,11 +186,7 @@ public class PgPedidoDAO implements PedidoDAO {
 
             ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
-            if (!pedido.getItensPedido().isEmpty()) {
-                for (ItemPedido ip : pedido.getItensPedido()) {
-                    itemPedidoDAO.excluir(ip);
-                }
-            }
+            itemPedidoDAO.excluir(pedido);
 
             try (PreparedStatement ps = con.prepareStatement(SQL)) {
 
@@ -263,7 +259,8 @@ public class PgPedidoDAO implements PedidoDAO {
             con.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PgUsuarioDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
             throw new DAOException("Falha ao buscar pedido em PgPedidoDAO", ex);
         }
 
@@ -291,7 +288,8 @@ public class PgPedidoDAO implements PedidoDAO {
             con.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PgUsuarioDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
             throw new DAOException("Falha ao buscar ultimo pedido em PgPedidoDAO", ex);
         }
 
