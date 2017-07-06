@@ -1,2 +1,4 @@
 theme: jekyll-theme-cayman
 show_downloads: true
+baseurl: "/pedido-gm"
+url: "https://douglasgusson.github.io"

@@ -12,14 +12,14 @@ Sistema para emissão de pedidos de rochas ornamentais.
 
 ### Capturas de tela
 
-![Print tela de login]({{ site.github.repository_url }}/assets/img/login.png?raw=true "Desktop")
+![Print tela de login]({{ site.url }}/{{ site.baseurl }}/assets/img/login.png?raw=true "Desktop")
 
-![Print tela principal do sistema]({{ site.github.repository_url }}/assets/img/principal.png?raw=true "Desktop")
+![Print tela principal do sistema]({{ site.url }}/{{ site.baseurl }}/assets/img/principal.png?raw=true "Desktop")
 
-![Print tela de pedidos]({{ site.github.repository_url }}/assets/img/tela-pedidos.png?raw=true "Desktop")
+![Print tela de pedidos]({{ site.url }}/{{ site.baseurl }}/assets/img/tela-pedidos.png?raw=true "Desktop")
 
-![Print tela de registro de pedidos]({{ site.github.repository_url }}/assets/img/registro-pedido.png?raw=true "Desktop")
+![Print tela de registro de pedidos]({{ site.url }}/{{ site.baseurl }}/assets/img/registro-pedido.png?raw=true "Desktop")
 
-![Print visualizacao de pedido]({{ site.github.repository_url }}/assets/img/pedido.png?raw=true "Desktop")
+![Print visualizacao de pedido]({{ site.url }}/{{ site.baseurl }}/assets/img/pedido.png?raw=true "Desktop")
 
-![Print tela de configuracao]({{ site.github.repository_url }}/assets/img/config.png?raw=true "Desktop")
+![Print tela de configuracao]({{ site.url }}/{{ site.baseurl }}/assets/img/config.png?raw=true "Desktop")
