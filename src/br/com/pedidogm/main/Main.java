@@ -42,7 +42,6 @@ public class Main extends JWindow {
                     if (connection.isValid(0)) {
                         UsuarioDAO udao = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
                         if (udao.countUsuarios() > 0) {
-                            System.out.println(udao.countUsuarios());
                             new FrmLogin().setVisible(true);
                         } else {
                             new FrmRegistroUsuario().setVisible(true);
