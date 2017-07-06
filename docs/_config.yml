@@ -1,3 +1,3 @@
-baseurl: "/pedido-gm"
+project_name: "pedido-gm"
 theme: jekyll-theme-cayman
 show_downloads: true
