@@ -45,7 +45,7 @@ public class Main extends JWindow {
                             System.out.println(udao.countUsuarios());
                             new FrmLogin().setVisible(true);
                         } else {
-                            new FrmRegistroUsuario(null).setVisible(true);
+                            new FrmRegistroUsuario().setVisible(true);
                         }                        
                     }
                 } catch (SQLException ex) {

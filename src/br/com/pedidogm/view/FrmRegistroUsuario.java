@@ -3,6 +3,7 @@ package br.com.pedidogm.view;
 import br.com.pedidogm.dao.DAOFactory;
 import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.domain.Usuario;
+import br.com.pedidogm.main.Main;
 import br.com.pedidogm.util.Seguranca;
 import java.awt.Color;
 import java.awt.Window;
@@ -20,9 +21,17 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
     private static final int OPCAO_ALTERAR = 1;
 
     private int opcao;
+    private boolean origemZero = false;
     private List<Usuario> listaUsuarios;
     private int indexRegistro;
     private Usuario usuario;
+
+    public FrmRegistroUsuario() {
+        initComponents();
+        initialize();
+        this.opcao = OPCAO_INSERIR;
+        this.origemZero = true;
+    }
 
     public FrmRegistroUsuario(Window parent) {
         super(parent, DEFAULT_MODALITY_TYPE);
@@ -275,8 +284,13 @@ public class FrmRegistroUsuario extends javax.swing.JDialog {
                     break;
             }
 
-            FrmUsuarios frmUsuarios = FrmUsuarios.getInstancia();
-            frmUsuarios.atualizarTabela();
+            if (origemZero) {
+                this.dispose();
+                new FrmLogin().setVisible(true);
+            } else {
+                FrmUsuarios frmUsuarios = FrmUsuarios.getInstancia();
+                frmUsuarios.atualizarTabela();
+            }
 
             if (OPCAO_ALTERAR == opcao) {
                 this.dispose();
