@@ -25,18 +25,18 @@ CREATE TABLE IF NOT EXISTS material (
 );
 
 
-CREATE TABLE IF NOT EXISTS motorista (
-  id_motorista      SERIAL      NOT NULL,
-  nome_motorista    VARCHAR(80) NOT NULL,
-  apelido_motorista VARCHAR(80),
-  placa_veiculo     VARCHAR(8)  NOT NULL,
-  telefone          VARCHAR(15),
-  celular           VARCHAR(15),
-  observacoes       VARCHAR(400),
-  data_criacao      TIMESTAMP   NOT NULL,
-  data_atualizacao  TIMESTAMP   NOT NULL,
-  CONSTRAINT pk_motorista
-    PRIMARY KEY (id_motorista)
+CREATE TABLE IF NOT EXISTS transportador (
+  id_transportador      SERIAL      NOT NULL,
+  nome_transportador    VARCHAR(80) NOT NULL,
+  apelido_transportador VARCHAR(80),
+  placa_veiculo         VARCHAR(8)  NOT NULL,
+  telefone              VARCHAR(15),
+  celular               VARCHAR(15),
+  observacoes           VARCHAR(400),
+  data_criacao          TIMESTAMP   NOT NULL,
+  data_atualizacao      TIMESTAMP   NOT NULL,
+  CONSTRAINT pk_transportador
+    PRIMARY KEY (id_transportador)
 );
 
 
