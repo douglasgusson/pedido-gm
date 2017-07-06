@@ -34,7 +34,6 @@ public class PgPedidoDAO implements PedidoDAO {
 
         ClienteDAO clienteDAO = DAOFactory.getDefaultDAOFactory().getClienteDAO();
         UsuarioDAO usuarioDAO = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
-        ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
 
         List<Pedido> pedidos = new ArrayList<>();
 
@@ -77,10 +76,6 @@ public class PgPedidoDAO implements PedidoDAO {
 
                 Usuario u = usuarioDAO.buscar(rs.getLong(15));
                 p.setUsuario(u);
-
-                List<ItemPedido> itens = itemPedidoDAO.buscarPorPedido(p);
-
-                p.setItensPedido(itens);
 
                 pedidos.add(p);
             }

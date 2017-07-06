@@ -159,8 +159,9 @@ public class FrmRegistroPedido extends javax.swing.JDialog {
         this.tfPlaca.setText(pedido.getPlaca());
         this.tfTransportador.setText(pedido.getMotorista());
         this.taObservacoes.setText(pedido.getObservacoes());
-
-        this.itensPedido = pedido.getItensPedido();
+        
+        ItemPedidoDAO itemPedidoDAO = DAOFactory.getDefaultDAOFactory().getItemPedidoDAO();
+        this.itensPedido = itemPedidoDAO.buscarPorPedido(pedido);
 
         for (ItemPedido item : this.itensPedido) {
             setQuantidade(item.getQuantidade());
