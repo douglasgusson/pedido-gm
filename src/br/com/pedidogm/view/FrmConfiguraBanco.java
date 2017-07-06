@@ -214,7 +214,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
             database = new Database(
                     ip, porta, nome, usuario, senha);
 
-            File xmlMap = new File(".db_conf_pedidogm.xml");
+            File xmlMap = new File(".db_conf_pedidogm");
             OutputStream streamOut = null;
 
             if (!(xmlMap.exists())) {

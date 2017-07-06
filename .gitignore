@@ -4,7 +4,7 @@ build/
 nbbuild/
 dist/
 nbdist/
-.db_conf_pedidogm.xml
-sample_db_conf_pedidogm.xml
+.db_conf_pedidogm
+sample_db_conf_pedidogm
 .nb-gradle/
 src/br/com/pedidogm/report/*.jasper
