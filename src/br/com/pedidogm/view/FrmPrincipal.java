@@ -8,6 +8,10 @@ import java.awt.Desktop;
 import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -416,11 +420,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemTiposActionPerformed
 
     private void itemManualUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemManualUsoActionPerformed
-        Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.browse(new File("manual/index.html").toURI());
-        } catch (IOException e) {
-            System.out.println(e);
+            URI uri = new URI("https://douglasgusson.github.io/pedido-gm/manual");
+            Desktop dt = Desktop.getDesktop();
+            dt.browse(uri);
+        } catch (URISyntaxException | IOException ex) {
+            JOptionPane.showMessageDialog(null, "Falha ao tentar acessar o manual.\nDETALHES: " + ex);
         }
     }//GEN-LAST:event_itemManualUsoActionPerformed
 

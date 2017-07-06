@@ -1,6 +1,7 @@
 ---
 layout: default
 permalink: "/manual"
+title: Manual PedidoGM
 ---
 
 # Manual
