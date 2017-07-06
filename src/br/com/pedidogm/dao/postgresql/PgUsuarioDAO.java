@@ -259,4 +259,26 @@ public class PgUsuarioDAO implements UsuarioDAO {
         }
     }
 
+    @Override
+    public int countUsuarios() {
+        try {
+            Connection con = DAOFactory.getDefaultDAOFactory().getConnection();
+            
+            String query = "SELECT COUNT(id_usuario) FROM usuario;";
+            
+            PreparedStatement ps = con.prepareStatement(
+                    query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);       
+            ResultSet rs = ps.executeQuery();
+            rs.first();
+            
+            return rs.getInt(1);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PgUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        return 0;
+    }
+    
+
 }

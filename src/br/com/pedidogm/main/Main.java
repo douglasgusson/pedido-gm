@@ -1,8 +1,10 @@
 package br.com.pedidogm.main;
 
 import br.com.pedidogm.dao.DAOFactory;
+import br.com.pedidogm.dao.model.UsuarioDAO;
 import br.com.pedidogm.util.Info;
 import br.com.pedidogm.view.FrmLogin;
+import br.com.pedidogm.view.FrmRegistroUsuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,7 +40,13 @@ public class Main extends JWindow {
                 try {
                     Connection connection = DAOFactory.getDefaultDAOFactory().getConnection();
                     if (connection.isValid(0)) {
-                        new FrmLogin().setVisible(true);
+                        UsuarioDAO udao = DAOFactory.getDefaultDAOFactory().getUsuarioDAO();
+                        if (udao.countUsuarios() > 0) {
+                            System.out.println(udao.countUsuarios());
+                            new FrmLogin().setVisible(true);
+                        } else {
+                            new FrmRegistroUsuario(null).setVisible(true);
+                        }                        
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

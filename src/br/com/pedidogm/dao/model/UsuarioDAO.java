@@ -16,5 +16,6 @@ public interface UsuarioDAO {
     public void excluir(Usuario usuario);
     public Usuario buscar(Long id);
     public Usuario buscarPorNome(String username);
+    public int countUsuarios();
     
 }
