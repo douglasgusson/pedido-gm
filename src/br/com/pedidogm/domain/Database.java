@@ -67,13 +67,13 @@ public class Database {
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null,
-                    "Não foi possível estabelecer conexão com o banco.\n\n"
-                    + "ERRO: Arquivo \".db_conf_pedidogm\" não encontrado.",
+                    "Não foi possível estabelecer conexão com o banco. \n\n"
+                    + "ERRO: Arquivo \".db_conf_pedidogm\" não encontrado. (FileNotFoundException)",
                     "Erro de conexão",
                     JOptionPane.ERROR_MESSAGE);
             FrmConfiguraBanco configuraBanco = new FrmConfiguraBanco(null);
             configuraBanco.setVisible(true);
-        }
+        } 
         return null;
     }
 

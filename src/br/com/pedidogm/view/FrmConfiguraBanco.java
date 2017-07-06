@@ -9,8 +9,10 @@ import java.awt.Window;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -295,8 +297,7 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         tfNome.setEnabled(false);
         tfUsuario.setEnabled(false);
         tfSenha.setEnabled(false);
-        database = Database.getDatabase();
-        carregaDadosForm();
+        getDatabase();
     }
 
     private void carregaDadosForm() {
@@ -307,6 +308,22 @@ public class FrmConfiguraBanco extends javax.swing.JDialog {
         tfSenha.setText(database.getSenha());
     }
 
+    private boolean getDatabase() {
+        try {
+            StringBuilder xml = new StringBuilder();
+            Scanner scanner = new Scanner(new FileReader(".db_conf_pedidogm"));
+            while (scanner.hasNext()) {
+                xml.append(scanner.next());
+            }
+            XStream xStream = new XStream(new DomDriver());
+            database = (Database) xStream.fromXML(xml.toString());
+            carregaDadosForm();
+
+            return true;
+        } catch (FileNotFoundException ex) {
+        }
+        return false;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
