@@ -2,7 +2,9 @@
 
 Sistema para emissão de pedidos de rochas ornamentais.
 
-## [Latest release](https://github.com/douglasgusson/pedido-gm/releases/latest)
+### [Latest release](https://github.com/douglasgusson/pedido-gm/releases/latest)
+
+---
 
 ### Capturas de tela
 
